@@ -1,0 +1,3 @@
+[submodule "external/jackbengine"]
+	path = external/jackbengine
+	url = git@bitbucket.org:Jackbenfu/jackbengine.git
