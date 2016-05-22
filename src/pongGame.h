@@ -81,7 +81,7 @@ private:
     // Level loading
     Entity* loadBackground(const char *name) const;
     Entity* loadWall(const char *name) const;
-    Entity* loadPaddle(const char *name) const;
+    Entity* loadPaddle(const char *name, const void *soundData, size_t soundDataSize) const;
     Entity* loadBall(const char *name) const;
     Entity* loadScore(const char *name) const;
     Entity* loadGameOver(const char *name) const;

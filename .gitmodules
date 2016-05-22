@@ -1,3 +1,6 @@
 [submodule "external/jackbengine"]
 	path = external/jackbengine
 	url = git@bitbucket.org:Jackbenfu/jackbengine.git
+[submodule "external/resourceGenerator"]
+	path = external/resourceGenerator
+	url = git@bitbucket.org:Jackbenfu/resourcegenerator.git

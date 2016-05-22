@@ -8,6 +8,8 @@
 
 #include "pongMenu.h"
 
+IMPORT_RESOURCE(Volter__28Goldfish_29_ttf)
+
 PongMenu::PongMenu()
 {
 }
@@ -117,7 +119,12 @@ bool PongMenu::initContents()
         getComponent<TextComponent>(m_title)->setText("PONG");
         getComponent<TextComponent>(m_title)->setLayout(TextLayout::CenterCenter);
         getComponent<TextComponent>(m_title)->setForeground(Color_White);
-        getComponent<TextComponent>(m_title)->load(renderer(), "Volter__28Goldfish_29.ttf", 144);
+        getComponent<TextComponent>(m_title)->loadFromMemory(
+            renderer(),
+            Volter__28Goldfish_29_ttf,
+            Volter__28Goldfish_29_ttf_size,
+            144
+        );
     }
 
     {
@@ -144,7 +151,12 @@ bool PongMenu::initContents()
         getComponent<TextComponent>(m_play)->setText("Play");
         getComponent<TextComponent>(m_play)->setLayout(TextLayout::CenterCenter);
         getComponent<TextComponent>(m_play)->setForeground(Color_White);
-        getComponent<TextComponent>(m_play)->load(renderer(), "Volter__28Goldfish_29.ttf", 36);
+        getComponent<TextComponent>(m_play)->loadFromMemory(
+            renderer(),
+            Volter__28Goldfish_29_ttf,
+            Volter__28Goldfish_29_ttf_size,
+            36
+        );
 
         addComponent<MouseListenerComponent>(m_play);
         getComponent<MouseListenerComponent>(m_play)->onLeftClick(onPlayClick);
@@ -176,7 +188,12 @@ bool PongMenu::initContents()
         getComponent<TextComponent>(m_quit)->setText("Quit");
         getComponent<TextComponent>(m_quit)->setLayout(TextLayout::CenterCenter);
         getComponent<TextComponent>(m_quit)->setForeground(Color_White);
-        getComponent<TextComponent>(m_quit)->load(renderer(), "Volter__28Goldfish_29.ttf", 36);
+        getComponent<TextComponent>(m_quit)->loadFromMemory(
+            renderer(),
+            Volter__28Goldfish_29_ttf,
+            Volter__28Goldfish_29_ttf_size,
+            36
+        );
 
         addComponent<MouseListenerComponent>(m_quit);
         getComponent<MouseListenerComponent>(m_quit)->onLeftClick(onQuitClick);
@@ -208,7 +225,12 @@ bool PongMenu::initContents()
         getComponent<TextComponent>(m_author)->setText("Copyright (c) 2015 Jackben");
         getComponent<TextComponent>(m_author)->setLayout(TextLayout::RightBottom);
         getComponent<TextComponent>(m_author)->setForeground(Color_White);
-        getComponent<TextComponent>(m_author)->load(renderer(), "Volter__28Goldfish_29.ttf", 18);
+        getComponent<TextComponent>(m_author)->loadFromMemory(
+            renderer(),
+            Volter__28Goldfish_29_ttf,
+            Volter__28Goldfish_29_ttf_size,
+            18
+        );
     }
 
     {

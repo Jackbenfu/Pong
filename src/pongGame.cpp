@@ -8,6 +8,9 @@
 
 #include "pongGame.h"
 
+IMPORT_RESOURCE(left_wav)
+IMPORT_RESOURCE(right_wav)
+
 PongGame::PongGame()
 {
 }
@@ -303,8 +306,8 @@ bool PongGame::initContents()
     m_background = loadBackground("background");
     m_topWall = loadWall("top_wall");
     m_bottomWall = loadWall("bottom_wall");
-    m_leftPaddle = loadPaddle("left_paddle");
-    m_rightPaddle = loadPaddle("right_paddle");
+    m_leftPaddle = loadPaddle("left_paddle", left_wav, left_wav_size);
+    m_rightPaddle = loadPaddle("right_paddle", right_wav, right_wav_size);
     m_ball = loadBall("ball");
     m_leftScore = loadScore("left_score");
     m_rightScore = loadScore("right_score");
@@ -371,7 +374,7 @@ Entity* PongGame::loadWall(const char *name) const
         static_cast<float>(shape->getWidth()),
         static_cast<float>(shape->getHeight())
     );
-    addComponent<AudioSourceComponent>(entity)->load(
+    addComponent<AudioSourceComponent>(entity)->loadFromFile(
         objectGroup->getProperties()->getProperty("audio_clip")
     );
     addComponent<VelocityComponent>(entity);
@@ -379,7 +382,7 @@ Entity* PongGame::loadWall(const char *name) const
     return entity;
 }
 
-Entity* PongGame::loadPaddle(const char *name) const
+Entity* PongGame::loadPaddle(const char *name, const void *soundData, size_t soundDataSize) const
 {
     auto objectGroup = m_tmxLevel->getObjectGroup(name);
     auto shape = objectGroup->getObject("shape");
@@ -397,8 +400,9 @@ Entity* PongGame::loadPaddle(const char *name) const
         static_cast<float>(shape->getWidth()),
         static_cast<float>(shape->getHeight())
     );
-    addComponent<AudioSourceComponent>(entity)->load(
-        objectGroup->getProperties()->getProperty("audio_clip")
+    addComponent<AudioSourceComponent>(entity)->loadFromMemory(
+        soundData,
+        soundDataSize
     );
     addComponent<SpriteComponent>(entity)->loadFromObjectGroup(
         renderer(),
@@ -454,7 +458,7 @@ Entity* PongGame::loadScore(const char *name) const
     addComponent<TextComponent>(entity);
     getComponent<TextComponent>(entity)->setText("0");
     getComponent<TextComponent>(entity)->setLayout(TextLayout::CenterCenter);
-    getComponent<TextComponent>(entity)->load(renderer(), "Volter__28Goldfish_29.ttf", 54);
+    getComponent<TextComponent>(entity)->loadFromFile(renderer(), "Volter__28Goldfish_29.ttf", 54);
 
     return entity;
 }
@@ -476,7 +480,7 @@ Entity* PongGame::loadGameOver(const char *name) const
     addComponent<TextComponent>(entity);
     getComponent<TextComponent>(entity)->setText("GAME OVER");
     getComponent<TextComponent>(entity)->setLayout(TextLayout::CenterCenter);
-    getComponent<TextComponent>(entity)->load(renderer(), "Volter__28Goldfish_29.ttf", 90);
+    getComponent<TextComponent>(entity)->loadFromFile(renderer(), "Volter__28Goldfish_29.ttf", 90);
 
     disableEntity(entity);
 
@@ -499,7 +503,7 @@ Entity* PongGame::loadResult(const char *name) const
 
     addComponent<TextComponent>(entity);
     getComponent<TextComponent>(entity)->setLayout(TextLayout::CenterCenter);
-    getComponent<TextComponent>(entity)->load(renderer(), "Volter__28Goldfish_29.ttf", 63);
+    getComponent<TextComponent>(entity)->loadFromFile(renderer(), "Volter__28Goldfish_29.ttf", 63);
 
     return entity;
 }
