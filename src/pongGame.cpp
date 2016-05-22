@@ -10,6 +10,8 @@
 
 IMPORT_RESOURCE(left_wav)
 IMPORT_RESOURCE(right_wav)
+IMPORT_RESOURCE(wall_wav)
+IMPORT_RESOURCE(default_font)
 
 PongGame::PongGame()
 {
@@ -374,8 +376,9 @@ Entity* PongGame::loadWall(const char *name) const
         static_cast<float>(shape->getWidth()),
         static_cast<float>(shape->getHeight())
     );
-    addComponent<AudioSourceComponent>(entity)->loadFromFile(
-        objectGroup->getProperties()->getProperty("audio_clip")
+    addComponent<AudioSourceComponent>(entity)->loadFromMemory(
+        wall_wav,
+        wall_wav_size
     );
     addComponent<VelocityComponent>(entity);
 
@@ -458,7 +461,12 @@ Entity* PongGame::loadScore(const char *name) const
     addComponent<TextComponent>(entity);
     getComponent<TextComponent>(entity)->setText("0");
     getComponent<TextComponent>(entity)->setLayout(TextLayout::CenterCenter);
-    getComponent<TextComponent>(entity)->loadFromFile(renderer(), "Volter__28Goldfish_29.ttf", 54);
+    getComponent<TextComponent>(entity)->loadFromMemory(
+        renderer(),
+        default_font,
+        default_font_size,
+        54
+    );
 
     return entity;
 }
@@ -480,7 +488,12 @@ Entity* PongGame::loadGameOver(const char *name) const
     addComponent<TextComponent>(entity);
     getComponent<TextComponent>(entity)->setText("GAME OVER");
     getComponent<TextComponent>(entity)->setLayout(TextLayout::CenterCenter);
-    getComponent<TextComponent>(entity)->loadFromFile(renderer(), "Volter__28Goldfish_29.ttf", 90);
+    getComponent<TextComponent>(entity)->loadFromMemory(
+        renderer(),
+        default_font,
+        default_font_size,
+        90
+    );
 
     disableEntity(entity);
 
@@ -503,7 +516,12 @@ Entity* PongGame::loadResult(const char *name) const
 
     addComponent<TextComponent>(entity);
     getComponent<TextComponent>(entity)->setLayout(TextLayout::CenterCenter);
-    getComponent<TextComponent>(entity)->loadFromFile(renderer(), "Volter__28Goldfish_29.ttf", 63);
+    getComponent<TextComponent>(entity)->loadFromMemory(
+        renderer(),
+        default_font,
+        default_font_size,
+        63
+    );
 
     return entity;
 }

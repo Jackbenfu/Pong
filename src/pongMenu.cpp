@@ -8,7 +8,7 @@
 
 #include "pongMenu.h"
 
-IMPORT_RESOURCE(Volter__28Goldfish_29_ttf)
+IMPORT_RESOURCE(default_font)
 
 PongMenu::PongMenu()
 {
@@ -121,8 +121,8 @@ bool PongMenu::initContents()
         getComponent<TextComponent>(m_title)->setForeground(Color_White);
         getComponent<TextComponent>(m_title)->loadFromMemory(
             renderer(),
-            Volter__28Goldfish_29_ttf,
-            Volter__28Goldfish_29_ttf_size,
+            default_font,
+            default_font_size,
             144
         );
     }
@@ -153,8 +153,8 @@ bool PongMenu::initContents()
         getComponent<TextComponent>(m_play)->setForeground(Color_White);
         getComponent<TextComponent>(m_play)->loadFromMemory(
             renderer(),
-            Volter__28Goldfish_29_ttf,
-            Volter__28Goldfish_29_ttf_size,
+            default_font,
+            default_font_size,
             36
         );
 
@@ -190,8 +190,8 @@ bool PongMenu::initContents()
         getComponent<TextComponent>(m_quit)->setForeground(Color_White);
         getComponent<TextComponent>(m_quit)->loadFromMemory(
             renderer(),
-            Volter__28Goldfish_29_ttf,
-            Volter__28Goldfish_29_ttf_size,
+            default_font,
+            default_font_size,
             36
         );
 
@@ -227,8 +227,8 @@ bool PongMenu::initContents()
         getComponent<TextComponent>(m_author)->setForeground(Color_White);
         getComponent<TextComponent>(m_author)->loadFromMemory(
             renderer(),
-            Volter__28Goldfish_29_ttf,
-            Volter__28Goldfish_29_ttf_size,
+            default_font,
+            default_font_size,
             18
         );
     }

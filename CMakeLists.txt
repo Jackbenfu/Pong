@@ -18,16 +18,14 @@ add_executable(
 configure_file(resources/game_768x576.tmx game_768x576.tmx COPYONLY)
 configure_file(resources/menu_768x576.tmx menu_768x576.tmx COPYONLY)
 configure_file(resources/tileset.png tileset.png COPYONLY)
-configure_file(resources/Volter__28Goldfish_29.ttf Volter__28Goldfish_29.ttf COPYONLY)
-configure_file(resources/wall.wav wall.wav COPYONLY)
 
 add_custom_command(
     OUTPUT resources.c
     COMMAND resourceGenerator
         resources.c
-        ${PROJECT_SOURCE_DIR}/resources/Volter__28Goldfish_29.ttf
         ${PROJECT_SOURCE_DIR}/resources/left.wav
         ${PROJECT_SOURCE_DIR}/resources/right.wav
+        ${PROJECT_SOURCE_DIR}/resources/wall.wav
 )
 
 add_executable(
