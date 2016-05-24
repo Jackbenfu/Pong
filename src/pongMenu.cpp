@@ -8,9 +8,9 @@
 
 #include "pongMenu.h"
 
-IMPORT_RESOURCE(default_font)
-IMPORT_RESOURCE(menu_768x576_tmx)
-IMPORT_RESOURCE(tileset_png)
+IMPORT_BINARY_RESOURCE(default_font)
+IMPORT_BINARY_RESOURCE(tileset_png)
+IMPORT_TEXT_RESOURCE(menu_768x576_tmx)
 
 PongMenu::PongMenu()
 {
@@ -77,7 +77,7 @@ void PongMenu::onButtonExit(void *data)
 bool PongMenu::initContents()
 {
     m_tmxLevel = new TmxMap();
-    if (!m_tmxLevel->loadFromMemory(menu_768x576_tmx, menu_768x576_tmx_size))
+    if (!m_tmxLevel->loadFromMemory(menu_768x576_tmx))
     {
         return false;
     }

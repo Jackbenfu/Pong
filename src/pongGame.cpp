@@ -8,12 +8,12 @@
 
 #include "pongGame.h"
 
-IMPORT_RESOURCE(left_wav)
-IMPORT_RESOURCE(right_wav)
-IMPORT_RESOURCE(wall_wav)
-IMPORT_RESOURCE(default_font)
-IMPORT_RESOURCE(game_768x576_tmx)
-IMPORT_RESOURCE(tileset_png)
+IMPORT_BINARY_RESOURCE(left_wav)
+IMPORT_BINARY_RESOURCE(right_wav)
+IMPORT_BINARY_RESOURCE(wall_wav)
+IMPORT_BINARY_RESOURCE(default_font)
+IMPORT_BINARY_RESOURCE(tileset_png)
+IMPORT_TEXT_RESOURCE(game_768x576_tmx)
 
 PongGame::PongGame()
 {
@@ -299,7 +299,7 @@ bool PongGame::onCollision(float delta, Entity *e1, Entity *e2, AABBCollisionSid
 bool PongGame::initContents()
 {
     m_tmxLevel = new TmxMap();
-    if (!m_tmxLevel->loadFromMemory(game_768x576_tmx, game_768x576_tmx_size))
+    if (!m_tmxLevel->loadFromMemory(game_768x576_tmx))
     {
         return false;
     }
