@@ -9,6 +9,8 @@
 #include "pongMenu.h"
 
 IMPORT_RESOURCE(default_font)
+IMPORT_RESOURCE(menu_768x576_tmx)
+IMPORT_RESOURCE(tileset_png)
 
 PongMenu::PongMenu()
 {
@@ -75,7 +77,7 @@ void PongMenu::onButtonExit(void *data)
 bool PongMenu::initContents()
 {
     m_tmxLevel = new TmxMap();
-    if (!m_tmxLevel->load("menu_768x576.tmx"))
+    if (!m_tmxLevel->loadFromMemory(menu_768x576_tmx, menu_768x576_tmx_size))
     {
         return false;
     }
@@ -91,7 +93,9 @@ bool PongMenu::initContents()
         addComponent<SpriteComponent>(m_background)->loadFromLayer(
             renderer(),
             m_tmxLevel,
-            "background"
+            "background",
+            tileset_png,
+            tileset_png_size
         );
     }
 

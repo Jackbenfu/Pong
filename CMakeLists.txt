@@ -15,25 +15,24 @@ add_executable(
     ${PROJECT_SOURCE_DIR}/external/resourceGenerator/resourceGenerator.c
 )
 
-configure_file(resources/game_768x576.tmx game_768x576.tmx COPYONLY)
-configure_file(resources/menu_768x576.tmx menu_768x576.tmx COPYONLY)
-configure_file(resources/tileset.png tileset.png COPYONLY)
-
 add_custom_command(
     OUTPUT resources.c
     COMMAND resourceGenerator
         resources.c
-        ${PROJECT_SOURCE_DIR}/resources/left.wav
-        ${PROJECT_SOURCE_DIR}/resources/right.wav
-        ${PROJECT_SOURCE_DIR}/resources/wall.wav
+        -b${PROJECT_SOURCE_DIR}/resources/left.wav
+        -b${PROJECT_SOURCE_DIR}/resources/right.wav
+        -b${PROJECT_SOURCE_DIR}/resources/wall.wav
+        -t${PROJECT_SOURCE_DIR}/resources/menu_768x576.tmx
+        -t${PROJECT_SOURCE_DIR}/resources/game_768x576.tmx
+        -b${PROJECT_SOURCE_DIR}/resources/tileset.png
 )
 
 add_executable(
     pong
-        src/main.cpp
-        src/pongApp.cpp
-        src/pongGame.cpp
-        src/pongMenu.cpp
-        resources.c
+    src/main.cpp
+    src/pongApp.cpp
+    src/pongGame.cpp
+    src/pongMenu.cpp
+    resources.c
 )
 target_link_libraries(pong jackbengine)

@@ -1,4 +1,12 @@
+# Submodules
+external/jackbengine/
+external/resourceGenerator/
+
+# Generated source files
 resources.c
+
+# Mac OS
 .DS_Store
 
+# CLion
 .idea/

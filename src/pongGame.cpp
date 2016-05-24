@@ -12,6 +12,8 @@ IMPORT_RESOURCE(left_wav)
 IMPORT_RESOURCE(right_wav)
 IMPORT_RESOURCE(wall_wav)
 IMPORT_RESOURCE(default_font)
+IMPORT_RESOURCE(game_768x576_tmx)
+IMPORT_RESOURCE(tileset_png)
 
 PongGame::PongGame()
 {
@@ -297,7 +299,7 @@ bool PongGame::onCollision(float delta, Entity *e1, Entity *e2, AABBCollisionSid
 bool PongGame::initContents()
 {
     m_tmxLevel = new TmxMap();
-    if (!m_tmxLevel->load("game_768x576.tmx"))
+    if (!m_tmxLevel->loadFromMemory(game_768x576_tmx, game_768x576_tmx_size))
     {
         return false;
     }
@@ -351,7 +353,9 @@ Entity* PongGame::loadBackground(const char *name) const
     addComponent<SpriteComponent>(entity)->loadFromLayer(
         renderer(),
         m_tmxLevel,
-        name
+        name,
+        tileset_png,
+        tileset_png_size
     );
     addComponent<TransformComponent>(entity);
 
@@ -410,7 +414,9 @@ Entity* PongGame::loadPaddle(const char *name, const void *soundData, size_t sou
     addComponent<SpriteComponent>(entity)->loadFromObjectGroup(
         renderer(),
         m_tmxLevel,
-        name
+        name,
+        tileset_png,
+        tileset_png_size
     );
     addComponent<VelocityComponent>(entity);
 
@@ -434,7 +440,9 @@ Entity* PongGame::loadBall(const char *name) const
     addComponent<SpriteComponent>(entity)->loadFromObjectGroup(
         renderer(),
         m_tmxLevel,
-        name
+        name,
+        tileset_png,
+        tileset_png_size
     );
     addComponent<UintComponent>(entity); // Stores ball's speed
     addComponent<TransformComponent>(entity);
