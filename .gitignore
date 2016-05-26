@@ -1,6 +1,6 @@
 # Submodules
-external/jackbengine/
-external/resourceGenerator/
+/external/jackbengine/
+/external/resourceGenerator/
 
 # Generated source files
 resources.c
