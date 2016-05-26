@@ -15,6 +15,7 @@ add_executable(
     ${PROJECT_SOURCE_DIR}/external/resourceGenerator/resourceGenerator.c
 )
 
+# Creating resources C representations
 add_custom_command(
     OUTPUT resources.c
     COMMAND resourceGenerator
@@ -27,12 +28,39 @@ add_custom_command(
         -b${PROJECT_SOURCE_DIR}/resources/tileset.png
 )
 
-add_executable(
-    pong
+# Tell CMake to create an app bundle on MacOS
+if(APPLE)
+    set(CMAKE_MACOSX_BUNDLE true)
+    set(ICON_FILE ${PROJECT_SOURCE_DIR}/resources/pong.icns)
+    set_source_files_properties(
+        ${ICON_FILE}
+        PROPERTIES
+        MACOSX_PACKAGE_LOCATION
+        Resources
+    )
+endif(APPLE)
+
+# Defining source files
+set(
+    SOURCE_FILES
     src/main.cpp
     src/pongApp.cpp
     src/pongGame.cpp
     src/pongMenu.cpp
     resources.c
+    ${ICON_FILE}
 )
-target_link_libraries(pong jackbengine)
+
+# Compiling final executable
+add_executable(${CMAKE_PROJECT_NAME} ${SOURCE_FILES})
+target_link_libraries(${CMAKE_PROJECT_NAME} jackbengine)
+
+# Post build operations
+if(APPLE)
+    set_target_properties(
+        ${CMAKE_PROJECT_NAME}
+        PROPERTIES
+        MACOSX_BUNDLE_INFO_PLIST
+        ${PROJECT_SOURCE_DIR}/resources/pong.plist
+    )
+endif(APPLE)
