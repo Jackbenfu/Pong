@@ -6,13 +6,9 @@
 	<string>Pong</string>
 	<key>CFBundleIconFile</key>
 	<string>pong</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>0.1</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2015 Jackben</string>
+	<string>Copyright © 2015 Damien Bendejacq</string>
 </dict>
 </plist>
