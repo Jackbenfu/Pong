@@ -8,11 +8,28 @@
 
 #include "pongApp.h"
 
+#define FULLSCREEN_OPTION   "-fullscreen"
+
+void parseArguments(int argc, char **argv, bool *fullscreen)
+{
+    for (auto i = 1; i < argc; ++i)
+    {
+        auto arg = argv[i];
+        if (strstr(arg, FULLSCREEN_OPTION) == arg)
+        {
+            *fullscreen = true;
+        }
+    }
+}
+
 int main(int argc, char **argv)
 {
     UNUSED(argc)
     UNUSED(argv)
 
-    PongApp app;
+    bool fullscreen = false;
+    parseArguments(argc, argv, &fullscreen);
+
+    PongApp app(fullscreen);
     return app.run();
 }

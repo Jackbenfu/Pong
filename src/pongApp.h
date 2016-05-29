@@ -14,11 +14,13 @@
 class PongApp : public Application
 {
 public:
-    PongApp();
+    PongApp(bool fullscreen);
     ~PongApp();
 
 private:
     bool configure(ApplicationConfig& config) override;
+
+    bool m_fullscreen = false;
 };
 
 #endif // __PONG_APP_H__
