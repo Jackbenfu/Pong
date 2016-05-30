@@ -1,8 +1,8 @@
 [submodule "external/jackbengine"]
 	path = external/jackbengine
 	url = git@bitbucket.org:Jackbenfu/jackbengine.git
-	ignore = dirty
+	ignore = all
 [submodule "external/resourceGenerator"]
 	path = external/resourceGenerator
 	url = git@bitbucket.org:Jackbenfu/resourcegenerator.git
-	ignore = dirty
+	ignore = all
