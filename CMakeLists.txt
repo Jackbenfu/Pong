@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.5)
 project(pong)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+if(WIN32)
+    set(CMAKE_EXE_LINKER_FLAGS "-mwindows")
+endif(WIN32)
 
 # Using Jackbengine library
 add_subdirectory(${PROJECT_SOURCE_DIR}/external/jackbengine)
@@ -12,7 +15,7 @@ include_directories(${PROJECT_SOURCE_DIR}/external/jackbengine/external)
 # Using Resource generator tool
 add_executable(
     resourceGenerator
-    ${PROJECT_SOURCE_DIR}/external/resourceGenerator/resourceGenerator.c
+    ${PROJECT_SOURCE_DIR}/external/resourceGenerator/resourceGenerator.cpp
 )
 
 # Creating resources C representations
@@ -26,6 +29,7 @@ add_custom_command(
         -t${PROJECT_SOURCE_DIR}/resources/menu_768x576.tmx
         -t${PROJECT_SOURCE_DIR}/resources/game_768x576.tmx
         -b${PROJECT_SOURCE_DIR}/resources/tileset.png
+        -b${PROJECT_SOURCE_DIR}/resources/pong32x32.png
 )
 
 # Tell CMake to create an app bundle on MacOS
@@ -39,6 +43,10 @@ if(APPLE)
         Resources
     )
 endif(APPLE)
+
+if(WIN32)
+    set(ICON_FILE ${PROJECT_SOURCE_DIR}/resources/win_icon.rc)
+endif(WIN32)
 
 # Defining source files
 set(
