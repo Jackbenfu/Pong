@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.5)
 project(pong)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-if(WIN32)
+if(MINGW)
     set(CMAKE_EXE_LINKER_FLAGS "-mwindows")
-endif(WIN32)
+endif(MINGW)
 
 # Using Jackbengine library
 add_subdirectory(${PROJECT_SOURCE_DIR}/external/jackbengine)
@@ -44,9 +44,9 @@ if(APPLE)
     )
 endif(APPLE)
 
-if(WIN32)
+if(MINGW)
     set(ICON_FILE ${PROJECT_SOURCE_DIR}/resources/win_icon.rc)
-endif(WIN32)
+endif(MINGW)
 
 # Defining source files
 set(
