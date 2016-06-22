@@ -35,7 +35,7 @@ add_custom_command(
 # Tell CMake to create an app bundle on MacOS
 if(APPLE)
     set(CMAKE_MACOSX_BUNDLE true)
-    set(ICON_FILE ${PROJECT_SOURCE_DIR}/resources/pong.icns)
+    set(ICON_FILE ${PROJECT_SOURCE_DIR}/resources/${CMAKE_PROJECT_NAME}.icns)
     set_source_files_properties(
         ${ICON_FILE}
         PROPERTIES
@@ -69,6 +69,6 @@ if(APPLE)
         ${CMAKE_PROJECT_NAME}
         PROPERTIES
         MACOSX_BUNDLE_INFO_PLIST
-        ${PROJECT_SOURCE_DIR}/resources/pong.plist
+        ${PROJECT_SOURCE_DIR}/resources/${CMAKE_PROJECT_NAME}.plist
     )
 endif(APPLE)
