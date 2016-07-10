@@ -8,6 +8,10 @@
 
 #include "pongApp.h"
 
+#ifdef EMSCRIPTEN
+    #include <emscripten.h>
+#endif
+
 #define FULLSCREEN_OPTION   "-fullscreen"
 
 void parseArguments(int argc, char **argv, bool *fullscreen)
@@ -22,6 +26,16 @@ void parseArguments(int argc, char **argv, bool *fullscreen)
     }
 }
 
+#ifdef EMSCRIPTEN
+
+PongApp *appPtr;
+void loop()
+{
+    appPtr->loop();
+}
+
+#endif
+
 int main(int argc, char **argv)
 {
     UNUSED(argc)
@@ -31,5 +45,17 @@ int main(int argc, char **argv)
     parseArguments(argc, argv, &fullscreen);
 
     PongApp app(fullscreen);
-    return app.run();
+    app.init();
+
+#ifdef EMSCRIPTEN
+    appPtr = &app;
+    emscripten_set_main_loop(loop, 0, 1);
+#else
+    while (app.running())
+    {
+        app.loop();
+    }
+#endif
+
+    return 0;
 }

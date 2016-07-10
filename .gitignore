@@ -3,7 +3,7 @@
 /external/resourceGenerator/
 
 # Generated source files
-resources.c
+resources.cpp
 
 # Mac OS
 .DS_Store

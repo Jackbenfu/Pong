@@ -20,9 +20,9 @@ add_executable(
 
 # Creating resources C representations
 add_custom_command(
-    OUTPUT resources.c
+    OUTPUT resources.cpp
     COMMAND resourceGenerator
-        resources.c
+        resources.cpp
         -b${PROJECT_SOURCE_DIR}/resources/left.wav
         -b${PROJECT_SOURCE_DIR}/resources/right.wav
         -b${PROJECT_SOURCE_DIR}/resources/wall.wav
@@ -55,7 +55,7 @@ set(
     src/pongApp.cpp
     src/pongGame.cpp
     src/pongMenu.cpp
-    resources.c
+    resources.cpp
     ${ICON_FILE}
 )
 

@@ -1,0 +1,87 @@
+CC                  = emcc
+
+CFLAGS              = -O2                               \
+                      -g0                               \
+                      -Wall                             \
+                      -std=c++11                        \
+                      -s USE_SDL=2                      \
+                      -s USE_SDL_TTF=2                  \
+                      -s USE_SDL_IMAGE=2                \
+                      -s SDL2_IMAGE_FORMATS='["png"]'   \
+                      -s DEMANGLE_SUPPORT=1             \
+                      -s WARN_ON_UNDEFINED_SYMBOLS=1
+
+INCLUDES            = -Iexternal/jackbengine/external   \
+                      -Iexternal/jackbengine/src        \
+                      -Iexternal/jackbengine/include
+
+SOURCES             =	external/jackbengine/external/easywsclient/easywsclient.cpp          \
+						external/jackbengine/external/tinyxml/tinystr.cpp                    \
+						external/jackbengine/external/tinyxml/tinyxml.cpp                    \
+						external/jackbengine/external/tinyxml/tinyxmlerror.cpp               \
+						external/jackbengine/external/tinyxml/tinyxmlparser.cpp              \
+						external/jackbengine/src/application/application.cpp                 \
+						external/jackbengine/src/application/applicationConfig.cpp           \
+						external/jackbengine/src/component/audio/audioSourceComponent.cpp    \
+						external/jackbengine/src/component/body/shape/boxShapeComponent.cpp  \
+						external/jackbengine/src/component/body/transformComponent.cpp       \
+						external/jackbengine/src/component/body/velocityComponent.cpp        \
+						external/jackbengine/src/component/component.cpp                     \
+						external/jackbengine/src/component/input/mouseListenerComponent.cpp  \
+						external/jackbengine/src/component/layout/containerComponent.cpp     \
+						external/jackbengine/src/component/misc/nameComponent.cpp            \
+						external/jackbengine/src/component/misc/tagComponent.cpp             \
+						external/jackbengine/src/component/view/colorComponent.cpp           \
+						external/jackbengine/src/component/view/spriteComponent.cpp          \
+						external/jackbengine/src/component/view/textComponent.cpp            \
+						external/jackbengine/src/core/audio/sound.cpp                        \
+						external/jackbengine/src/core/audio/soundImpl.cpp                    \
+						external/jackbengine/src/core/input/input.cpp                        \
+						external/jackbengine/src/core/input/inputImpl.cpp                    \
+						external/jackbengine/src/core/render/color.cpp                       \
+						external/jackbengine/src/core/render/cursor.cpp                      \
+						external/jackbengine/src/core/render/cursorImpl.cpp                  \
+						external/jackbengine/src/core/render/defaultFont.cpp                 \
+						external/jackbengine/src/core/render/font.cpp                        \
+						external/jackbengine/src/core/render/fontImpl.cpp                    \
+						external/jackbengine/src/core/render/renderer.cpp                    \
+						external/jackbengine/src/core/render/rendererImpl.cpp                \
+						external/jackbengine/src/core/render/texture.cpp                     \
+						external/jackbengine/src/core/render/textureImpl.cpp                 \
+						external/jackbengine/src/core/render/window.cpp                      \
+						external/jackbengine/src/core/render/windowImpl.cpp                  \
+						external/jackbengine/src/core/time/timer.cpp                         \
+						external/jackbengine/src/core/time/timerImpl.cpp                     \
+						external/jackbengine/src/core/tmx/tmxImage.cpp                       \
+						external/jackbengine/src/core/tmx/tmxLayer.cpp                       \
+						external/jackbengine/src/core/tmx/tmxMap.cpp                         \
+						external/jackbengine/src/core/tmx/tmxObject.cpp                      \
+						external/jackbengine/src/core/tmx/tmxObjectGroup.cpp                 \
+						external/jackbengine/src/core/tmx/tmxProperty.cpp                    \
+						external/jackbengine/src/core/tmx/tmxPropertyGroup.cpp               \
+						external/jackbengine/src/core/tmx/tmxTileset.cpp                     \
+						external/jackbengine/src/entity/entity.cpp                           \
+						external/jackbengine/src/entity/entityManager.cpp                    \
+						external/jackbengine/src/scene/scene.cpp                             \
+						external/jackbengine/src/state/state.cpp                             \
+						external/jackbengine/src/state/stateManager.cpp                      \
+						external/jackbengine/src/system/animation/motionSystem.cpp           \
+						external/jackbengine/src/system/debug/debugProfileSystem.cpp         \
+						external/jackbengine/src/system/debug/debugSpriteSystem.cpp          \
+						external/jackbengine/src/system/debug/debugTextSystem.cpp            \
+						external/jackbengine/src/system/input/mouseEventTriggerSystem.cpp    \
+						external/jackbengine/src/system/physic/aabbCollisionSystem.cpp       \
+						external/jackbengine/src/system/render/spriteRenderSystem.cpp        \
+						external/jackbengine/src/system/render/textRenderSystem.cpp          \
+						external/jackbengine/src/system/system.cpp                           \
+						external/jackbengine/src/system/systemManager.cpp                    \
+						src/main.cpp                                                         \
+						src/pongApp.cpp                                                      \
+						src/pongGame.cpp                                                     \
+						src/pongMenu.cpp                                                     \
+						resources.cpp
+
+OUT                 = pong.html
+
+all:
+	EMCC_DEBUG=1 $(CC) $(CFLAGS) $(INCLUDES) $(SOURCES) -o $(OUT)
