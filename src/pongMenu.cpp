@@ -168,6 +168,7 @@ bool PongMenu::initContents()
         getComponent<MouseListenerComponent>(m_play)->onExit(onButtonExit, m_play);
     }
 
+#ifndef EMSCRIPTEN
     {
         /**
          * Quit button
@@ -204,6 +205,7 @@ bool PongMenu::initContents()
         getComponent<MouseListenerComponent>(m_quit)->onEnter(onButtonEnter, m_quit);
         getComponent<MouseListenerComponent>(m_quit)->onExit(onButtonExit, m_quit);
     }
+#endif
 
     {
         /**
