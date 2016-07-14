@@ -72,12 +72,15 @@ void PongGame::handleStateService()
         uint ballSpeed = getComponent<UintComponent>(m_ball)->get();
         ballVelocity->set(ballVel.x * ballSpeed, ballVel.y * ballSpeed);
         enableComponent<VelocityComponent>(m_ball);
+
+        hideInstructions();
     }
     else
     {
         stickBallToRacket(m_servingPaddle, true);
     }
 }
+
 void PongGame::handleStateRally()
 {
     TransformComponent *ballTransform = getComponent<TransformComponent>(m_ball);
@@ -159,6 +162,13 @@ void PongGame::handlePaddleMotion(Entity *paddle, KeyboardKey upKey, KeyboardKey
     {
         velocity->set(0.0f, 0.0f);
     }
+}
+
+void PongGame::hideInstructions() const
+{
+    disableEntity(m_leftPaddleInstruction);
+    disableEntity(m_rightPaddleInstruction);
+    disableEntity(m_launchBallInstruction);
 }
 
 void PongGame::stickBallToRacket(Entity *paddle, bool sticked) const
@@ -318,6 +328,15 @@ bool PongGame::initContents()
     m_gameOver = loadGameOver("game_over");
     m_leftResult = loadResult("left_result");
     m_rightResult = loadResult("right_result");
+    m_leftPaddleInstruction = loadInstruction(
+        "left_paddle_instruction", "                E or C:     move left paddle"
+    );
+    m_rightPaddleInstruction = loadInstruction(
+        "right_paddle_instruction", "           UP or DOWN:     move right paddle"
+    );
+    m_launchBallInstruction = loadInstruction(
+        "launch_ball_instruction", "             SPACEBAR:     launch the ball!"
+    );
 
     /**
      * Systems
@@ -348,7 +367,7 @@ bool PongGame::initContents()
 
 Entity* PongGame::loadBackground(const char *name) const
 {
-    Entity *entity = addEntity(name);
+    auto entity = addEntity(name);
 
     addComponent<SpriteComponent>(entity)->loadFromLayer(
         renderer(),
@@ -366,8 +385,7 @@ Entity* PongGame::loadWall(const char *name) const
 {
     auto objectGroup = m_tmxLevel->getObjectGroup(name);
     auto shape = objectGroup->getObject("shape");
-
-    Entity *entity = addEntity(name);
+    auto entity = addEntity(name);
 
     addComponent<TransformComponent>(entity)->setPosition(
         static_cast<float>(shape->getX()),
@@ -393,8 +411,7 @@ Entity* PongGame::loadPaddle(const char *name, const void *soundData, size_t sou
 {
     auto objectGroup = m_tmxLevel->getObjectGroup(name);
     auto shape = objectGroup->getObject("shape");
-
-    Entity *entity = addEntity(name);
+    auto entity = addEntity(name);
 
     addComponent<TransformComponent>(entity)->setPosition(
         static_cast<float>(shape->getX()),
@@ -427,8 +444,7 @@ Entity* PongGame::loadBall(const char *name) const
 {
     auto objectGroup = m_tmxLevel->getObjectGroup(name);
     auto shape = objectGroup->getObject("shape");
-
-    Entity *entity = addEntity(name);
+    auto entity = addEntity(name);
 
     addComponent<TagComponent>(entity)->setTag(
         objectGroup->getProperties()->getProperty("tag")
@@ -454,8 +470,7 @@ Entity* PongGame::loadBall(const char *name) const
 Entity* PongGame::loadScore(const char *name) const
 {
     auto object = m_tmxLevel->getObjectGroup("scores")->getObject(name);
-
-    Entity *entity = addEntity(name);
+    auto entity = addEntity(name);
 
     addComponent<ContainerComponent>(entity)->setRect(
         object->getX(),
@@ -469,7 +484,7 @@ Entity* PongGame::loadScore(const char *name) const
     addComponent<TextComponent>(entity);
     getComponent<TextComponent>(entity)->setText("0");
     getComponent<TextComponent>(entity)->setLayout(TextLayout::CenterCenter);
-    getComponent<TextComponent>(entity)->loadFromMemory(
+    getComponent<TextComponent>(entity)->setFontFromMemory(
         renderer(),
         default_font,
         default_font_size,
@@ -482,8 +497,7 @@ Entity* PongGame::loadScore(const char *name) const
 Entity* PongGame::loadGameOver(const char *name) const
 {
     auto object = m_tmxLevel->getObjectGroup("scores")->getObject(name);
-
-    Entity *entity = addEntity(name);
+    auto entity = addEntity(name);
 
     addComponent<ContainerComponent>(entity)->setRect(
         object->getX(),
@@ -491,12 +505,11 @@ Entity* PongGame::loadGameOver(const char *name) const
         object->getWidth(),
         object->getHeight()
     );
-    addComponent<TransformComponent>(entity);
 
     addComponent<TextComponent>(entity);
     getComponent<TextComponent>(entity)->setText("GAME OVER");
     getComponent<TextComponent>(entity)->setLayout(TextLayout::CenterCenter);
-    getComponent<TextComponent>(entity)->loadFromMemory(
+    getComponent<TextComponent>(entity)->setFontFromMemory(
         renderer(),
         default_font,
         default_font_size,
@@ -511,8 +524,7 @@ Entity* PongGame::loadGameOver(const char *name) const
 Entity* PongGame::loadResult(const char *name) const
 {
     auto object = m_tmxLevel->getObjectGroup("scores")->getObject(name);
-
-    Entity *entity = addEntity(name);
+    auto entity = addEntity(name);
 
     addComponent<ContainerComponent>(entity)->setRect(
         object->getX(),
@@ -520,15 +532,40 @@ Entity* PongGame::loadResult(const char *name) const
         object->getWidth(),
         object->getHeight()
     );
-    addComponent<TransformComponent>(entity);
 
     addComponent<TextComponent>(entity);
     getComponent<TextComponent>(entity)->setLayout(TextLayout::CenterCenter);
-    getComponent<TextComponent>(entity)->loadFromMemory(
+    getComponent<TextComponent>(entity)->setFontFromMemory(
         renderer(),
         default_font,
         default_font_size,
         63
+    );
+
+    return entity;
+}
+
+Entity* PongGame::loadInstruction(const char *name, const char *text)
+{
+    auto object = m_tmxLevel->getObjectGroup("instructions")->getObject(name);
+    auto entity = addEntity(name);
+
+    addComponent<ContainerComponent>(entity)->setRect(
+        object->getX(),
+        object->getY(),
+        object->getWidth(),
+        object->getHeight()
+    );
+
+    addComponent<TextComponent>(entity);
+    getComponent<TextComponent>(entity)->setLayout(TextLayout::LeftCenter);
+    getComponent<TextComponent>(entity)->setText(text);
+    getComponent<TextComponent>(entity)->setForeground(Color_DarkGrey);
+    getComponent<TextComponent>(entity)->setFontFromMemory(
+        renderer(),
+        default_font,
+        default_font_size,
+        27
     );
 
     return entity;

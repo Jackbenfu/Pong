@@ -11,7 +11,7 @@
 
 #include "jackbengine.h"
 
-#define PADDLE_SPEED        700.0f
+#define PADDLE_SPEED        500.0f
 
 #define BALL_SPEED_MIN      500
 #define BALL_SPEED_MAX      800
@@ -56,6 +56,9 @@ private:
     Entity *m_leftResult = nullptr;
     Entity *m_rightResult = nullptr;
     Entity *m_servingPaddle = nullptr;
+    Entity *m_leftPaddleInstruction = nullptr;
+    Entity *m_rightPaddleInstruction = nullptr;
+    Entity *m_launchBallInstruction = nullptr;
 
     // Systems
     MotionSystem *m_motionSystem = nullptr;
@@ -73,6 +76,7 @@ private:
     void handleStateRally();
     static void handleStateGameOver();
     static void handlePaddleMotion(Entity *paddle, KeyboardKey upKey, KeyboardKey downKey);
+    void hideInstructions() const;
 
     void stickBallToRacket(Entity *paddle, bool sticked) const;
     void start();
@@ -86,6 +90,7 @@ private:
     Entity* loadScore(const char *name) const;
     Entity* loadGameOver(const char *name) const;
     Entity* loadResult(const char *name) const;
+    Entity* loadInstruction(const char *name, const char *text);
 };
 
 #endif // __PONG_GAME_H__

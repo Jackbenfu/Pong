@@ -55,7 +55,7 @@ void PongMenu::onButtonEnter(void *data)
     TextComponent *text = getComponent<TextComponent>(button);
     if (text)
     {
-        text->setForeground(221, 173, 29);
+        text->setForeground(Color_YellowGold);
     }
 
     cursor()->setCursor(CursorType::Hand);
@@ -107,11 +107,6 @@ bool PongMenu::initContents()
 
         m_title = addEntity("title");
 
-        addComponent<TransformComponent>(m_title)->setPosition(
-            static_cast<float>(object->getX()),
-            static_cast<float>(object->getY())
-        );
-
         addComponent<ContainerComponent>(m_title)->setRect(
             object->getX(),
             object->getY(),
@@ -123,7 +118,7 @@ bool PongMenu::initContents()
         getComponent<TextComponent>(m_title)->setText("PONG");
         getComponent<TextComponent>(m_title)->setLayout(TextLayout::CenterCenter);
         getComponent<TextComponent>(m_title)->setForeground(Color_White);
-        getComponent<TextComponent>(m_title)->loadFromMemory(
+        getComponent<TextComponent>(m_title)->setFontFromMemory(
             renderer(),
             default_font,
             default_font_size,
@@ -139,11 +134,6 @@ bool PongMenu::initContents()
 
         m_play = addEntity("play");
 
-        addComponent<TransformComponent>(m_play)->setPosition(
-            static_cast<float>(object->getX()),
-            static_cast<float>(object->getY())
-        );
-
         addComponent<ContainerComponent>(m_play)->setRect(
             object->getX(),
             object->getY(),
@@ -155,11 +145,11 @@ bool PongMenu::initContents()
         getComponent<TextComponent>(m_play)->setText("Play");
         getComponent<TextComponent>(m_play)->setLayout(TextLayout::CenterCenter);
         getComponent<TextComponent>(m_play)->setForeground(Color_White);
-        getComponent<TextComponent>(m_play)->loadFromMemory(
+        getComponent<TextComponent>(m_play)->setFontFromMemory(
             renderer(),
             default_font,
             default_font_size,
-            36
+            45
         );
 
         addComponent<MouseListenerComponent>(m_play);
@@ -177,11 +167,6 @@ bool PongMenu::initContents()
 
         m_quit = addEntity("quit");
 
-        addComponent<TransformComponent>(m_quit)->setPosition(
-            static_cast<float>(object->getX()),
-            static_cast<float>(object->getY())
-        );
-
         addComponent<ContainerComponent>(m_quit)->setRect(
             object->getX(),
             object->getY(),
@@ -193,11 +178,11 @@ bool PongMenu::initContents()
         getComponent<TextComponent>(m_quit)->setText("Quit");
         getComponent<TextComponent>(m_quit)->setLayout(TextLayout::CenterCenter);
         getComponent<TextComponent>(m_quit)->setForeground(Color_White);
-        getComponent<TextComponent>(m_quit)->loadFromMemory(
+        getComponent<TextComponent>(m_quit)->setFontFromMemory(
             renderer(),
             default_font,
             default_font_size,
-            36
+            45
         );
 
         addComponent<MouseListenerComponent>(m_quit);
@@ -215,11 +200,6 @@ bool PongMenu::initContents()
 
         m_author = addEntity("author");
 
-        addComponent<TransformComponent>(m_author)->setPosition(
-            static_cast<float>(object->getX()),
-            static_cast<float>(object->getY())
-        );
-
         addComponent<ContainerComponent>(m_author)->setRect(
             object->getX(),
             object->getY(),
@@ -228,10 +208,10 @@ bool PongMenu::initContents()
         );
 
         addComponent<TextComponent>(m_author);
-        getComponent<TextComponent>(m_author)->setText("Copyright (c) 2015 Jackben");
+        getComponent<TextComponent>(m_author)->setText("Copyright (c) 2016 Jackben");
         getComponent<TextComponent>(m_author)->setLayout(TextLayout::RightBottom);
         getComponent<TextComponent>(m_author)->setForeground(Color_White);
-        getComponent<TextComponent>(m_author)->loadFromMemory(
+        getComponent<TextComponent>(m_author)->setFontFromMemory(
             renderer(),
             default_font,
             default_font_size,
