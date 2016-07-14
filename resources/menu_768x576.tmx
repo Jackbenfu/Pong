@@ -48,7 +48,7 @@
  </objectgroup>
  <objectgroup name="menu">
   <object id="59" name="title" x="176" y="128" width="416" height="128"/>
-  <object id="55" name="play" x="336" y="288" width="96" height="48"/>
-  <object id="57" name="quit" x="336" y="352" width="96" height="48"/>
+  <object id="55" name="play" x="336" y="336" width="96" height="48"/>
+  <object id="57" name="quit" x="336" y="400" width="96" height="48"/>
  </objectgroup>
 </map>
