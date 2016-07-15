@@ -56,9 +56,13 @@ private:
     Entity *m_leftResult = nullptr;
     Entity *m_rightResult = nullptr;
     Entity *m_servingPaddle = nullptr;
-    Entity *m_leftPaddleInstruction = nullptr;
-    Entity *m_rightPaddleInstruction = nullptr;
-    Entity *m_launchBallInstruction = nullptr;
+    Entity *m_leftPaddleInstruction1 = nullptr;
+    Entity *m_leftPaddleInstruction2 = nullptr;
+    Entity *m_rightPaddleInstruction1 = nullptr;
+    Entity *m_rightPaddleInstruction2 = nullptr;
+    Entity *m_launchBallInstruction1 = nullptr;
+    Entity *m_launchBallInstruction2 = nullptr;
+    Entity *m_terminateGameInstruction = nullptr;
 
     // Systems
     MotionSystem *m_motionSystem = nullptr;
@@ -90,7 +94,8 @@ private:
     Entity* loadScore(const char *name) const;
     Entity* loadGameOver(const char *name) const;
     Entity* loadResult(const char *name) const;
-    Entity* loadInstruction(const char *name, const char *text);
+    Entity* loadInstruction(
+        const char *group, const char *name, const char *text, TextLayout textLayout);
 };
 
 #endif // __PONG_GAME_H__

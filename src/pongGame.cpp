@@ -110,6 +110,7 @@ void PongGame::handleStateRally()
         enableEntity(m_gameOver);
         enableEntity(m_leftResult);
         enableEntity(m_rightResult);
+        enableEntity(m_terminateGameInstruction);
 
         const Color green = Color(69, 183, 130);
         const Color red = Color(196, 89, 73);
@@ -166,9 +167,12 @@ void PongGame::handlePaddleMotion(Entity *paddle, KeyboardKey upKey, KeyboardKey
 
 void PongGame::hideInstructions() const
 {
-    disableEntity(m_leftPaddleInstruction);
-    disableEntity(m_rightPaddleInstruction);
-    disableEntity(m_launchBallInstruction);
+    disableEntity(m_leftPaddleInstruction1);
+    disableEntity(m_leftPaddleInstruction2);
+    disableEntity(m_rightPaddleInstruction1);
+    disableEntity(m_rightPaddleInstruction2);
+    disableEntity(m_launchBallInstruction1);
+    disableEntity(m_launchBallInstruction2);
 }
 
 void PongGame::stickBallToRacket(Entity *paddle, bool sticked) const
@@ -328,15 +332,21 @@ bool PongGame::initContents()
     m_gameOver = loadGameOver("game_over");
     m_leftResult = loadResult("left_result");
     m_rightResult = loadResult("right_result");
-    m_leftPaddleInstruction = loadInstruction(
-        "left_paddle_instruction", "                E or C:     move left paddle"
-    );
-    m_rightPaddleInstruction = loadInstruction(
-        "right_paddle_instruction", "           UP or DOWN:     move right paddle"
-    );
-    m_launchBallInstruction = loadInstruction(
-        "launch_ball_instruction", "             SPACEBAR:     launch the ball!"
-    );
+    m_leftPaddleInstruction1 = loadInstruction(
+        "instructions", "left_paddle_instruction_1", "E or C:", TextLayout::RightCenter);
+    m_leftPaddleInstruction2 = loadInstruction(
+        "instructions", "left_paddle_instruction_2", "move left paddle", TextLayout::LeftCenter);
+    m_rightPaddleInstruction1 = loadInstruction(
+        "instructions", "right_paddle_instruction_1", "UP or DOWN:", TextLayout::RightCenter);
+    m_rightPaddleInstruction2 = loadInstruction(
+        "instructions", "right_paddle_instruction_2", "move right paddle", TextLayout::LeftCenter);
+    m_launchBallInstruction1 = loadInstruction(
+        "instructions", "launch_ball_instruction_1", "SPACEBAR:", TextLayout::RightCenter);
+    m_launchBallInstruction2 = loadInstruction(
+        "instructions", "launch_ball_instruction_2", "launch the ball", TextLayout::LeftCenter);
+    m_terminateGameInstruction = loadInstruction(
+        "scores", "terminate_game_instruction", "Press SPACEBAR...", TextLayout::CenterCenter);
+    disableEntity(m_terminateGameInstruction);
 
     /**
      * Systems
@@ -545,9 +555,10 @@ Entity* PongGame::loadResult(const char *name) const
     return entity;
 }
 
-Entity* PongGame::loadInstruction(const char *name, const char *text)
+Entity* PongGame::loadInstruction(
+    const char *group, const char *name, const char *text, TextLayout textLayout)
 {
-    auto object = m_tmxLevel->getObjectGroup("instructions")->getObject(name);
+    auto object = m_tmxLevel->getObjectGroup(group)->getObject(name);
     auto entity = addEntity(name);
 
     addComponent<ContainerComponent>(entity)->setRect(
@@ -558,7 +569,7 @@ Entity* PongGame::loadInstruction(const char *name, const char *text)
     );
 
     addComponent<TextComponent>(entity);
-    getComponent<TextComponent>(entity)->setLayout(TextLayout::LeftCenter);
+    getComponent<TextComponent>(entity)->setLayout(textLayout);
     getComponent<TextComponent>(entity)->setText(text);
     getComponent<TextComponent>(entity)->setForeground(Color_DarkGrey);
     getComponent<TextComponent>(entity)->setFontFromMemory(
