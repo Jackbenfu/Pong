@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pong</title>
+    <style>
+        html {
+            overflow: hidden;
+        }
+        body {
+            background: #000;
+            color: #FFF;
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            padding: 0;
+            width: 768px;
+        }
+        #loading {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading"></div>
+    <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+    <script type="text/javascript">
+        var gameMemoryFile = 'pong.js.mem';
+        var gameCodeFile = 'pong.js';
+
+        var Module = {
+            onRuntimeInitialized: function() {
+                document.getElementById('loading').style.visibility = 'hidden';
+            },
+            canvas: (function() {
+                return document.getElementById('canvas');
+            })()
+        };
+
+        function preloadFile(file) {
+            var memoryInitializer = file;
+            if ('function' === typeof Module['locateFile']) {
+                memoryInitializer = Module['locateFile'](memoryInitializer);
+            } else if (Module['memoryInitializerPrefixURL']) {
+                memoryInitializer = Module['memoryInitializerPrefixURL'] + memoryInitializer;
+            }
+
+            var loading = document.getElementById('loading');
+            var xhr = Module['memoryInitializerRequest'] = new XMLHttpRequest();
+            xhr.onprogress = function(e) {
+                loading.textContent = 'Loading... ' + Math.ceil(e.loaded * 100 / e.total) + '%';
+            };
+            xhr.onloadend = function() {
+                loading.textContent = 'Loading... 100%';
+            };
+            xhr.open('GET', memoryInitializer, true);
+            xhr.responseType = 'arraybuffer';
+            xhr.send();
+        }
+
+        preloadFile(gameMemoryFile);
+
+        var script = document.createElement('script');
+        script.src = gameCodeFile;
+        document.body.appendChild(script);
+    </script>
+</body>
+</html>

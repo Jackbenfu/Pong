@@ -7,11 +7,3 @@
 
 # CLion
 .idea/
-
-# Generated source files
-resources.cpp
-libjackbengine.bc
-pong.html
-pong.html.mem
-pong.js
-resourceGenerator

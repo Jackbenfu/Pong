@@ -24,7 +24,7 @@ SOURCES             =	src/main.cpp                    \
 
 LIB_JACKBENGINE     = libjackbengine.bc
 
-OUT                 = pong.html
+OUT                 = pong.js
 
 all:
 	EMCC_DEBUG=1 $(CC) $(CFLAGS) $(INCLUDES) $(LIB_JACKBENGINE) $(SOURCES) -o $(OUT)
