@@ -15,6 +15,21 @@
             padding: 0;
             width: 768px;
         }
+        footer {
+            padding: 10px;
+            text-align: center;
+        }
+        a,
+        a:link,
+        a:visited,
+        a:active {
+            color: #DDAD1D;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
         #loading {
             padding: 10px;
             text-align: center;
@@ -24,6 +39,11 @@
 <body>
     <div id="loading"></div>
     <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+    <footer style="visibility: hidden;">
+        Experimental version built with <a href="http://emscripten.org/" target="_blank">Emscripten</a>
+        |
+        <a href="https://github.com/Jackbenfu/Pong">View source code</a>
+    </footer>
     <script type="text/javascript">
         var gameMemoryFile = 'pong.js.mem';
         var gameCodeFile = 'pong.js';
@@ -31,6 +51,7 @@
         var Module = {
             onRuntimeInitialized: function() {
                 document.getElementById('loading').style.visibility = 'hidden';
+                document.getElementsByTagName('footer')[0].style.visibility = 'visible';
             },
             canvas: (function() {
                 return document.getElementById('canvas');
