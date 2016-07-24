@@ -68,10 +68,10 @@ void PongGame::handleStateService()
         ballVel.y = 0 == rand() % 2 ? -1.0f : 1.0f;
         ballVel.normalize();
 
-        VelocityComponent *ballVelocity = getComponent<VelocityComponent>(m_ball);
-        uint ballSpeed = getComponent<UintComponent>(m_ball)->get();
+        auto ballVelocity = GET_COMPONENT(m_ball, VelocityComponent);
+        auto ballSpeed = GET_COMPONENT(m_ball, UintComponent)->get();
         ballVelocity->set(ballVel.x * ballSpeed, ballVel.y * ballSpeed);
-        enableComponent<VelocityComponent>(m_ball);
+        ENABLE_COMPONENT(m_ball, VelocityComponent);
 
         hideInstructions();
     }
@@ -83,13 +83,13 @@ void PongGame::handleStateService()
 
 void PongGame::handleStateRally()
 {
-    TransformComponent *ballTransform = getComponent<TransformComponent>(m_ball);
-    BoxShapeComponent *ballBoxShape = getComponent<BoxShapeComponent>(m_ball);
+    auto ballTransform = GET_COMPONENT(m_ball, TransformComponent);
+    auto ballBoxShape = GET_COMPONENT(m_ball, BoxShapeComponent);
 
-    uint leftScore = getComponent<UintComponent>(m_leftScore)->get();
-    uint rightScore = getComponent<UintComponent>(m_rightScore)->get();
+    auto leftScore = GET_COMPONENT(m_leftScore, UintComponent)->get();
+    auto rightScore = GET_COMPONENT(m_rightScore, UintComponent)->get();
 
-    bool needToRestartRally = false;
+    auto needToRestartRally = false;
     if (ballTransform->getPositionX() > renderer()->getWidth())
     {
         needToRestartRally = true;
@@ -107,16 +107,16 @@ void PongGame::handleStateRally()
     {
         m_state = PongState::GameOver;
 
-        enableEntity(m_gameOver);
-        enableEntity(m_leftResult);
-        enableEntity(m_rightResult);
-        enableEntity(m_terminateGameInstruction);
+        ENABLE_ENTITY(m_gameOver);
+        ENABLE_ENTITY(m_leftResult);
+        ENABLE_ENTITY(m_rightResult);
+        ENABLE_ENTITY(m_terminateGameInstruction);
 
-        const Color green = Color(69, 183, 130);
-        const Color red = Color(196, 89, 73);
+        auto green = Color(69, 183, 130);
+        auto red = Color(196, 89, 73);
 
-        TextComponent *leftResultComponent = getComponent<TextComponent>(m_leftResult);
-        TextComponent *rightResultComponent = getComponent<TextComponent>(m_rightResult);
+        auto leftResultComponent = GET_COMPONENT(m_leftResult, TextComponent);
+        auto rightResultComponent = GET_COMPONENT(m_rightResult, TextComponent);
         if (MAX_POINT == leftScore)
         {
             leftResultComponent->setText("WIN");
@@ -150,10 +150,10 @@ void PongGame::handleStateGameOver()
 
 void PongGame::handlePaddleMotion(Entity *paddle, KeyboardKey upKey, KeyboardKey downKey)
 {
-    VelocityComponent *velocity = getComponent<VelocityComponent>(paddle);
+    auto velocity = GET_COMPONENT(paddle, VelocityComponent);
 
-    bool up = input()->keyDown(upKey);
-    bool down = input()->keyDown(downKey);
+    auto up = input()->keyDown(upKey);
+    auto down = input()->keyDown(downKey);
 
     if (up ^ down)
     {
@@ -167,24 +167,24 @@ void PongGame::handlePaddleMotion(Entity *paddle, KeyboardKey upKey, KeyboardKey
 
 void PongGame::hideInstructions() const
 {
-    disableEntity(m_leftPaddleInstruction1);
-    disableEntity(m_leftPaddleInstruction2);
-    disableEntity(m_rightPaddleInstruction1);
-    disableEntity(m_rightPaddleInstruction2);
-    disableEntity(m_launchBallInstruction1);
-    disableEntity(m_launchBallInstruction2);
+    DISABLE_ENTITY(m_leftPaddleInstruction1);
+    DISABLE_ENTITY(m_leftPaddleInstruction2);
+    DISABLE_ENTITY(m_rightPaddleInstruction1);
+    DISABLE_ENTITY(m_rightPaddleInstruction2);
+    DISABLE_ENTITY(m_launchBallInstruction1);
+    DISABLE_ENTITY(m_launchBallInstruction2);
 }
 
 void PongGame::stickBallToRacket(Entity *paddle, bool sticked) const
 {
     if (!sticked)
     {
-        disableComponent<VelocityComponent>(m_ball);
+        DISABLE_COMPONENT(m_ball, VelocityComponent);
     }
 
-    TransformComponent *paddleTransform = getComponent<TransformComponent>(paddle);
-    BoxShapeComponent *paddleBoxShape = getComponent<BoxShapeComponent>(paddle);
-    BoxShapeComponent *ballBoxShape = getComponent<BoxShapeComponent>(m_ball);
+    auto paddleTransform = GET_COMPONENT(paddle, TransformComponent);
+    auto paddleBoxShape = GET_COMPONENT(paddle, BoxShapeComponent);
+    auto ballBoxShape = GET_COMPONENT(m_ball, BoxShapeComponent);
 
     Vec2f ballPos;
     if (m_servingPaddle == m_leftPaddle)
@@ -198,7 +198,7 @@ void PongGame::stickBallToRacket(Entity *paddle, bool sticked) const
     ballPos.y = paddleTransform->getPositionY() +
         paddleBoxShape->getHeight() * 0.5f - ballBoxShape->getHeight() * 0.5f;
 
-    TransformComponent *ballTransform = getComponent<TransformComponent>(m_ball);
+    auto ballTransform = GET_COMPONENT(m_ball, TransformComponent);
     ballTransform->setPosition(ballPos.x, ballPos.y);
 }
 
@@ -208,35 +208,35 @@ void PongGame::start()
 
     m_servingPaddle = 0 == (rand() % 2) ? m_leftPaddle : m_rightPaddle;
 
-    float screenHeight = static_cast<float>(renderer()->getHeight());
+    auto screenHeight = static_cast<float>(renderer()->getHeight());
 
-    getComponent<TransformComponent>(m_leftPaddle)->setPositionY(
-        screenHeight * 0.5f - getComponent<BoxShapeComponent>(m_leftPaddle)->getHeight() * 0.5f);
-    getComponent<TransformComponent>(m_rightPaddle)->setPositionY(
-        screenHeight * 0.5f - getComponent<BoxShapeComponent>(m_rightPaddle)->getHeight() * 0.5f);
+    GET_COMPONENT(m_leftPaddle, TransformComponent)->setPositionY(
+        screenHeight * 0.5f - GET_COMPONENT(m_leftPaddle, BoxShapeComponent)->getHeight() * 0.5f);
+    GET_COMPONENT(m_rightPaddle, TransformComponent)->setPositionY(
+        screenHeight * 0.5f - GET_COMPONENT(m_rightPaddle, BoxShapeComponent)->getHeight() * 0.5f);
 
     updateScore(m_leftScore, 0);
     updateScore(m_rightScore, 0);
 
-    enableEntity(m_leftScore);
-    enableEntity(m_rightScore);
+    ENABLE_ENTITY(m_leftScore);
+    ENABLE_ENTITY(m_rightScore);
 
-    disableEntity(m_gameOver);
-    disableEntity(m_leftResult);
-    disableEntity(m_rightResult);
+    DISABLE_ENTITY(m_gameOver);
+    DISABLE_ENTITY(m_leftResult);
+    DISABLE_ENTITY(m_rightResult);
 
     stickBallToRacket(m_servingPaddle, false);
 
-    getComponent<UintComponent>(m_ball)->set(BALL_SPEED_MIN);
+    GET_COMPONENT(m_ball, UintComponent)->set(BALL_SPEED_MIN);
 
     cursor()->setCursor(CursorType::Default);
 }
 
 void PongGame::updateScore(Entity *scoreEntity, uint newScore) const
 {
-    getComponent<UintComponent>(scoreEntity)->set(newScore);
+    GET_COMPONENT(scoreEntity, UintComponent)->set(newScore);
 
-    TextComponent *text = getComponent<TextComponent>(scoreEntity);
+    auto text = GET_COMPONENT(scoreEntity, TextComponent);
     text->setText(to_string(static_cast<long long>(newScore)));
 }
 
@@ -244,23 +244,23 @@ bool PongGame::onCollision(float delta, Entity *e1, Entity *e2, AABBCollisionSid
 {
     UNUSED(delta)
 
-    bool result = false;
+    auto result = false;
 
-    TagComponent *tag1 = getComponent<TagComponent>(e1);
-    TagComponent *tag2 = getComponent<TagComponent>(e2);
+    auto tag1 = GET_COMPONENT(e1, TagComponent);
+    auto tag2 = GET_COMPONENT(e2, TagComponent);
 
     if (0 == strcmp("ball", tag1->getTag()) && 0 == strcmp("paddle", tag2->getTag()) &&
         (AABBCollisionSide::Left == collisionSide || AABBCollisionSide::Right == collisionSide))
     {
-        TransformComponent *ballTransform = getComponent<TransformComponent>(e1);
-        VelocityComponent *ballVelocity = getComponent<VelocityComponent>(e1);
-        BoxShapeComponent *ballBoxShape = getComponent<BoxShapeComponent>(e1);
-        TransformComponent *paddleTransform = getComponent<TransformComponent>(e2);
-        BoxShapeComponent *paddleBoxShape = getComponent<BoxShapeComponent>(e2);
+        auto ballTransform = GET_COMPONENT(e1, TransformComponent);
+        auto ballVelocity = GET_COMPONENT(e1, VelocityComponent);
+        auto ballBoxShape = GET_COMPONENT(e1, BoxShapeComponent);
+        auto paddleTransform = GET_COMPONENT(e2, TransformComponent);
+        auto paddleBoxShape = GET_COMPONENT(e2, BoxShapeComponent);
 
-        float ballCenterY = ballTransform->getPositionY() + ballBoxShape->getHeight() / 2.0f;
-        float paddleY = paddleTransform->getPositionY();
-        float paddleHeight = paddleBoxShape->getHeight();
+        auto ballCenterY = ballTransform->getPositionY() + ballBoxShape->getHeight() / 2.0f;
+        auto paddleY = paddleTransform->getPositionY();
+        auto paddleHeight = paddleBoxShape->getHeight();
 
         Vec2f newBallVel;
 
@@ -277,8 +277,8 @@ bool PongGame::onCollision(float delta, Entity *e1, Entity *e2, AABBCollisionSid
         else
         {
             // Computing y velocity according to the position the ball hit the paddle
-            float percent = (ballCenterY - paddleY) * 100.0f / paddleHeight;
-            float maxVelY = BALL_VELY_MAX;
+            auto percent = (ballCenterY - paddleY) * 100.0f / paddleHeight;
+            auto maxVelY = BALL_VELY_MAX;
             newBallVel.y = percent * maxVelY / 100.0f;
             if (newBallVel.y < maxVelY / 2.0f)
             {
@@ -289,8 +289,8 @@ bool PongGame::onCollision(float delta, Entity *e1, Entity *e2, AABBCollisionSid
         newBallVel.x = 0.0f < ballVelocity->getX() ? -BALL_VELX : BALL_VELX;
         newBallVel.normalize();
 
-        UintComponent *ballSpeed = getComponent<UintComponent>(e1);
-        uint ballSpeedVal = ballSpeed->get();
+        auto ballSpeed = GET_COMPONENT(e1, UintComponent);
+        auto ballSpeedVal = ballSpeed->get();
         ballVelocity->set(newBallVel.x * ballSpeedVal, newBallVel.y * ballSpeedVal);
 
         if (BALL_SPEED_MAX > ballSpeedVal)
@@ -303,7 +303,7 @@ bool PongGame::onCollision(float delta, Entity *e1, Entity *e2, AABBCollisionSid
 
     if (0 == strcmp("ball", tag1->getTag()))
     {
-        AudioSourceComponent *collisionSound = getComponent<AudioSourceComponent>(e2);
+        auto collisionSound = GET_COMPONENT(e2, AudioSourceComponent);
         collisionSound->play();
     }
 
@@ -332,40 +332,33 @@ bool PongGame::initContents()
     m_gameOver = loadGameOver("game_over");
     m_leftResult = loadResult("left_result");
     m_rightResult = loadResult("right_result");
-    m_leftPaddleInstruction1 = loadInstruction(
-        "instructions", "left_paddle_instruction_1", "E or C:", TextLayout::RightCenter);
-    m_leftPaddleInstruction2 = loadInstruction(
-        "instructions", "left_paddle_instruction_2", "move left paddle", TextLayout::LeftCenter);
-    m_rightPaddleInstruction1 = loadInstruction(
-        "instructions", "right_paddle_instruction_1", "UP or DOWN:", TextLayout::RightCenter);
-    m_rightPaddleInstruction2 = loadInstruction(
-        "instructions", "right_paddle_instruction_2", "move right paddle", TextLayout::LeftCenter);
-    m_launchBallInstruction1 = loadInstruction(
-        "instructions", "launch_ball_instruction_1", "SPACEBAR:", TextLayout::RightCenter);
-    m_launchBallInstruction2 = loadInstruction(
-        "instructions", "launch_ball_instruction_2", "launch the ball", TextLayout::LeftCenter);
-    m_terminateGameInstruction = loadInstruction(
-        "scores", "terminate_game_instruction", "Press SPACEBAR...", TextLayout::CenterCenter);
-    disableEntity(m_terminateGameInstruction);
+    m_leftPaddleInstruction1 = loadInstruction("instructions", "left_paddle_instruction_1", "E or C:", TextLayout::RightCenter);
+    m_leftPaddleInstruction2 = loadInstruction("instructions", "left_paddle_instruction_2", "move left paddle", TextLayout::LeftCenter);
+    m_rightPaddleInstruction1 = loadInstruction("instructions", "right_paddle_instruction_1", "UP or DOWN:", TextLayout::RightCenter);
+    m_rightPaddleInstruction2 = loadInstruction("instructions", "right_paddle_instruction_2", "move right paddle", TextLayout::LeftCenter);
+    m_launchBallInstruction1 = loadInstruction("instructions", "launch_ball_instruction_1", "SPACEBAR:", TextLayout::RightCenter);
+    m_launchBallInstruction2 = loadInstruction("instructions", "launch_ball_instruction_2", "launch the ball", TextLayout::LeftCenter);
+    m_terminateGameInstruction = loadInstruction("scores", "terminate_game_instruction", "Press SPACEBAR...", TextLayout::CenterCenter);
+    DISABLE_ENTITY(m_terminateGameInstruction);
 
     /**
      * Systems
      */
-    m_motionSystem = addSystem<MotionSystem>();
+    m_motionSystem = ADD_SYSTEM(MotionSystem);
 
-    m_aabbCollisionSystem = addSystem<AABBCollisionSystem>();
+    m_aabbCollisionSystem = ADD_SYSTEM(AABBCollisionSystem);
     m_aabbCollisionSystem->addCollisionGroup("paddle", "wall");
     m_aabbCollisionSystem->addCollisionGroup("ball", "paddle");
     m_aabbCollisionSystem->addCollisionGroup("ball", "wall");
     m_aabbCollisionSystem->setCallback(onCollision);
 
-    m_spriteRenderSystem = addSystem<SpriteRenderSystem>();
+    m_spriteRenderSystem = ADD_SYSTEM(SpriteRenderSystem);
     m_spriteRenderSystem->setRenderer(renderer());
 
-    m_textRenderSystem = addSystem<TextRenderSystem>();
+    m_textRenderSystem = ADD_SYSTEM(TextRenderSystem);
     m_textRenderSystem->setRenderer(renderer());
 
-    m_debugProfileSystem = addSystem<DebugProfileSystem>();
+    m_debugProfileSystem = ADD_SYSTEM(DebugProfileSystem);
     m_debugProfileSystem->setRenderer(renderer());
     m_debugProfileSystem->setTimer(timer());
     m_debugProfileSystem->setForeground(Color_Black);
@@ -377,16 +370,16 @@ bool PongGame::initContents()
 
 Entity* PongGame::loadBackground(const char *name) const
 {
-    auto entity = addEntity(name);
+    auto entity = ADD_ENTITY(name);
 
-    addComponent<SpriteComponent>(entity)->loadFromLayer(
+    ADD_COMPONENT(entity, SpriteComponent)->loadFromLayer(
         renderer(),
         m_tmxLevel,
         name,
         tileset_png,
         tileset_png_size
     );
-    addComponent<TransformComponent>(entity);
+    ADD_COMPONENT(entity, TransformComponent);
 
     return entity;
 }
@@ -395,24 +388,25 @@ Entity* PongGame::loadWall(const char *name) const
 {
     auto objectGroup = m_tmxLevel->getObjectGroup(name);
     auto shape = objectGroup->getObject("shape");
-    auto entity = addEntity(name);
 
-    addComponent<TransformComponent>(entity)->setPosition(
+    auto entity = ADD_ENTITY(name);
+
+    ADD_COMPONENT(entity, TransformComponent)->setPosition(
         static_cast<float>(shape->getX()),
         static_cast<float>(shape->getY())
     );
-    addComponent<TagComponent>(entity)->setTag(
+    ADD_COMPONENT(entity, TagComponent)->setTag(
         objectGroup->getProperties()->getProperty("tag")
     );
-    addComponent<BoxShapeComponent>(entity)->setSize(
+    ADD_COMPONENT(entity, BoxShapeComponent)->setSize(
         static_cast<float>(shape->getWidth()),
         static_cast<float>(shape->getHeight())
     );
-    addComponent<AudioSourceComponent>(entity)->loadFromMemory(
+    ADD_COMPONENT(entity, AudioSourceComponent)->loadFromMemory(
         wall_wav,
         wall_wav_size
     );
-    addComponent<VelocityComponent>(entity);
+    ADD_COMPONENT(entity, VelocityComponent);
 
     return entity;
 }
@@ -421,31 +415,32 @@ Entity* PongGame::loadPaddle(const char *name, const void *soundData, size_t sou
 {
     auto objectGroup = m_tmxLevel->getObjectGroup(name);
     auto shape = objectGroup->getObject("shape");
+
     auto entity = addEntity(name);
 
-    addComponent<TransformComponent>(entity)->setPosition(
+    ADD_COMPONENT(entity, TransformComponent)->setPosition(
         static_cast<float>(shape->getX()),
         static_cast<float>(shape->getY())
     );
-    addComponent<TagComponent>(entity)->setTag(
+    ADD_COMPONENT(entity, TagComponent)->setTag(
         objectGroup->getProperties()->getProperty("tag")
     );
-    addComponent<BoxShapeComponent>(entity)->setSize(
+    ADD_COMPONENT(entity, BoxShapeComponent)->setSize(
         static_cast<float>(shape->getWidth()),
         static_cast<float>(shape->getHeight())
     );
-    addComponent<AudioSourceComponent>(entity)->loadFromMemory(
+    ADD_COMPONENT(entity, AudioSourceComponent)->loadFromMemory(
         soundData,
         soundDataSize
     );
-    addComponent<SpriteComponent>(entity)->loadFromObjectGroup(
+    ADD_COMPONENT(entity, SpriteComponent)->loadFromObjectGroup(
         renderer(),
         m_tmxLevel,
         name,
         tileset_png,
         tileset_png_size
     );
-    addComponent<VelocityComponent>(entity);
+    ADD_COMPONENT(entity, VelocityComponent);
 
     return entity;
 }
@@ -454,25 +449,26 @@ Entity* PongGame::loadBall(const char *name) const
 {
     auto objectGroup = m_tmxLevel->getObjectGroup(name);
     auto shape = objectGroup->getObject("shape");
+
     auto entity = addEntity(name);
 
-    addComponent<TagComponent>(entity)->setTag(
+    ADD_COMPONENT(entity, TagComponent)->setTag(
         objectGroup->getProperties()->getProperty("tag")
     );
-    addComponent<BoxShapeComponent>(entity)->setSize(
+    ADD_COMPONENT(entity, BoxShapeComponent)->setSize(
         static_cast<float>(shape->getWidth()),
         static_cast<float>(shape->getHeight())
     );
-    addComponent<SpriteComponent>(entity)->loadFromObjectGroup(
+    ADD_COMPONENT(entity, SpriteComponent)->loadFromObjectGroup(
         renderer(),
         m_tmxLevel,
         name,
         tileset_png,
         tileset_png_size
     );
-    addComponent<UintComponent>(entity); // Stores ball's speed
-    addComponent<TransformComponent>(entity);
-    addComponent<VelocityComponent>(entity);
+    ADD_COMPONENT(entity, UintComponent); // Stores ball's speed
+    ADD_COMPONENT(entity, TransformComponent);
+    ADD_COMPONENT(entity, VelocityComponent);
 
     return entity;
 }
@@ -480,21 +476,22 @@ Entity* PongGame::loadBall(const char *name) const
 Entity* PongGame::loadScore(const char *name) const
 {
     auto object = m_tmxLevel->getObjectGroup("scores")->getObject(name);
+
     auto entity = addEntity(name);
 
-    addComponent<ContainerComponent>(entity)->setRect(
+    ADD_COMPONENT(entity, ContainerComponent)->setRect(
         object->getX(),
         object->getY(),
         object->getWidth(),
         object->getHeight()
     );
-    addComponent<TransformComponent>(entity);
-    addComponent<UintComponent>(entity); // Stores player's score
+    ADD_COMPONENT(entity, TransformComponent);
+    ADD_COMPONENT(entity, UintComponent); // Stores player's score
 
-    addComponent<TextComponent>(entity);
-    getComponent<TextComponent>(entity)->setText("0");
-    getComponent<TextComponent>(entity)->setLayout(TextLayout::CenterCenter);
-    getComponent<TextComponent>(entity)->setFontFromMemory(
+    auto text = ADD_COMPONENT(entity, TextComponent);
+    text->setText("0");
+    text->setLayout(TextLayout::CenterCenter);
+    text->setFontFromMemory(
         renderer(),
         default_font,
         default_font_size,
@@ -507,26 +504,27 @@ Entity* PongGame::loadScore(const char *name) const
 Entity* PongGame::loadGameOver(const char *name) const
 {
     auto object = m_tmxLevel->getObjectGroup("scores")->getObject(name);
+
     auto entity = addEntity(name);
 
-    addComponent<ContainerComponent>(entity)->setRect(
+    ADD_COMPONENT(entity, ContainerComponent)->setRect(
         object->getX(),
         object->getY(),
         object->getWidth(),
         object->getHeight()
     );
 
-    addComponent<TextComponent>(entity);
-    getComponent<TextComponent>(entity)->setText("GAME OVER");
-    getComponent<TextComponent>(entity)->setLayout(TextLayout::CenterCenter);
-    getComponent<TextComponent>(entity)->setFontFromMemory(
+    auto text = ADD_COMPONENT(entity, TextComponent);
+    text->setText("GAME OVER");
+    text->setLayout(TextLayout::CenterCenter);
+    text->setFontFromMemory(
         renderer(),
         default_font,
         default_font_size,
         90
     );
 
-    disableEntity(entity);
+    DISABLE_ENTITY(entity);
 
     return entity;
 }
@@ -534,18 +532,19 @@ Entity* PongGame::loadGameOver(const char *name) const
 Entity* PongGame::loadResult(const char *name) const
 {
     auto object = m_tmxLevel->getObjectGroup("scores")->getObject(name);
+
     auto entity = addEntity(name);
 
-    addComponent<ContainerComponent>(entity)->setRect(
+    ADD_COMPONENT(entity, ContainerComponent)->setRect(
         object->getX(),
         object->getY(),
         object->getWidth(),
         object->getHeight()
     );
 
-    addComponent<TextComponent>(entity);
-    getComponent<TextComponent>(entity)->setLayout(TextLayout::CenterCenter);
-    getComponent<TextComponent>(entity)->setFontFromMemory(
+    auto text = ADD_COMPONENT(entity, TextComponent);
+    text->setLayout(TextLayout::CenterCenter);
+    text->setFontFromMemory(
         renderer(),
         default_font,
         default_font_size,
@@ -559,20 +558,21 @@ Entity* PongGame::loadInstruction(
     const char *group, const char *name, const char *text, TextLayout textLayout)
 {
     auto object = m_tmxLevel->getObjectGroup(group)->getObject(name);
+
     auto entity = addEntity(name);
 
-    addComponent<ContainerComponent>(entity)->setRect(
+    ADD_COMPONENT(entity, ContainerComponent)->setRect(
         object->getX(),
         object->getY(),
         object->getWidth(),
         object->getHeight()
     );
 
-    addComponent<TextComponent>(entity);
-    getComponent<TextComponent>(entity)->setLayout(textLayout);
-    getComponent<TextComponent>(entity)->setText(text);
-    getComponent<TextComponent>(entity)->setForeground(Color_DarkGrey);
-    getComponent<TextComponent>(entity)->setFontFromMemory(
+    auto textComponent = ADD_COMPONENT(entity, TextComponent);
+    textComponent->setLayout(textLayout);
+    textComponent->setText(text);
+    textComponent->setForeground(Color_DarkGrey);
+    textComponent->setFontFromMemory(
         renderer(),
         default_font,
         default_font_size,

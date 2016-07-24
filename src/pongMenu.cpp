@@ -50,9 +50,9 @@ void PongMenu::onQuitClick(void *data)
 
 void PongMenu::onButtonEnter(void *data)
 {
-    Entity *button = static_cast<Entity*>(data);
+    auto button = static_cast<Entity*>(data);
 
-    TextComponent *text = getComponent<TextComponent>(button);
+    auto text = GET_COMPONENT(button, TextComponent);
     if (text)
     {
         text->setForeground(Color_YellowGold);
@@ -63,9 +63,9 @@ void PongMenu::onButtonEnter(void *data)
 
 void PongMenu::onButtonExit(void *data)
 {
-    Entity *button = static_cast<Entity*>(data);
+    auto button = static_cast<Entity*>(data);
 
-    TextComponent *text = getComponent<TextComponent>(button);
+    auto text = GET_COMPONENT(button, TextComponent);
     if (text)
     {
         text->setForeground(Color_White);
@@ -86,11 +86,10 @@ bool PongMenu::initContents()
         /**
          * Background
          */
-        m_background = addEntity("background");
+        m_background = ADD_ENTITY("background");
 
-        addComponent<TransformComponent>(m_background);
-
-        addComponent<SpriteComponent>(m_background)->loadFromLayer(
+        ADD_COMPONENT(m_background, TransformComponent);
+        ADD_COMPONENT(m_background, SpriteComponent)->loadFromLayer(
             renderer(),
             m_tmxLevel,
             "background",
@@ -105,20 +104,20 @@ bool PongMenu::initContents()
          */
         auto object = m_tmxLevel->getObjectGroup("menu")->getObject("title");
 
-        m_title = addEntity("title");
+        m_title = ADD_ENTITY("title");
 
-        addComponent<ContainerComponent>(m_title)->setRect(
+        ADD_COMPONENT(m_title, ContainerComponent)->setRect(
             object->getX(),
             object->getY(),
             object->getWidth(),
             object->getHeight()
         );
 
-        addComponent<TextComponent>(m_title);
-        getComponent<TextComponent>(m_title)->setText("PONG");
-        getComponent<TextComponent>(m_title)->setLayout(TextLayout::CenterCenter);
-        getComponent<TextComponent>(m_title)->setForeground(Color_White);
-        getComponent<TextComponent>(m_title)->setFontFromMemory(
+        auto text = ADD_COMPONENT(m_title, TextComponent);
+        text->setText("PONG");
+        text->setLayout(TextLayout::CenterCenter);
+        text->setForeground(Color_White);
+        text->setFontFromMemory(
             renderer(),
             default_font,
             default_font_size,
@@ -132,30 +131,30 @@ bool PongMenu::initContents()
          */
         auto object = m_tmxLevel->getObjectGroup("menu")->getObject("play");
 
-        m_play = addEntity("play");
+        m_play = ADD_ENTITY("play");
 
-        addComponent<ContainerComponent>(m_play)->setRect(
+        ADD_COMPONENT(m_play, ContainerComponent)->setRect(
             object->getX(),
             object->getY(),
             object->getWidth(),
             object->getHeight()
         );
 
-        addComponent<TextComponent>(m_play);
-        getComponent<TextComponent>(m_play)->setText("Play");
-        getComponent<TextComponent>(m_play)->setLayout(TextLayout::CenterCenter);
-        getComponent<TextComponent>(m_play)->setForeground(Color_White);
-        getComponent<TextComponent>(m_play)->setFontFromMemory(
+        auto text = ADD_COMPONENT(m_play, TextComponent);
+        text->setText("Play");
+        text->setLayout(TextLayout::CenterCenter);
+        text->setForeground(Color_White);
+        text->setFontFromMemory(
             renderer(),
             default_font,
             default_font_size,
             45
         );
 
-        addComponent<MouseListenerComponent>(m_play);
-        getComponent<MouseListenerComponent>(m_play)->onLeftClick(onPlayClick);
-        getComponent<MouseListenerComponent>(m_play)->onEnter(onButtonEnter, m_play);
-        getComponent<MouseListenerComponent>(m_play)->onExit(onButtonExit, m_play);
+        auto mouseListener = ADD_COMPONENT(m_play, MouseListenerComponent);
+        mouseListener->onLeftClick(onPlayClick);
+        mouseListener->onEnter(onButtonEnter, m_play);
+        mouseListener->onExit(onButtonExit, m_play);
     }
 
 #ifndef EMSCRIPTEN
@@ -165,30 +164,30 @@ bool PongMenu::initContents()
          */
         auto object = m_tmxLevel->getObjectGroup("menu")->getObject("quit");
 
-        m_quit = addEntity("quit");
+        m_quit = ADD_ENTITY("quit");
 
-        addComponent<ContainerComponent>(m_quit)->setRect(
+        ADD_COMPONENT(m_quit, ContainerComponent)->setRect(
             object->getX(),
             object->getY(),
             object->getWidth(),
             object->getHeight()
         );
 
-        addComponent<TextComponent>(m_quit);
-        getComponent<TextComponent>(m_quit)->setText("Quit");
-        getComponent<TextComponent>(m_quit)->setLayout(TextLayout::CenterCenter);
-        getComponent<TextComponent>(m_quit)->setForeground(Color_White);
-        getComponent<TextComponent>(m_quit)->setFontFromMemory(
+        auto text = ADD_COMPONENT(m_quit, TextComponent);
+        text->setText("Quit");
+        text->setLayout(TextLayout::CenterCenter);
+        text->setForeground(Color_White);
+        text->setFontFromMemory(
             renderer(),
             default_font,
             default_font_size,
             45
         );
 
-        addComponent<MouseListenerComponent>(m_quit);
-        getComponent<MouseListenerComponent>(m_quit)->onLeftClick(onQuitClick);
-        getComponent<MouseListenerComponent>(m_quit)->onEnter(onButtonEnter, m_quit);
-        getComponent<MouseListenerComponent>(m_quit)->onExit(onButtonExit, m_quit);
+        auto mouseListener = ADD_COMPONENT(m_quit, MouseListenerComponent);
+        mouseListener->onLeftClick(onQuitClick);
+        mouseListener->onEnter(onButtonEnter, m_quit);
+        mouseListener->onExit(onButtonExit, m_quit);
     }
 #endif
 
@@ -198,20 +197,20 @@ bool PongMenu::initContents()
          */
         auto object = m_tmxLevel->getObjectGroup("about")->getObject("author");
 
-        m_author = addEntity("author");
+        m_author = ADD_ENTITY("author");
 
-        addComponent<ContainerComponent>(m_author)->setRect(
+        ADD_COMPONENT(m_author, ContainerComponent)->setRect(
             object->getX(),
             object->getY(),
             object->getWidth(),
             object->getHeight()
         );
 
-        addComponent<TextComponent>(m_author);
-        getComponent<TextComponent>(m_author)->setText("Copyright (c) 2016 Jackben");
-        getComponent<TextComponent>(m_author)->setLayout(TextLayout::RightBottom);
-        getComponent<TextComponent>(m_author)->setForeground(Color_White);
-        getComponent<TextComponent>(m_author)->setFontFromMemory(
+        auto text = ADD_COMPONENT(m_author, TextComponent);
+        text->setText("Copyright (c) 2016 Jackben");
+        text->setLayout(TextLayout::RightBottom);
+        text->setForeground(Color_White);
+        text->setFontFromMemory(
             renderer(),
             default_font,
             default_font_size,
@@ -223,16 +222,16 @@ bool PongMenu::initContents()
         /**
          * Systems
          */
-        m_spriteRenderSystem = addSystem<SpriteRenderSystem>();
+        m_spriteRenderSystem = ADD_SYSTEM(SpriteRenderSystem);
         m_spriteRenderSystem->setRenderer(renderer());
 
-        m_textRenderSystem = addSystem<TextRenderSystem>();
+        m_textRenderSystem = ADD_SYSTEM(TextRenderSystem);
         m_textRenderSystem->setRenderer(renderer());
 
-        m_mouseEventTriggerSystem = addSystem<MouseEventTriggerSystem>();
+        m_mouseEventTriggerSystem = ADD_SYSTEM(MouseEventTriggerSystem);
         m_mouseEventTriggerSystem->setInput(input());
 
-        m_debugProfileSystem = addSystem<DebugProfileSystem>();
+        m_debugProfileSystem = ADD_SYSTEM(DebugProfileSystem);
         m_debugProfileSystem->setRenderer(renderer());
         m_debugProfileSystem->setTimer(timer());
     }
