@@ -1,9 +1,8 @@
 CC                  = emcc
 
-CFLAGS              = -O2                               \
-                      -g0                               \
+CFLAGS              = -Oz                               \
                       -Wall                             \
-                      -std=c++11                        \
+                      -std=c++14                        \
                       -s USE_SDL=2                      \
                       -s USE_SDL_TTF=2                  \
                       -s USE_SDL_IMAGE=2                \

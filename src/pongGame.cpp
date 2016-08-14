@@ -26,7 +26,7 @@ PongGame::~PongGame()
 
 void PongGame::frame(float delta)
 {
-    UNUSED(delta)
+    UNUSED(delta);
 
     handlePaddleMotion(m_leftPaddle, KeyboardKey::E, KeyboardKey::C);
     handlePaddleMotion(m_rightPaddle, KeyboardKey::Up, KeyboardKey::Down);
@@ -242,7 +242,7 @@ void PongGame::updateScore(Entity *scoreEntity, uint newScore) const
 
 bool PongGame::onCollision(float delta, Entity *e1, Entity *e2, AABBCollisionSide collisionSide)
 {
-    UNUSED(delta)
+    UNUSED(delta);
 
     auto result = false;
 

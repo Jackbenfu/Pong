@@ -22,20 +22,7 @@ private:
     const char* name() override;
     bool initContents() override;
 
-    TmxMap *m_tmxLevel = nullptr;
-
-    // Entities
-    Entity *m_background = nullptr;
-    Entity *m_title = nullptr;
-    Entity *m_play = nullptr;
-    Entity *m_quit = nullptr;
-    Entity *m_author = nullptr;
-
-    // Systems
-    SpriteRenderSystem *m_spriteRenderSystem = nullptr;
-    TextRenderSystem *m_textRenderSystem = nullptr;
-    MouseEventTriggerSystem *m_mouseEventTriggerSystem = nullptr;
-    DebugProfileSystem *m_debugProfileSystem = nullptr;
+    TmxSceneLoader *m_tmxLoader {nullptr};
 
     // Mouse callbacks
     static void onPlayClick(void *data);

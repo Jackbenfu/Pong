@@ -11,7 +11,7 @@
 #include "pongGame.h"
 
 PongApp::PongApp(bool fullscreen)
-: m_fullscreen(fullscreen)
+    : m_fullscreen(fullscreen)
 {
 }
 
@@ -25,8 +25,6 @@ bool PongApp::configure(ApplicationConfig& config)
     config.render_width = 768;
     config.render_height = 576;
     config.render_fullscreen = m_fullscreen;
-
-    srand(static_cast<uint>(time(nullptr)));
 
     addScene<PongMenu>();
     addScene<PongGame>();

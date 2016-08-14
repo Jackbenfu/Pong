@@ -38,8 +38,8 @@ void loop()
 
 int main(int argc, char **argv)
 {
-    UNUSED(argc)
-    UNUSED(argv)
+    UNUSED(argc);
+    UNUSED(argv);
 
     bool fullscreen = false;
     parseArguments(argc, argv, &fullscreen);
