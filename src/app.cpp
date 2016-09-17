@@ -1,33 +1,33 @@
 //
-//  pongApp.cpp
+//  app.cpp
 //  Pong
 //
 //  Created by Damien Bendejacq on 17/08/2015.
 //  Copyright (c) 2015 Damien Bendejacq. All rights reserved.
 //
 
-#include "pongApp.h"
-#include "pongMenu.h"
-#include "pongGame.h"
+#include "app.h"
+#include "scene/menu/menuScene.h"
+#include "scene/game/gameScene.h"
 
-PongApp::PongApp(bool fullscreen)
+App::App(bool fullscreen)
     : m_fullscreen(fullscreen)
 {
 }
 
-PongApp::~PongApp()
+App::~App()
 {
 }
 
-bool PongApp::configure(ApplicationConfig& config)
+bool App::configure(ApplicationConfig& config)
 {
     config.general_title = "Pong";
     config.render_width = 768;
     config.render_height = 576;
     config.render_fullscreen = m_fullscreen;
 
-    addScene<PongMenu>();
-    addScene<PongGame>();
+    addScene<MenuScene>();
+    addScene<GameScene>();
 
     return true;
 }

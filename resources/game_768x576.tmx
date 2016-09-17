@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="48" height="36" tilewidth="16" tileheight="16" backgroundcolor="#000000" nextobjectid="74">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="48" height="36" tilewidth="16" tileheight="16" backgroundcolor="#000000" nextobjectid="76">
+ <properties>
+  <property name="maxScore" type="int" value="5"/>
+ </properties>
  <tileset firstgid="1" name="Tileset" tilewidth="16" tileheight="16" tilecount="9" columns="3">
   <image source="tileset.png" width="48" height="48"/>
  </tileset>
@@ -50,6 +53,8 @@
   <object id="70" name="right_paddle_instruction_2" x="416" y="432" width="352" height="48"/>
   <object id="71" name="launch_ball_instruction_1" x="0" y="480" width="352" height="48"/>
   <object id="72" name="launch_ball_instruction_2" x="416" y="480" width="352" height="48"/>
+  <object id="74" name="goal_1" x="0" y="336" width="352" height="48"/>
+  <object id="75" name="goal_2" x="416" y="336" width="352" height="48"/>
  </objectgroup>
  <objectgroup name="top_wall">
   <properties>

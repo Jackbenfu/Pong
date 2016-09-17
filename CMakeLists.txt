@@ -30,6 +30,14 @@ add_custom_command(
         -t${PROJECT_SOURCE_DIR}/resources/game_768x576.tmx
         -b${PROJECT_SOURCE_DIR}/resources/tileset.png
         -b${PROJECT_SOURCE_DIR}/resources/pong32x32.png
+    DEPENDS
+        resources/left.wav
+        resources/right.wav
+        resources/wall.wav
+        resources/menu_768x576.tmx
+        resources/game_768x576.tmx
+        resources/tileset.png
+        resources/pong32x32.png
 )
 
 # Tell CMake to create an app bundle on MacOS
@@ -52,9 +60,11 @@ endif(MINGW)
 set(
     SOURCE_FILES
     src/main.cpp
-    src/pongApp.cpp
-    src/pongGame.cpp
-    src/pongMenu.cpp
+    src/app.cpp
+    src/scene/game/gameScene.cpp
+    src/scene/game/gameSceneLoader.cpp
+    src/scene/menu/menuScene.cpp
+    src/scene/menu/menuSceneLoader.cpp
     resources.cpp
     ${ICON_FILE}
 )

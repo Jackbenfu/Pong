@@ -15,10 +15,12 @@ INCLUDES            = -Iexternal/jackbengine/external   \
                       -Iexternal/jackbengine/src        \
                       -Isrc
 
-SOURCES             =	src/main.cpp                    \
-						src/pongApp.cpp                 \
-						src/pongGame.cpp                \
-						src/pongMenu.cpp                \
+SOURCES             =	src/main.cpp                        \
+						src/app.cpp                         \
+						src/scene/game/gameScene.cpp        \
+						src/scene/game/gameSceneLoader.cpp  \
+						src/scene/menu/menuScene.cpp        \
+						src/scene/menu/menuSceneLoader.cpp  \
 						resources.cpp
 
 LIB_JACKBENGINE     = libjackbengine.bc

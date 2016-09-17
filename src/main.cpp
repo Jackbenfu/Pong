@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Damien Bendejacq. All rights reserved.
 //
 
-#include "pongApp.h"
+#include "app.h"
 
 #ifdef EMSCRIPTEN
     #include <emscripten.h>
@@ -28,7 +28,7 @@ void parseArguments(int argc, char **argv, bool *fullscreen)
 
 #ifdef EMSCRIPTEN
 
-PongApp *appPtr;
+App *appPtr;
 void loop()
 {
     appPtr->loop();
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     bool fullscreen = false;
     parseArguments(argc, argv, &fullscreen);
 
-    PongApp app(fullscreen);
+    App app(fullscreen);
     app.init();
 
 #ifdef EMSCRIPTEN
