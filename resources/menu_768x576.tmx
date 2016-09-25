@@ -46,7 +46,7 @@
  <objectgroup name="about">
   <object id="61" name="author" x="16" y="512" width="736" height="32">
    <properties>
-    <property name="textColor" value="FFFFFF"/>
+    <property name="textColor" type="color" value="#ffffffff"/>
     <property name="textLayout" value="RightBottom"/>
     <property name="textSize" type="int" value="18"/>
     <property name="textValue" value="Copyright (c) 2016 Jackben"/>
@@ -56,7 +56,7 @@
  <objectgroup name="menu">
   <object id="59" name="title" x="176" y="128" width="416" height="128">
    <properties>
-    <property name="textColor" value="FFFFFF"/>
+    <property name="textColor" type="color" value="#ffffffff"/>
     <property name="textLayout" value="CenterCenter"/>
     <property name="textSize" type="int" value="144"/>
     <property name="textValue" value="PONG"/>
@@ -64,7 +64,7 @@
   </object>
   <object id="55" name="play" x="336" y="336" width="96" height="48">
    <properties>
-    <property name="textColor" value="FFFFFF"/>
+    <property name="textColor" type="color" value="#ffffffff"/>
     <property name="textLayout" value="CenterCenter"/>
     <property name="textSize" type="int" value="45"/>
     <property name="textValue" value="Play"/>
@@ -72,7 +72,7 @@
   </object>
   <object id="57" name="quit" x="336" y="416" width="96" height="48">
    <properties>
-    <property name="textColor" value="FFFFFF"/>
+    <property name="textColor" type="color" value="#ffffffff"/>
     <property name="textLayout" value="CenterCenter"/>
     <property name="textSize" type="int" value="45"/>
     <property name="textValue" value="Quit"/>

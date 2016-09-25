@@ -102,10 +102,10 @@ void GameScene::handleStateRally()
     {
         m_state = PongState::GameOver;
 
-        ENABLE_ENTITY(m_gameOver);
-        ENABLE_ENTITY(m_leftResult);
-        ENABLE_ENTITY(m_rightResult);
-        ENABLE_ENTITY(m_terminateGameInstruction);
+        m_gameOver->enable();
+        m_leftResult->enable();
+        m_rightResult->enable();
+        m_terminateGameInstruction->enable();
 
         auto green = Color(69, 183, 130);
         auto red = Color(196, 89, 73);
@@ -162,14 +162,14 @@ void GameScene::handlePaddleMotion(Entity *paddle, KeyboardKey upKey, KeyboardKe
 
 void GameScene::hideInstructions() const
 {
-    DISABLE_ENTITY(m_goal1);
-    DISABLE_ENTITY(m_goal2);
-    DISABLE_ENTITY(m_leftPaddleInstruction1);
-    DISABLE_ENTITY(m_leftPaddleInstruction2);
-    DISABLE_ENTITY(m_rightPaddleInstruction1);
-    DISABLE_ENTITY(m_rightPaddleInstruction2);
-    DISABLE_ENTITY(m_launchBallInstruction1);
-    DISABLE_ENTITY(m_launchBallInstruction2);
+    m_goal1->disable();
+    m_goal2->disable();
+    m_leftPaddleInstruction1->disable();
+    m_leftPaddleInstruction2->disable();
+    m_rightPaddleInstruction1->disable();
+    m_rightPaddleInstruction2->disable();
+    m_launchBallInstruction1->disable();
+    m_launchBallInstruction2->disable();
 }
 
 void GameScene::stickBallToRacket(Entity *paddle, bool sticked) const
@@ -215,12 +215,12 @@ void GameScene::start()
     updateScore(m_leftScore, 0);
     updateScore(m_rightScore, 0);
 
-    ENABLE_ENTITY(m_leftScore);
-    ENABLE_ENTITY(m_rightScore);
+    m_leftScore->enable();
+    m_rightScore->enable();
 
-    DISABLE_ENTITY(m_gameOver);
-    DISABLE_ENTITY(m_leftResult);
-    DISABLE_ENTITY(m_rightResult);
+    m_gameOver->disable();
+    m_leftResult->disable();
+    m_rightResult->disable();
 
     stickBallToRacket(m_servingPaddle, false);
 

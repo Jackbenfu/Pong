@@ -22,13 +22,7 @@ public:
 private:
     bool loadContents() override;
 
-    void loadBackground();
-    void loadTitle();
-    void loadPlayButton();
-    void loadQuitButton();
-    void loadAuthorInfo();
-
-    void loadSystems();
+    const char *TILESET_FILE = "tileset.png";
 };
 
 NS_END_JKB

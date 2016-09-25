@@ -21,7 +21,6 @@ GameSceneLoader::GameSceneLoader(Scene *scene)
 
 GameSceneLoader::~GameSceneLoader()
 {
-    DELETE_SAFE(m_goal2Text);
 }
 
 int GameSceneLoader::getMaxScore() const
@@ -34,7 +33,10 @@ int GameSceneLoader::getMaxScore() const
 
 bool GameSceneLoader::loadContents()
 {
-    loadBackground();
+    addResourceDependency(TILESET_FILE, tileset_png, tileset_png_size);
+
+    createImageEntityFromLayer("background", TILESET_FILE);
+
     loadWall("top_wall");
     loadWall("bottom_wall");
     loadPaddle("left_paddle", left_wav, left_wav_size);
@@ -45,30 +47,25 @@ bool GameSceneLoader::loadContents()
     loadGameOver();
     loadResult("left_result");
     loadResult("right_result");
-    loadInstruction(
-        "instructions", "left_paddle_instruction_1", "E or C:", TextLayout::RightCenter, Color_YellowGold);
-    loadInstruction(
-        "instructions", "left_paddle_instruction_2", "move left paddle", TextLayout::LeftCenter, Color_DarkGrey);
-    loadInstruction(
-        "instructions", "right_paddle_instruction_1", "UP or DOWN:", TextLayout::RightCenter, Color_YellowGold);
-    loadInstruction(
-        "instructions", "right_paddle_instruction_2", "move right paddle", TextLayout::LeftCenter, Color_DarkGrey);
-    loadInstruction(
-        "instructions", "launch_ball_instruction_1", "SPACEBAR:", TextLayout::RightCenter, Color_YellowGold);
-    loadInstruction(
-        "instructions", "launch_ball_instruction_2", "launch the ball", TextLayout::LeftCenter, Color_DarkGrey);
-    loadInstruction(
-        "instructions", "goal_1", "Goal:", TextLayout::RightCenter, Color_YellowGold);
 
-    m_goal2Text = new char[30];
-    memset(m_goal2Text, 0, 30);
-    sprintf(m_goal2Text, "reach %d points!", getMaxScore());
-    loadInstruction(
-        "instructions", "goal_2", m_goal2Text, TextLayout::LeftCenter, Color_DarkGrey);
+    createTextEntityFromObject("instructions", "left_paddle_instruction_1");
+    createTextEntityFromObject("instructions", "left_paddle_instruction_2");
+    createTextEntityFromObject("instructions", "right_paddle_instruction_1");
+    createTextEntityFromObject("instructions", "right_paddle_instruction_2");
+    createTextEntityFromObject("instructions", "launch_ball_instruction_1");
+    createTextEntityFromObject("instructions", "launch_ball_instruction_2");
+    createTextEntityFromObject("instructions", "goal_1");
 
-    auto terminateGameInstruction = loadInstruction(
-        "scores", "terminate_game_instruction", "Press SPACEBAR...", TextLayout::CenterCenter, Color_DarkGrey);
-    DISABLE_ENTITY(terminateGameInstruction);
+    createTextEntityFromObject("instructions", "goal_2");
+    auto goal2 = GET_ENTITY("goal_2");
+    auto goal2Text = GET_COMPONENT(goal2, TextComponent);
+    memset(m_goal2Text, 0, GOAL2_TEXT_SIZE);
+    sprintf(m_goal2Text, goal2Text->getText().c_str(), getMaxScore());
+    goal2Text->setText(m_goal2Text);
+
+    createTextEntityFromObject("scores", "terminate_game_instruction");
+    auto terminateGameInstruction = GET_ENTITY("terminate_game_instruction");
+    terminateGameInstruction->disable();
 
     loadSystems();
 
@@ -237,7 +234,7 @@ void GameSceneLoader::loadGameOver()
         90
     );
 
-    DISABLE_ENTITY(entity);
+    entity->disable();
 }
 
 void GameSceneLoader::loadResult(const char *name)
@@ -261,32 +258,4 @@ void GameSceneLoader::loadResult(const char *name)
         default_font_size,
         63
     );
-}
-
-Entity* GameSceneLoader::loadInstruction(
-    const char *group, const char *name, const char *text, TextLayout textLayout, Color color)
-{
-    auto object = map()->getObjectGroup(group)->getObject(name);
-
-    auto entity = ADD_ENTITY(name);
-
-    ADD_COMPONENT(entity, ContainerComponent)->setRect(
-        object->getX(),
-        object->getY(),
-        object->getWidth(),
-        object->getHeight()
-    );
-
-    auto textComponent = ADD_COMPONENT(entity, TextComponent);
-    textComponent->setLayout(textLayout);
-    textComponent->setText(text);
-    textComponent->setForeground(color);
-    textComponent->setFontFromMemory(
-        m_scene->renderer(),
-        default_font,
-        default_font_size,
-        27
-    );
-
-    return entity;
 }

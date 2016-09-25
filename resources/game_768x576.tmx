@@ -47,14 +47,70 @@
 </data>
  </layer>
  <objectgroup name="instructions">
-  <object id="67" name="left_paddle_instruction_1" x="0" y="384" width="352" height="48"/>
-  <object id="68" name="left_paddle_instruction_2" x="416" y="384" width="352" height="48"/>
-  <object id="69" name="right_paddle_instruction_1" x="0" y="432" width="352" height="48"/>
-  <object id="70" name="right_paddle_instruction_2" x="416" y="432" width="352" height="48"/>
-  <object id="71" name="launch_ball_instruction_1" x="0" y="480" width="352" height="48"/>
-  <object id="72" name="launch_ball_instruction_2" x="416" y="480" width="352" height="48"/>
-  <object id="74" name="goal_1" x="0" y="336" width="352" height="48"/>
-  <object id="75" name="goal_2" x="416" y="336" width="352" height="48"/>
+  <object id="67" name="left_paddle_instruction_1" x="0" y="384" width="352" height="48">
+   <properties>
+    <property name="textColor" type="color" value="#ffddad1d"/>
+    <property name="textLayout" value="RightCenter"/>
+    <property name="textSize" type="int" value="27"/>
+    <property name="textValue" value="E or C:"/>
+   </properties>
+  </object>
+  <object id="68" name="left_paddle_instruction_2" x="416" y="384" width="352" height="48">
+   <properties>
+    <property name="textColor" type="color" value="#ff646464"/>
+    <property name="textLayout" value="LeftCenter"/>
+    <property name="textSize" type="int" value="27"/>
+    <property name="textValue" value="move left paddle"/>
+   </properties>
+  </object>
+  <object id="69" name="right_paddle_instruction_1" x="0" y="432" width="352" height="48">
+   <properties>
+    <property name="textColor" type="color" value="#ffddad1d"/>
+    <property name="textLayout" value="RightCenter"/>
+    <property name="textSize" type="int" value="27"/>
+    <property name="textValue" value="UP or DOWN"/>
+   </properties>
+  </object>
+  <object id="70" name="right_paddle_instruction_2" x="416" y="432" width="352" height="48">
+   <properties>
+    <property name="textColor" type="color" value="#ff646464"/>
+    <property name="textLayout" value="LeftCenter"/>
+    <property name="textSize" type="int" value="27"/>
+    <property name="textValue" value="move right paddle"/>
+   </properties>
+  </object>
+  <object id="71" name="launch_ball_instruction_1" x="0" y="480" width="352" height="48">
+   <properties>
+    <property name="textColor" type="color" value="#ffddad1d"/>
+    <property name="textLayout" value="RightCenter"/>
+    <property name="textSize" type="int" value="27"/>
+    <property name="textValue" value="SPACEBAR:"/>
+   </properties>
+  </object>
+  <object id="72" name="launch_ball_instruction_2" x="416" y="480" width="352" height="48">
+   <properties>
+    <property name="textColor" type="color" value="#ff646464"/>
+    <property name="textLayout" value="LeftCenter"/>
+    <property name="textSize" type="int" value="27"/>
+    <property name="textValue" value="launch the ball"/>
+   </properties>
+  </object>
+  <object id="74" name="goal_1" x="0" y="336" width="352" height="48">
+   <properties>
+    <property name="textColor" type="color" value="#ffddad1d"/>
+    <property name="textLayout" value="RightCenter"/>
+    <property name="textSize" type="int" value="27"/>
+    <property name="textValue" value="Goal:"/>
+   </properties>
+  </object>
+  <object id="75" name="goal_2" x="416" y="336" width="352" height="48">
+   <properties>
+    <property name="textColor" type="color" value="#ff646464"/>
+    <property name="textLayout" value="LeftCenter"/>
+    <property name="textSize" type="int" value="27"/>
+    <property name="textValue" value="reach %d points!"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="top_wall">
   <properties>
@@ -105,6 +161,13 @@
   <object id="57" name="game_over" x="176" y="128" width="416" height="128"/>
   <object id="65" name="left_result" x="112" y="336" width="144" height="64"/>
   <object id="66" name="right_result" x="512" y="336" width="144" height="64"/>
-  <object id="73" name="terminate_game_instruction" x="416" y="480" width="336" height="48"/>
+  <object id="73" name="terminate_game_instruction" x="416" y="480" width="336" height="48">
+   <properties>
+    <property name="textColor" type="color" value="#ff646464"/>
+    <property name="textLayout" value="CenterCenter"/>
+    <property name="textSize" type="int" value="27"/>
+    <property name="textValue" value="Press SPACEBAR..."/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

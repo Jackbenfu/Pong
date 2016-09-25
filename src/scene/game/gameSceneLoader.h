@@ -34,11 +34,11 @@ private:
     void loadScore(const char *name);
     void loadGameOver();
     void loadResult(const char *name);
-    Entity* loadInstruction(
-        const char *group, const char *name, const char *text,
-        TextLayout textLayout, Color color);
 
-    char *m_goal2Text {nullptr};
+    static const int GOAL2_TEXT_SIZE = 30;
+    char m_goal2Text[GOAL2_TEXT_SIZE];
+
+    const char *TILESET_FILE = "tileset.png";
 };
 
 NS_END_JKB
