@@ -37,53 +37,24 @@
     </style>
 </head>
 <body>
-    <div id="loading"></div>
-    <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
-    <footer style="visibility: hidden;">
-        Experimental version built with <a href="http://emscripten.org/" target="_blank">Emscripten</a>
-        |
-        <a href="https://github.com/Jackbenfu/Pong">View source code</a>
-    </footer>
-    <script type="text/javascript">
-        var gameMemoryFile = 'pong.js.mem';
-        var gameCodeFile = 'pong.js';
-
-        var Module = {
-            onRuntimeInitialized: function() {
-                document.getElementById('loading').style.visibility = 'hidden';
-                document.getElementsByTagName('footer')[0].style.visibility = 'visible';
-            },
-            canvas: (function() {
-                return document.getElementById('canvas');
-            })()
-        };
-
-        function preloadFile(file) {
-            var memoryInitializer = file;
-            if ('function' === typeof Module['locateFile']) {
-                memoryInitializer = Module['locateFile'](memoryInitializer);
-            } else if (Module['memoryInitializerPrefixURL']) {
-                memoryInitializer = Module['memoryInitializerPrefixURL'] + memoryInitializer;
-            }
-
-            var loading = document.getElementById('loading');
-            var xhr = Module['memoryInitializerRequest'] = new XMLHttpRequest();
-            xhr.onprogress = function(e) {
-                loading.textContent = 'Loading... ' + Math.ceil(e.loaded * 100 / e.total) + '%';
-            };
-            xhr.onloadend = function() {
-                loading.textContent = 'Loading... 100%';
-            };
-            xhr.open('GET', memoryInitializer, true);
-            xhr.responseType = 'arraybuffer';
-            xhr.send();
-        }
-
-        preloadFile(gameMemoryFile);
-
-        var script = document.createElement('script');
-        script.src = gameCodeFile;
-        document.body.appendChild(script);
-    </script>
+<div id="loading">Loading...</div>
+<canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+<footer style="visibility: hidden;">
+    Experimental version built with <a href="http://emscripten.org/" target="_blank">Emscripten</a>
+    |
+    <a href="https://github.com/Jackbenfu/Pong">View source code</a>
+</footer>
+<script type="text/javascript">
+    var Module = {
+        onRuntimeInitialized: function() {
+            document.getElementById('loading').style.visibility = 'hidden';
+            document.getElementsByTagName('footer')[0].style.visibility = 'visible';
+        },
+        canvas: (function() {
+            return document.getElementById('canvas');
+        })()
+    };
+</script>
+<script type="text/javascript" async defer src="pong.js"></script>
 </body>
 </html>
