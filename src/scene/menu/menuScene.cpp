@@ -3,16 +3,14 @@
 //  Pong
 //
 //  Created by Damien Bendejacq on 27/07/2015.
-//  Copyright (c) 2015 Damien Bendejacq. All rights reserved.
+//  Copyright © 2015 Damien Bendejacq. All rights reserved.
 //
 
 #include "menuScene.h"
 
 IMPORT_TEXT_RESOURCE(menu_768x576_tmx)
 
-MenuScene::MenuScene()
-{
-}
+MenuScene::MenuScene() = default;
 
 MenuScene::~MenuScene()
 {
@@ -52,7 +50,7 @@ void MenuScene::onButtonEnter(Scene *scene, void *data)
     auto button = static_cast<Entity*>(data);
 
     auto text = button->getComponent<TextComponent>();
-    if (text)
+    if (nullptr != text)
     {
         text->setForeground(Color_YellowGold);
     }
@@ -65,7 +63,7 @@ void MenuScene::onButtonExit(Scene *scene, void *data)
     auto button = static_cast<Entity*>(data);
 
     auto text = button->getComponent<TextComponent>();
-    if (text)
+    if (nullptr != text)
     {
         text->setForeground(Color_White);
     }
@@ -85,16 +83,16 @@ bool MenuScene::initContents()
     }
 
     {
-        auto playButton = GET_ENTITY("play");
-        auto mouseListener = ADD_COMPONENT_FORWARD(playButton, MouseListenerComponent, this);
+        auto playButton = getEntity("play");
+        auto mouseListener = addComponent<MouseListenerComponent>(playButton, this);
         mouseListener->onLeftClick(onPlayClick);
         mouseListener->onEnter(onButtonEnter, playButton);
         mouseListener->onExit(onButtonExit, playButton);
     }
 
     {
-        auto quitButton = GET_ENTITY("quit");
-        auto mouseListener = ADD_COMPONENT_FORWARD(quitButton, MouseListenerComponent, this);
+        auto quitButton = getEntity("quit");
+        auto mouseListener = addComponent<MouseListenerComponent>(quitButton, this);
         mouseListener->onLeftClick(onQuitClick);
         mouseListener->onEnter(onButtonEnter, quitButton);
         mouseListener->onExit(onButtonExit, quitButton);

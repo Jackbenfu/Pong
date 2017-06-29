@@ -3,7 +3,7 @@
 //  Pong
 //
 //  Created by Damien Bendejacq on 29/07/2015.
-//  Copyright (c) 2015 Damien Bendejacq. All rights reserved.
+//  Copyright © 2015 Damien Bendejacq. All rights reserved.
 //
 
 #ifndef __GAME_SCENE_H__
@@ -29,7 +29,7 @@ class GameScene : public TypedScene<GameScene>
 {
 public:
     GameScene();
-    ~GameScene();
+    ~GameScene() override;
 
 private:
     void frame(float delta) override;
@@ -47,11 +47,11 @@ private:
     void handleStateRally();
     void handleStateGameOver();
     void handlePaddleMotion(Entity *paddle, KeyboardKey upKey, KeyboardKey downKey);
-    void hideInstructions() const;
+    void hideInstructions();
 
-    void stickBallToRacket(Entity *paddle, bool sticked) const;
+    void stickBallToRacket(Entity *paddle, bool sticked);
     void start();
-    void updateScore(Entity *scoreEntity, uint newScore) const;
+    void updateScore(Entity *scoreEntity, uint newScore);
 
     int m_maxScore {0};
 

@@ -1,9 +1,9 @@
 //
 // menuSceneLoader.h
-// Jackbengine
+// Pong
 //
 // Created by Damien Bendejacq on 17/09/2016.
-// Copyright (c) 2016 Damien Bendejacq. All rights reserved.
+// Copyright © 2016 Damien Bendejacq. All rights reserved.
 //
 
 #ifndef __MENU_SCENE_LOADER_H__
@@ -16,7 +16,7 @@ NS_BEGIN_JKB
 class MenuSceneLoader : public TmxSceneLoader
 {
 public:
-    MenuSceneLoader(Scene *scene);
+    explicit MenuSceneLoader(Scene *scene);
     ~MenuSceneLoader();
 
 private:

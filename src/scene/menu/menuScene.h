@@ -3,7 +3,7 @@
 //  Pong
 //
 //  Created by Damien Bendejacq on 27/07/2015.
-//  Copyright (c) 2015 Damien Bendejacq. All rights reserved.
+//  Copyright © 2015 Damien Bendejacq. All rights reserved.
 //
 
 #ifndef __MENU_SCENE_H__
@@ -16,7 +16,7 @@ class MenuScene : public TypedScene<MenuScene>
 {
 public:
     MenuScene();
-    ~MenuScene();
+    ~MenuScene() override;
 
 private:
     void frame(float delta) override;

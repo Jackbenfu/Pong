@@ -3,7 +3,7 @@
 //  Pong
 //
 //  Created by Damien Bendejacq on 17/08/2015.
-//  Copyright (c) 2015 Damien Bendejacq. All rights reserved.
+//  Copyright © 2015 Damien Bendejacq. All rights reserved.
 //
 
 #ifndef __APP_H__

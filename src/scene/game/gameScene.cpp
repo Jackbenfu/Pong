@@ -3,16 +3,15 @@
 //  Pong
 //
 //  Created by Damien Bendejacq on 29/07/2015.
-//  Copyright (c) 2015 Damien Bendejacq. All rights reserved.
+//  Copyright © 2015 Damien Bendejacq. All rights reserved.
 //
 
+#include <cstdlib>
 #include "gameScene.h"
 
 IMPORT_TEXT_RESOURCE(game_768x576_tmx)
 
-GameScene::GameScene()
-{
-}
+GameScene::GameScene() = default;
 
 GameScene::~GameScene()
 {
@@ -60,13 +59,13 @@ void GameScene::handleStateService()
 
         Vec2f ballVel;
         ballVel.x = m_servingPaddle == m_leftPaddle ? 1.0f : -1.0f;
-        ballVel.y = 0 == rand() % 2 ? -1.0f : 1.0f;
+        ballVel.y = 0 == std::rand() % 2 ? -1.0f : 1.0f;
         ballVel.normalize();
 
-        auto ballVelocity = GET_COMPONENT(m_ball, VelocityComponent);
-        auto ballSpeed = GET_COMPONENT(m_ball, UintComponent)->get();
+        auto ballVelocity = getComponent<VelocityComponent>(m_ball);
+        auto ballSpeed = getComponent<UintComponent>(m_ball)->get();
         ballVelocity->set(ballVel.x * ballSpeed, ballVel.y * ballSpeed);
-        ENABLE_COMPONENT(m_ball, VelocityComponent);
+        enableComponent<VelocityComponent>(m_ball);
 
         hideInstructions();
     }
@@ -78,11 +77,11 @@ void GameScene::handleStateService()
 
 void GameScene::handleStateRally()
 {
-    auto ballTransform = GET_COMPONENT(m_ball, TransformComponent);
-    auto ballBoxShape = GET_COMPONENT(m_ball, BoxShapeComponent);
+    auto ballTransform = getComponent<TransformComponent>(m_ball);
+    auto ballBoxShape = getComponent<BoxShapeComponent>(m_ball);
 
-    auto leftScore = GET_COMPONENT(m_leftScore, UintComponent)->get();
-    auto rightScore = GET_COMPONENT(m_rightScore, UintComponent)->get();
+    auto leftScore = getComponent<UintComponent>(m_leftScore)->get();
+    auto rightScore = getComponent<UintComponent>(m_rightScore)->get();
 
     auto needToRestartRally = false;
     if (ballTransform->getPositionX() > renderer()->getWidth())
@@ -102,16 +101,16 @@ void GameScene::handleStateRally()
     {
         m_state = PongState::GameOver;
 
-        m_gameOver->enable();
-        m_leftResult->enable();
-        m_rightResult->enable();
-        m_terminateGameInstruction->enable();
+        enableEntity(m_gameOver);
+        enableEntity(m_leftResult);
+        enableEntity(m_rightResult);
+        enableEntity(m_terminateGameInstruction);
 
         auto green = Color(69, 183, 130);
         auto red = Color(196, 89, 73);
 
-        auto leftResultComponent = GET_COMPONENT(m_leftResult, TextComponent);
-        auto rightResultComponent = GET_COMPONENT(m_rightResult, TextComponent);
+        auto leftResultComponent = getComponent<TextComponent>(m_leftResult);
+        auto rightResultComponent = getComponent<TextComponent>(m_rightResult);
         if (m_maxScore == leftScore)
         {
             leftResultComponent->setText("WIN");
@@ -145,7 +144,7 @@ void GameScene::handleStateGameOver()
 
 void GameScene::handlePaddleMotion(Entity *paddle, KeyboardKey upKey, KeyboardKey downKey)
 {
-    auto velocity = GET_COMPONENT(paddle, VelocityComponent);
+    auto velocity = getComponent<VelocityComponent>(paddle);
 
     auto up = input()->keyDown(upKey);
     auto down = input()->keyDown(downKey);
@@ -160,28 +159,28 @@ void GameScene::handlePaddleMotion(Entity *paddle, KeyboardKey upKey, KeyboardKe
     }
 }
 
-void GameScene::hideInstructions() const
+void GameScene::hideInstructions()
 {
-    m_goal1->disable();
-    m_goal2->disable();
-    m_leftPaddleInstruction1->disable();
-    m_leftPaddleInstruction2->disable();
-    m_rightPaddleInstruction1->disable();
-    m_rightPaddleInstruction2->disable();
-    m_launchBallInstruction1->disable();
-    m_launchBallInstruction2->disable();
+    disableEntity(m_goal1);
+    disableEntity(m_goal2);
+    disableEntity(m_leftPaddleInstruction1);
+    disableEntity(m_leftPaddleInstruction2);
+    disableEntity(m_rightPaddleInstruction1);
+    disableEntity(m_rightPaddleInstruction2);
+    disableEntity(m_launchBallInstruction1);
+    disableEntity(m_launchBallInstruction2);
 }
 
-void GameScene::stickBallToRacket(Entity *paddle, bool sticked) const
+void GameScene::stickBallToRacket(Entity *paddle, bool sticked)
 {
     if (!sticked)
     {
-        DISABLE_COMPONENT(m_ball, VelocityComponent);
+        disableComponent<VelocityComponent>(m_ball);
     }
 
-    auto paddleTransform = GET_COMPONENT(paddle, TransformComponent);
-    auto paddleBoxShape = GET_COMPONENT(paddle, BoxShapeComponent);
-    auto ballBoxShape = GET_COMPONENT(m_ball, BoxShapeComponent);
+    auto paddleTransform = getComponent<TransformComponent>(paddle);
+    auto paddleBoxShape = getComponent<BoxShapeComponent>(paddle);
+    auto ballBoxShape = getComponent<BoxShapeComponent>(m_ball);
 
     Vec2f ballPos;
     if (m_servingPaddle == m_leftPaddle)
@@ -195,7 +194,7 @@ void GameScene::stickBallToRacket(Entity *paddle, bool sticked) const
     ballPos.y = paddleTransform->getPositionY() +
         paddleBoxShape->getHeight() * 0.5f - ballBoxShape->getHeight() * 0.5f;
 
-    auto ballTransform = GET_COMPONENT(m_ball, TransformComponent);
+    auto ballTransform = getComponent<TransformComponent>(m_ball);
     ballTransform->setPosition(ballPos.x, ballPos.y);
 }
 
@@ -203,37 +202,37 @@ void GameScene::start()
 {
     m_state = PongState::Service;
 
-    m_servingPaddle = 0 == (rand() % 2) ? m_leftPaddle : m_rightPaddle;
+    m_servingPaddle = 0 == (std::rand() % 2) ? m_leftPaddle : m_rightPaddle;
 
     auto screenHeight = static_cast<float>(renderer()->getHeight());
 
-    GET_COMPONENT(m_leftPaddle, TransformComponent)->setPositionY(
-        screenHeight * 0.5f - GET_COMPONENT(m_leftPaddle, BoxShapeComponent)->getHeight() * 0.5f);
-    GET_COMPONENT(m_rightPaddle, TransformComponent)->setPositionY(
-        screenHeight * 0.5f - GET_COMPONENT(m_rightPaddle, BoxShapeComponent)->getHeight() * 0.5f);
+    getComponent<TransformComponent>(m_leftPaddle)->setPositionY(
+        screenHeight * 0.5f - getComponent<BoxShapeComponent>(m_leftPaddle)->getHeight() * 0.5f);
+    getComponent<TransformComponent>(m_rightPaddle)->setPositionY(
+        screenHeight * 0.5f - getComponent<BoxShapeComponent>(m_rightPaddle)->getHeight() * 0.5f);
 
     updateScore(m_leftScore, 0);
     updateScore(m_rightScore, 0);
 
-    m_leftScore->enable();
-    m_rightScore->enable();
+    enableEntity(m_leftScore);
+    enableEntity(m_rightScore);
 
-    m_gameOver->disable();
-    m_leftResult->disable();
-    m_rightResult->disable();
+    disableEntity(m_gameOver);
+    disableEntity(m_leftResult);
+    disableEntity(m_rightResult);
 
     stickBallToRacket(m_servingPaddle, false);
 
-    GET_COMPONENT(m_ball, UintComponent)->set(BALL_SPEED_MIN);
+    getComponent<UintComponent>(m_ball)->set(BALL_SPEED_MIN);
 
     cursor()->setCursor(CursorType::Default);
 }
 
-void GameScene::updateScore(Entity *scoreEntity, uint newScore) const
+void GameScene::updateScore(Entity *scoreEntity, uint newScore)
 {
-    GET_COMPONENT(scoreEntity, UintComponent)->set(newScore);
+    getComponent<UintComponent>(scoreEntity)->set(newScore);
 
-    auto text = GET_COMPONENT(scoreEntity, TextComponent);
+    auto text = getComponent<TextComponent>(scoreEntity);
     text->setText(to_string(static_cast<long long>(newScore)));
 }
 
@@ -297,26 +296,26 @@ bool GameScene::initContents()
         return false;
     }
 
-    auto aabbCollisionSystem = GET_SYSTEM(AABBCollisionSystem);
+    auto aabbCollisionSystem = getSystem<AABBCollisionSystem>();
     aabbCollisionSystem->setCallback(onCollision);
 
-    m_leftPaddle = GET_ENTITY("left_paddle");
-    m_rightPaddle = GET_ENTITY("right_paddle");
-    m_ball = GET_ENTITY("ball");
-    m_leftScore = GET_ENTITY("left_score");
-    m_rightScore = GET_ENTITY("right_score");
-    m_gameOver = GET_ENTITY("game_over");
-    m_leftResult = GET_ENTITY("left_result");
-    m_rightResult = GET_ENTITY("right_result");
-    m_goal1 = GET_ENTITY("goal_1");
-    m_goal2 = GET_ENTITY("goal_2");
-    m_leftPaddleInstruction1 = GET_ENTITY("left_paddle_instruction_1");
-    m_leftPaddleInstruction2 = GET_ENTITY("left_paddle_instruction_2");
-    m_rightPaddleInstruction1 = GET_ENTITY("right_paddle_instruction_1");
-    m_rightPaddleInstruction2 = GET_ENTITY("right_paddle_instruction_2");
-    m_launchBallInstruction1 = GET_ENTITY("launch_ball_instruction_1");
-    m_launchBallInstruction2 = GET_ENTITY("launch_ball_instruction_2");
-    m_terminateGameInstruction = GET_ENTITY("terminate_game_instruction");
+    m_leftPaddle = getEntity("left_paddle");
+    m_rightPaddle = getEntity("right_paddle");
+    m_ball = getEntity("ball");
+    m_leftScore = getEntity("left_score");
+    m_rightScore = getEntity("right_score");
+    m_gameOver = getEntity("game_over");
+    m_leftResult = getEntity("left_result");
+    m_rightResult = getEntity("right_result");
+    m_goal1 = getEntity("goal_1");
+    m_goal2 = getEntity("goal_2");
+    m_leftPaddleInstruction1 = getEntity("left_paddle_instruction_1");
+    m_leftPaddleInstruction2 = getEntity("left_paddle_instruction_2");
+    m_rightPaddleInstruction1 = getEntity("right_paddle_instruction_1");
+    m_rightPaddleInstruction2 = getEntity("right_paddle_instruction_2");
+    m_launchBallInstruction1 = getEntity("launch_ball_instruction_1");
+    m_launchBallInstruction2 = getEntity("launch_ball_instruction_2");
+    m_terminateGameInstruction = getEntity("terminate_game_instruction");
 
     m_maxScore = m_sceneLoader->getMaxScore();
 

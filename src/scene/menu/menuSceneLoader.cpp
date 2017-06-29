@@ -1,9 +1,9 @@
 //
 // menuSceneLoader.cpp
-// Jackbengine
+// Pong
 //
 // Created by Damien Bendejacq on 17/09/2016.
-// Copyright (c) 2016 Damien Bendejacq. All rights reserved.
+// Copyright © 2016 Damien Bendejacq. All rights reserved.
 //
 
 #include "menuSceneLoader.h"
@@ -15,9 +15,7 @@ MenuSceneLoader::MenuSceneLoader(Scene *scene)
 {
 }
 
-MenuSceneLoader::~MenuSceneLoader()
-{
-}
+MenuSceneLoader::~MenuSceneLoader() = default;
 
 bool MenuSceneLoader::loadContents()
 {
@@ -31,14 +29,14 @@ bool MenuSceneLoader::loadContents()
 #endif
     createTextEntityFromObject("about", "author");
 
-    auto spriteRenderSystem = ADD_SYSTEM(SpriteRenderSystem);
-    spriteRenderSystem->setRenderer(m_scene->renderer());
+    auto spriteRenderSystem = scene()->addSystem<SpriteRenderSystem>();
+    spriteRenderSystem->setRenderer(scene()->renderer());
 
-    auto textRenderSystem = ADD_SYSTEM(TextRenderSystem);
-    textRenderSystem->setRenderer(m_scene->renderer());
+    auto textRenderSystem = scene()->addSystem<TextRenderSystem>();
+    textRenderSystem->setRenderer(scene()->renderer());
 
-    auto mouseEventTriggerSystem = ADD_SYSTEM(MouseEventTriggerSystem);
-    mouseEventTriggerSystem->setInput(m_scene->input());
+    auto mouseEventTriggerSystem = scene()->addSystem<MouseEventTriggerSystem>();
+    mouseEventTriggerSystem->setInput(scene()->input());
 
     return true;
 }

@@ -49,7 +49,7 @@
     <property name="textColor" type="color" value="#ffffffff"/>
     <property name="textLayout" value="RightBottom"/>
     <property name="textSize" type="int" value="18"/>
-    <property name="textValue" value="Copyright (c) 2016 Jackben"/>
+    <property name="textValue" value="Copyright © 2016 Jackben"/>
    </properties>
   </object>
  </objectgroup>

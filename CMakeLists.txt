@@ -15,7 +15,7 @@ include_directories(${PROJECT_SOURCE_DIR}/external/jackbengine/external)
 # Using Resource generator tool
 add_executable(
     resourceGenerator
-    ${PROJECT_SOURCE_DIR}/external/resourceGenerator/resourceGenerator.cpp
+    ${PROJECT_SOURCE_DIR}/external/resourceGenerator/resourceGenerator.c
 )
 
 # Creating resources C representations

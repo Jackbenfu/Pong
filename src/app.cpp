@@ -3,7 +3,7 @@
 //  Pong
 //
 //  Created by Damien Bendejacq on 17/08/2015.
-//  Copyright (c) 2015 Damien Bendejacq. All rights reserved.
+//  Copyright © 2015 Damien Bendejacq. All rights reserved.
 //
 
 #include "app.h"
@@ -15,9 +15,7 @@ App::App(bool fullscreen)
 {
 }
 
-App::~App()
-{
-}
+App::~App() = default;
 
 bool App::configure(ApplicationConfig& config)
 {
