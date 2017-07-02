@@ -8,6 +8,8 @@
 
 #include "gameSceneLoader.h"
 
+using namespace Jackbengine;
+
 IMPORT_BINARY_RESOURCE(left_wav)
 IMPORT_BINARY_RESOURCE(right_wav)
 IMPORT_BINARY_RESOURCE(wall_wav)
@@ -17,6 +19,7 @@ IMPORT_BINARY_RESOURCE(tileset_png)
 GameSceneLoader::GameSceneLoader(Scene *scene)
     : TmxSceneLoader(scene)
 {
+    // Nothing
 }
 
 GameSceneLoader::~GameSceneLoader() = default;

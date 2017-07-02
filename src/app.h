@@ -9,16 +9,16 @@
 #ifndef __APP_H__
 #define __APP_H__
 
-#include "jackbengine.h"
+#include "jackbengine.hpp"
 
-class App : public Application
+class App : public Jackbengine::Application
 {
 public:
-    App(bool fullscreen);
-    ~App();
+    explicit App(bool fullscreen);
+    ~App() override;
 
 private:
-    bool configure(ApplicationConfig& config) override;
+    bool configure(Jackbengine::ApplicationConfig& config) override;
 
     bool m_fullscreen = false;
 };

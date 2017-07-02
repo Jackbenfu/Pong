@@ -41,7 +41,7 @@ int main(int argc, char **argv)
     UNUSED(argc);
     UNUSED(argv);
 
-    bool fullscreen = false;
+    auto fullscreen = false;
     parseArguments(argc, argv, &fullscreen);
 
     App app(fullscreen);

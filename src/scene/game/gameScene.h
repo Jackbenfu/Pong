@@ -9,7 +9,7 @@
 #ifndef __GAME_SCENE_H__
 #define __GAME_SCENE_H__
 
-#include "jackbengine.h"
+#include "jackbengine.hpp"
 #include "gameSceneLoader.h"
 
 #define PADDLE_SPEED        500.0f
@@ -25,54 +25,64 @@ enum class PongState
     GameOver
 };
 
-class GameScene : public TypedScene<GameScene>
+class GameScene : public Jackbengine::Scene
 {
 public:
     GameScene();
     ~GameScene() override;
 
+    const char* name() override;
+
 private:
     void frame(float delta) override;
-    const char* name() override;
     bool initContents() override;
 
-    GameSceneLoader *m_sceneLoader {nullptr};
+    GameSceneLoader *m_sceneLoader = nullptr;
 
     // AABB collision callback
-    static bool onCollision(float delta, Entity *e1, Entity *e2, AABBCollisionSide collisionSide);
+    static bool onCollision(
+        float delta,
+        Jackbengine::Entity *e1,
+        Jackbengine::Entity *e2,
+        Jackbengine::AABBCollisionSide collisionSide
+    );
 
     // States
     PongState m_state = PongState::Service;
     void handleStateService();
     void handleStateRally();
     void handleStateGameOver();
-    void handlePaddleMotion(Entity *paddle, KeyboardKey upKey, KeyboardKey downKey);
+    void handlePaddleMotion(
+        Jackbengine::Entity *paddle,
+        Jackbengine::KeyboardKey upKey,
+        Jackbengine::KeyboardKey downKey
+    );
     void hideInstructions();
 
-    void stickBallToRacket(Entity *paddle, bool sticked);
+    void stickBallToRacket(Jackbengine::Entity *paddle, bool sticked);
     void start();
-    void updateScore(Entity *scoreEntity, uint newScore);
+    void updateScore(Jackbengine::Entity *scoreEntity, uint newScore);
 
-    int m_maxScore {0};
+    int m_maxScore = 0;
 
-    Entity *m_leftPaddle {nullptr};
-    Entity *m_rightPaddle {nullptr};
-    Entity *m_ball {nullptr};
-    Entity *m_leftScore {nullptr};
-    Entity *m_rightScore {nullptr};
-    Entity *m_gameOver {nullptr};
-    Entity *m_leftResult {nullptr};
-    Entity *m_rightResult {nullptr};
-    Entity *m_servingPaddle {nullptr};
-    Entity *m_goal1 {nullptr};
-    Entity *m_goal2 {nullptr};
-    Entity *m_leftPaddleInstruction1 {nullptr};
-    Entity *m_leftPaddleInstruction2 {nullptr};
-    Entity *m_rightPaddleInstruction1 {nullptr};
-    Entity *m_rightPaddleInstruction2 {nullptr};
-    Entity *m_launchBallInstruction1 {nullptr};
-    Entity *m_launchBallInstruction2 {nullptr};
-    Entity *m_terminateGameInstruction {nullptr};
+    Jackbengine::Entity *m_leftPaddle = nullptr;
+    Jackbengine::Entity *m_rightPaddle = nullptr;
+    Jackbengine::Entity *m_ball = nullptr;
+    Jackbengine::Entity *m_leftScore = nullptr;
+    Jackbengine::Entity *m_rightScore = nullptr;
+    Jackbengine::Entity *m_gameOver = nullptr;
+    Jackbengine::Entity *m_leftResult = nullptr;
+    Jackbengine::Entity *m_rightResult = nullptr;
+    Jackbengine::Entity *m_servingPaddle = nullptr;
+    Jackbengine::Entity *m_goal1 = nullptr;
+    Jackbengine::Entity *m_goal2 = nullptr;
+    Jackbengine::Entity *m_leftPaddleInstruction1 = nullptr;
+    Jackbengine::Entity *m_leftPaddleInstruction2 = nullptr;
+    Jackbengine::Entity *m_rightPaddleInstruction1 = nullptr;
+    Jackbengine::Entity *m_rightPaddleInstruction2 = nullptr;
+    Jackbengine::Entity *m_launchBallInstruction1 = nullptr;
+    Jackbengine::Entity *m_launchBallInstruction2 = nullptr;
+    Jackbengine::Entity *m_terminateGameInstruction = nullptr;
 };
 
 #endif // __GAME_SCENE_H__

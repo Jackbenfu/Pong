@@ -10,9 +10,12 @@
 #include "scene/menu/menuScene.h"
 #include "scene/game/gameScene.h"
 
+using namespace Jackbengine;
+
 App::App(bool fullscreen)
     : m_fullscreen(fullscreen)
 {
+    // Nothing
 }
 
 App::~App() = default;

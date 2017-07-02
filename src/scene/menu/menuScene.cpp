@@ -8,6 +8,8 @@
 
 #include "menuScene.h"
 
+using namespace Jackbengine;
+
 IMPORT_TEXT_RESOURCE(menu_768x576_tmx)
 
 MenuScene::MenuScene() = default;

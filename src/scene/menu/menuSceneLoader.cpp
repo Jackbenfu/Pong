@@ -8,11 +8,14 @@
 
 #include "menuSceneLoader.h"
 
+using namespace Jackbengine;
+
 IMPORT_BINARY_RESOURCE(tileset_png)
 
 MenuSceneLoader::MenuSceneLoader(Scene *scene)
     : TmxSceneLoader(scene)
 {
+    // Nothing
 }
 
 MenuSceneLoader::~MenuSceneLoader() = default;

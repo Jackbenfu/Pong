@@ -9,22 +9,18 @@
 #ifndef __MENU_SCENE_LOADER_H__
 #define __MENU_SCENE_LOADER_H__
 
-#include "jackbengine.h"
+#include "jackbengine.hpp"
 
-NS_BEGIN_JKB
-
-class MenuSceneLoader : public TmxSceneLoader
+class MenuSceneLoader : public Jackbengine::TmxSceneLoader
 {
 public:
-    explicit MenuSceneLoader(Scene *scene);
-    ~MenuSceneLoader();
+    explicit MenuSceneLoader(Jackbengine::Scene *scene);
+    ~MenuSceneLoader() override;
 
 private:
     bool loadContents() override;
 
     const char *TILESET_FILE = "tileset.png";
 };
-
-NS_END_JKB
 
 #endif // __MENU_SCENE_LOADER_H__

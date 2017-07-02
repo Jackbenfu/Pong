@@ -9,15 +9,13 @@
 #ifndef __GAME_SCENE_LOADER_H__
 #define __GAME_SCENE_LOADER_H__
 
-#include "jackbengine.h"
+#include "jackbengine.hpp"
 
-NS_BEGIN_JKB
-
-class GameSceneLoader : public TmxSceneLoader
+class GameSceneLoader : public Jackbengine::TmxSceneLoader
 {
 public:
-    explicit GameSceneLoader(Scene *scene);
-    ~GameSceneLoader();
+    explicit GameSceneLoader(Jackbengine::Scene *scene);
+    ~GameSceneLoader() override;
 
     int getMaxScore() const;
 
@@ -39,7 +37,5 @@ private:
 
     const char *TILESET_FILE = "tileset.png";
 };
-
-NS_END_JKB
 
 #endif // __GAME_SCENE_LOADER_H__

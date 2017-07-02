@@ -6,8 +6,10 @@
 //  Copyright © 2015 Damien Bendejacq. All rights reserved.
 //
 
-#include <cstdlib>
 #include "gameScene.h"
+
+using namespace std;
+using namespace Jackbengine;
 
 IMPORT_TEXT_RESOURCE(game_768x576_tmx)
 
@@ -59,7 +61,7 @@ void GameScene::handleStateService()
 
         Vec2f ballVel;
         ballVel.x = m_servingPaddle == m_leftPaddle ? 1.0f : -1.0f;
-        ballVel.y = 0 == std::rand() % 2 ? -1.0f : 1.0f;
+        ballVel.y = 0 == rand() % 2 ? -1.0f : 1.0f;
         ballVel.normalize();
 
         auto ballVelocity = getComponent<VelocityComponent>(m_ball);
@@ -202,7 +204,7 @@ void GameScene::start()
 {
     m_state = PongState::Service;
 
-    m_servingPaddle = 0 == (std::rand() % 2) ? m_leftPaddle : m_rightPaddle;
+    m_servingPaddle = 0 == (rand() % 2) ? m_leftPaddle : m_rightPaddle;
 
     auto screenHeight = static_cast<float>(renderer()->getHeight());
 
