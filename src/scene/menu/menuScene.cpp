@@ -1,104 +1,75 @@
 //
-//  menuScene.cpp
-//  Pong
+// menuScene.cpp
+// pong
 //
-//  Created by Damien Bendejacq on 27/07/2015.
-//  Copyright © 2015 Damien Bendejacq. All rights reserved.
+// Created by Damien Bendejacq on 23/08/2017.
+// Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#include "menuScene.h"
+#include "menuScene.hpp"
+#include "../multi/multiScene.hpp"
 
-using namespace Jackbengine;
+IMPORT_TEXT_RESOURCE(menu_tmx)
+IMPORT_BINARY_RESOURCE(default_font)
+IMPORT_BINARY_RESOURCE(tileset_png)
 
-IMPORT_TEXT_RESOURCE(menu_768x576_tmx)
-
-MenuScene::MenuScene() = default;
-
-MenuScene::~MenuScene()
+MenuScene::MenuScene(Application& application, SceneManager<Scene>& sceneManager)
+    : Scene(application, sceneManager)
 {
-    DELETE_SAFE(m_sceneLoader);
+    TmxSceneLoader sceneLoader {*this, menu_tmx, tileset_png, tileset_png_size, default_font, default_font_size};
+
+    configure(sceneLoader);
 }
 
-void MenuScene::frame(float delta)
+void MenuScene::onPlayClick()
 {
-    UNUSED(delta);
-
-    // Nothing to do each frame!
+    loadScene<MultiScene>();
+    cursor().setCursor(CursorType::Default);
 }
 
-const char* MenuScene::name()
+void MenuScene::onQuitClick()
 {
-    return "menu";
+    exitApplication();
 }
 
-void MenuScene::onPlayClick(Scene *scene, void *data)
+void MenuScene::configure(const TmxSceneLoader& sceneLoader)
 {
-    UNUSED(data);
-
-    scene->loadScene("game");
-    scene->cursor()->setCursor(CursorType::Default);
-}
-
-void MenuScene::onQuitClick(Scene *scene, void *data)
-{
-    UNUSED(scene);
-    UNUSED(data);
-
-    scene->exit();
-}
-
-void MenuScene::onButtonEnter(Scene *scene, void *data)
-{
-    auto button = static_cast<Entity*>(data);
-
-    auto text = button->getComponent<TextComponent>();
-    if (nullptr != text)
+    // Play button
     {
-        text->setForeground(Color_YellowGold);
+        loadButton(sceneLoader.entity("play"), [this]() { onPlayClick(); });
     }
 
-    scene->cursor()->setCursor(CursorType::Hand);
+    // Quit button
+    {
+        auto quit = sceneLoader.entity("quit");
+
+#ifndef EMSCRIPTEN
+        loadButton(quit, [this]() { onQuitClick(); });
+#else
+        disableEntity(quit);
+#endif
+    }
 }
 
-void MenuScene::onButtonExit(Scene *scene, void *data)
+void MenuScene::loadButton(Entity entity, MouseCallback onLeftClick)
 {
-    auto button = static_cast<Entity*>(data);
+    addComponent<MouseListenerComponent>(entity);
 
-    auto text = button->getComponent<TextComponent>();
-    if (nullptr != text)
+    auto& textComponent = getComponent<Text>(entity);
+    auto& mouseListener = getComponent<MouseListener>(entity);
+
+    const auto onEnter = [this, &textComponent]()
     {
-        text->setForeground(Color_White);
-    }
-
-    scene->cursor()->setCursor(CursorType::Default);
-}
-
-bool MenuScene::initContents()
-{
-    m_sceneLoader = new MenuSceneLoader(this);
-    if (!m_sceneLoader->loadFromMemory(menu_768x576_tmx))
+        textComponent.setForeground(Color32(221, 173, 29));
+        cursor().setCursor(CursorType::Hand);
+    };
+    const auto onExit = [this, &textComponent]()
     {
-        DELETE_SAFE(m_sceneLoader);
-        LOG_ERROR("Could not load Menu scene");
+        textComponent.setForeground(Color32(255, 255, 255));
+        cursor().setCursor(CursorType::Default);
+    };
 
-        return false;
-    }
-
-    {
-        auto playButton = getEntity("play");
-        auto mouseListener = addComponent<MouseListenerComponent>(playButton, this);
-        mouseListener->onLeftClick(onPlayClick);
-        mouseListener->onEnter(onButtonEnter, playButton);
-        mouseListener->onExit(onButtonExit, playButton);
-    }
-
-    {
-        auto quitButton = getEntity("quit");
-        auto mouseListener = addComponent<MouseListenerComponent>(quitButton, this);
-        mouseListener->onLeftClick(onQuitClick);
-        mouseListener->onEnter(onButtonEnter, quitButton);
-        mouseListener->onExit(onButtonExit, quitButton);
-    }
-
-    return true;
+    mouseListener.onEnter(onEnter);
+    mouseListener.onExit(onExit);
+    mouseListener.onLeftClick(std::move(onLeftClick));
 }

@@ -1,7 +1,8 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.9)
 project(pong)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1z -Wall")
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic")
 if(MINGW)
     set(CMAKE_EXE_LINKER_FLAGS "-mwindows")
 endif(MINGW)
@@ -26,16 +27,16 @@ add_custom_command(
         -b${PROJECT_SOURCE_DIR}/resources/left.wav
         -b${PROJECT_SOURCE_DIR}/resources/right.wav
         -b${PROJECT_SOURCE_DIR}/resources/wall.wav
-        -t${PROJECT_SOURCE_DIR}/resources/menu_768x576.tmx
-        -t${PROJECT_SOURCE_DIR}/resources/game_768x576.tmx
+        -t${PROJECT_SOURCE_DIR}/resources/menu.tmx
+        -t${PROJECT_SOURCE_DIR}/resources/multi.tmx
         -b${PROJECT_SOURCE_DIR}/resources/tileset.png
         -b${PROJECT_SOURCE_DIR}/resources/pong32x32.png
     DEPENDS
         resources/left.wav
         resources/right.wav
         resources/wall.wav
-        resources/menu_768x576.tmx
-        resources/game_768x576.tmx
+        resources/menu.tmx
+        resources/multi.tmx
         resources/tileset.png
         resources/pong32x32.png
 )
@@ -61,10 +62,11 @@ set(
     SOURCE_FILES
     src/main.cpp
     src/app.cpp
-    src/scene/game/gameScene.cpp
-    src/scene/game/gameSceneLoader.cpp
+    src/scene/multi/multiScene.cpp
+    src/scene/multi/state/serviceState.cpp
+    src/scene/multi/state/gameState.cpp
+    src/scene/multi/state/gameOverState.cpp
     src/scene/menu/menuScene.cpp
-    src/scene/menu/menuSceneLoader.cpp
     resources.cpp
     ${ICON_FILE}
 )

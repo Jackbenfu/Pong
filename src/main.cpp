@@ -6,13 +6,15 @@
 //  Copyright © 2014 Damien Bendejacq. All rights reserved.
 //
 
-#include "app.h"
+#include "app.hpp"
 
 #ifdef EMSCRIPTEN
     #include <emscripten.h>
 #endif
 
 #define FULLSCREEN_OPTION   "-fullscreen"
+
+using namespace Jackbengine;
 
 void parseArguments(int argc, char **argv, bool *fullscreen)
 {
@@ -38,14 +40,11 @@ void loop()
 
 int main(int argc, char **argv)
 {
-    UNUSED(argc);
-    UNUSED(argv);
-
     auto fullscreen = false;
     parseArguments(argc, argv, &fullscreen);
 
-    App app(fullscreen);
-    app.init();
+    ApplicationConfig config { "Pong", 768, 576, fullscreen };
+    App app(config);
 
 #ifdef EMSCRIPTEN
     appPtr = &app;

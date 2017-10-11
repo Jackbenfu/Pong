@@ -7,6 +7,7 @@
 
 # CLion
 .idea/
+cmake-build-debug/
 
 # Generated source files
 resources.cpp

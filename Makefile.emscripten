@@ -1,8 +1,8 @@
 CC                  = emcc
 
 CFLAGS              = -Oz                               \
-                      -Wall                             \
-                      -std=c++14                        \
+                      -Wall -Wextra -Wpedantic          \
+                      -std=c++1z                        \
                       -s USE_SDL=2                      \
                       -s USE_SDL_TTF=2                  \
                       -s USE_SDL_IMAGE=2                \
@@ -15,13 +15,14 @@ INCLUDES            = -Iexternal/jackbengine/external   \
                       -Iexternal/jackbengine/src        \
                       -Isrc
 
-SOURCES             =	src/main.cpp                        \
-						src/app.cpp                         \
-						src/scene/game/gameScene.cpp        \
-						src/scene/game/gameSceneLoader.cpp  \
-						src/scene/menu/menuScene.cpp        \
-						src/scene/menu/menuSceneLoader.cpp  \
-						resources.cpp
+SOURCES             =   src/main.cpp                            \
+                        src/app.cpp                             \
+                        src/scene/multi/multiScene.cpp          \
+                        src/scene/multi/state/serviceState.cpp  \
+                        src/scene/multi/state/gameState.cpp     \
+                        src/scene/multi/state/gameOverState.cpp \
+                        src/scene/menu/menuScene.cpp            \
+                        resources.cpp
 
 LIB_JACKBENGINE     = libjackbengine.bc
 

@@ -15,14 +15,14 @@ cp resourceGenerator ../..
 cd -
 
 # Generating resources.cpp
-resourceGenerator                   \
-    resources.cpp                   \
-    -bresources/left.wav            \
-    -bresources/right.wav           \
-    -bresources/wall.wav            \
-    -bresources/tileset.png         \
-    -tresources/menu_768x576.tmx    \
-    -tresources/game_768x576.tmx
+./resourceGenerator          \
+    resources.cpp            \
+    -bresources/left.wav     \
+    -bresources/right.wav    \
+    -bresources/wall.wav     \
+    -bresources/tileset.png  \
+    -tresources/menu.tmx     \
+    -tresources/multi.tmx
 
 # Building Pong web output
 make -f Makefile.emscripten

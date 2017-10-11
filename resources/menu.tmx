@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="48" height="36" tilewidth="16" tileheight="16" backgroundcolor="#000000" nextobjectid="63">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="48" height="36" tilewidth="16" tileheight="16" backgroundcolor="#000000" nextobjectid="67">
  <tileset firstgid="1" name="Tileset" tilewidth="16" tileheight="16" tilecount="9" columns="3">
   <image source="tileset.png" width="48" height="48"/>
  </tileset>
@@ -44,39 +44,19 @@
 </data>
  </layer>
  <objectgroup name="about">
-  <object id="61" name="author" x="16" y="512" width="736" height="32">
-   <properties>
-    <property name="textColor" type="color" value="#ffffffff"/>
-    <property name="textLayout" value="RightBottom"/>
-    <property name="textSize" type="int" value="18"/>
-    <property name="textValue" value="Copyright © 2016 Jackben"/>
-   </properties>
+  <object id="66" name="author" x="16" y="512" width="736" height="32">
+   <text fontfamily="Volter (Goldfish)" pixelsize="18" wrap="1" color="#646464" halign="right" valign="bottom">Copyright © 2016 Jackben</text>
   </object>
  </objectgroup>
  <objectgroup name="menu">
-  <object id="59" name="title" x="176" y="128" width="416" height="128">
-   <properties>
-    <property name="textColor" type="color" value="#ffffffff"/>
-    <property name="textLayout" value="CenterCenter"/>
-    <property name="textSize" type="int" value="144"/>
-    <property name="textValue" value="PONG"/>
-   </properties>
+  <object id="63" name="title" x="176" y="128" width="416" height="128">
+   <text fontfamily="Volter (Goldfish)" pixelsize="144" wrap="1" color="#ffffff" halign="center" valign="center">PONG</text>
   </object>
-  <object id="55" name="play" x="336" y="336" width="96" height="48">
-   <properties>
-    <property name="textColor" type="color" value="#ffffffff"/>
-    <property name="textLayout" value="CenterCenter"/>
-    <property name="textSize" type="int" value="45"/>
-    <property name="textValue" value="Play"/>
-   </properties>
+  <object id="64" name="play" x="304" y="336" width="160" height="48">
+   <text fontfamily="Volter (Goldfish)" pixelsize="45" wrap="1" color="#ffffff" halign="center" valign="center">Play</text>
   </object>
-  <object id="57" name="quit" x="336" y="416" width="96" height="48">
-   <properties>
-    <property name="textColor" type="color" value="#ffffffff"/>
-    <property name="textLayout" value="CenterCenter"/>
-    <property name="textSize" type="int" value="45"/>
-    <property name="textValue" value="Quit"/>
-   </properties>
+  <object id="65" name="quit" x="304" y="416" width="160" height="48">
+   <text fontfamily="Volter (Goldfish)" pixelsize="45" wrap="1" color="#ffffff" halign="center" valign="center">Quit</text>
   </object>
  </objectgroup>
 </map>
