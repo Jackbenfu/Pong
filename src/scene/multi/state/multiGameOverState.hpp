@@ -1,23 +1,23 @@
 //
-// gameOverState.hpp
+// multiGameOverState.hpp
 // pong
 //
 // Created by Damien Bendejacq on 02/10/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#ifndef __GAME_OVER_STATE_H__
-#define __GAME_OVER_STATE_H__
+#ifndef __MULTI_GAME_OVER_STATE_H__
+#define __MULTI_GAME_OVER_STATE_H__
 
-#include "serviceState.hpp"
+#include "multiServiceState.hpp"
 
-class GameOverState : public State
+class MultiGameOverState : public State
 {
-    DISALLOW_COPY_AND_MOVE(GameOverState)
+    DISALLOW_COPY_AND_MOVE(MultiGameOverState)
 
 public:
-    explicit GameOverState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader);
-    ~GameOverState() override = default;
+    MultiGameOverState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader);
+    ~MultiGameOverState() override = default;
 
     void enter() final;
     void frame(float delta) final;
@@ -33,4 +33,4 @@ private:
     const Entity m_terminateGameInstruction;
 };
 
-#endif // __GAME_OVER_STATE_H__
+#endif // __MULTI_GAME_OVER_STATE_H__

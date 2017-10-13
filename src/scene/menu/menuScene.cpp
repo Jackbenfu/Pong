@@ -7,6 +7,7 @@
 //
 
 #include "menuScene.hpp"
+#include "../solo/soloScene.hpp"
 #include "../multi/multiScene.hpp"
 
 IMPORT_TEXT_RESOURCE(menu_tmx)
@@ -21,7 +22,13 @@ MenuScene::MenuScene(Application& application, SceneManager<Scene>& sceneManager
     configure(sceneLoader);
 }
 
-void MenuScene::onPlayClick()
+void MenuScene::onSoloClick()
+{
+    loadScene<SoloScene>();
+    cursor().setCursor(CursorType::Default);
+}
+
+void MenuScene::onMultiClick()
 {
     loadScene<MultiScene>();
     cursor().setCursor(CursorType::Default);
@@ -34,9 +41,14 @@ void MenuScene::onQuitClick()
 
 void MenuScene::configure(const TmxSceneLoader& sceneLoader)
 {
-    // Play button
+    // Solo button
     {
-        loadButton(sceneLoader.entity("play"), [this]() { onPlayClick(); });
+        loadButton(sceneLoader.entity("solo"), [this]() { onSoloClick(); });
+    }
+
+    // Multi button
+    {
+        loadButton(sceneLoader.entity("multi"), [this]() { onMultiClick(); });
     }
 
     // Quit button

@@ -1,25 +1,25 @@
 //
-// serviceState.hpp
+// multiServiceState.hpp
 // pong
 //
 // Created by Damien Bendejacq on 27/09/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#ifndef __SERVICE_STATE_H__
-#define __SERVICE_STATE_H__
+#ifndef __MULTI_SERVICE_STATE_H__
+#define __MULTI_SERVICE_STATE_H__
 
 #include "jackbengine.hpp"
 
 using namespace Jackbengine;
 
-class ServiceState : public State
+class MultiServiceState : public State
 {
-    DISALLOW_COPY_AND_MOVE(ServiceState)
+    DISALLOW_COPY_AND_MOVE(MultiServiceState)
 
 public:
-    explicit ServiceState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader);
-    ~ServiceState() override = default;
+    MultiServiceState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader);
+    ~MultiServiceState() override = default;
 
     void enter() final;
     void frame(float delta) final;
@@ -58,4 +58,4 @@ private:
     Numerical<int> *m_ballSpeed;
 };
 
-#endif // __SERVICE_STATE_H__
+#endif // __MULTI_SERVICE_STATE_H__

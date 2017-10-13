@@ -7,10 +7,10 @@
 //
 
 #include "multiScene.hpp"
-#include "const/multiConst.hpp"
-#include "state/serviceState.hpp"
-#include "state/gameState.hpp"
-#include "state/gameOverState.hpp"
+#include "multiConst.hpp"
+#include "state/multiServiceState.hpp"
+#include "state/multiGameState.hpp"
+#include "state/multiGameOverState.hpp"
 #include "../menu/menuScene.hpp"
 
 IMPORT_TEXT_RESOURCE(multi_tmx)
@@ -27,17 +27,16 @@ MultiScene::MultiScene(Application& application, SceneManager<Scene>& sceneManag
 
     configure(sceneLoader);
 
-    m_stateMachine.addState<ServiceState>(*this, sceneLoader);
-    m_stateMachine.addState<GameState>(*this, sceneLoader);
-    m_stateMachine.addState<GameOverState>(*this, sceneLoader);
-
+    m_stateMachine.addState<MultiServiceState>(*this, sceneLoader);
+    m_stateMachine.addState<MultiGameState>(*this, sceneLoader);
+    m_stateMachine.addState<MultiGameOverState>(*this, sceneLoader);
     m_stateMachine.start();
 }
 
 void MultiScene::frame(float delta)
 {
-    handlePaddleMotion(m_leftPaddle, KeyboardKey::E, KeyboardKey::C);
-    handlePaddleMotion(m_rightPaddle, KeyboardKey::Up, KeyboardKey::Down);
+    handlePaddleMotion(m_leftPaddleVelocity, KeyboardKey::E, KeyboardKey::C);
+    handlePaddleMotion(m_rightPaddleVelocity, KeyboardKey::Up, KeyboardKey::Down);
 
     m_stateMachine.frame(delta);
 
@@ -47,20 +46,18 @@ void MultiScene::frame(float delta)
     }
 }
 
-void MultiScene::handlePaddleMotion(Entity paddle, KeyboardKey upKey, KeyboardKey downKey)
+void MultiScene::handlePaddleMotion(Velocity *velocity, KeyboardKey upKey, KeyboardKey downKey)
 {
-    auto& velocity = getComponent<Velocity>(paddle);
-
     auto up = input().keyDown(upKey);
     auto down = input().keyDown(downKey);
 
     if (up ^ down)
     {
-        velocity.set(0.0f, up ? -MultiConst::PaddleSpeed : MultiConst::PaddleSpeed);
+        velocity->set(0.0f, up ? -MultiConst::PaddleSpeed : MultiConst::PaddleSpeed);
     }
     else
     {
-        velocity.set(0.0f, 0.0f);
+        velocity->set(0.0f, 0.0f);
     }
 }
 
@@ -73,20 +70,24 @@ void MultiScene::configure(const TmxSceneLoader& sceneLoader)
 
     // Left paddle
     {
-        m_leftPaddle = sceneLoader.entity("left_paddle");
-        addComponent<Velocity>(m_leftPaddle);
-        addComponent<Tag>(m_leftPaddle, "paddle");
-        addComponent<AudioSource>(m_leftPaddle, left_wav, left_wav_size);
-        addComponent<Numerical<bool>>(m_leftPaddle, false);
+        auto paddle = sceneLoader.entity("left_paddle");
+        addComponent<Velocity>(paddle);
+        addComponent<Tag>(paddle, "paddle");
+        addComponent<AudioSource>(paddle, left_wav, left_wav_size);
+        addComponent<Numerical<bool>>(paddle, false);
+
+        m_leftPaddleVelocity = &getComponent<Velocity>(paddle);
     }
 
     // Right paddle
     {
-        m_rightPaddle = sceneLoader.entity("right_paddle");
-        addComponent<Velocity>(m_rightPaddle);
-        addComponent<Tag>(m_rightPaddle, "paddle");
-        addComponent<AudioSource>(m_rightPaddle, right_wav, right_wav_size);
-        addComponent<Numerical<bool>>(m_rightPaddle, false);
+        auto paddle = sceneLoader.entity("right_paddle");
+        addComponent<Velocity>(paddle);
+        addComponent<Tag>(paddle, "paddle");
+        addComponent<AudioSource>(paddle, right_wav, right_wav_size);
+        addComponent<Numerical<bool>>(paddle, false);
+
+        m_rightPaddleVelocity = &getComponent<Velocity>(paddle);
     }
 
     // Top wall

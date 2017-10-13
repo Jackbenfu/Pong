@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="48" height="36" tilewidth="16" tileheight="16" backgroundcolor="#000000" nextobjectid="67">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="48" height="36" tilewidth="16" tileheight="16" backgroundcolor="#000000" nextobjectid="68">
  <tileset firstgid="1" name="Tileset" tilewidth="16" tileheight="16" tilecount="9" columns="3">
   <image source="tileset.png" width="48" height="48"/>
  </tileset>
@@ -49,14 +49,17 @@
   </object>
  </objectgroup>
  <objectgroup name="menu">
+  <object id="65" name="quit" x="304" y="448" width="160" height="48">
+   <text fontfamily="Volter (Goldfish)" pixelsize="45" wrap="1" color="#ffffff" halign="center" valign="center">Quit</text>
+  </object>
+  <object id="64" name="multi" x="240" y="368" width="288" height="48">
+   <text fontfamily="Volter (Goldfish)" pixelsize="45" wrap="1" color="#ffffff" halign="center" valign="center">2 players</text>
+  </object>
+  <object id="67" name="solo" x="240" y="288" width="288" height="48">
+   <text fontfamily="Volter (Goldfish)" pixelsize="45" wrap="1" color="#ffffff" halign="center" valign="center">1 player</text>
+  </object>
   <object id="63" name="title" x="176" y="128" width="416" height="128">
    <text fontfamily="Volter (Goldfish)" pixelsize="144" wrap="1" color="#ffffff" halign="center" valign="center">PONG</text>
-  </object>
-  <object id="64" name="play" x="304" y="336" width="160" height="48">
-   <text fontfamily="Volter (Goldfish)" pixelsize="45" wrap="1" color="#ffffff" halign="center" valign="center">Play</text>
-  </object>
-  <object id="65" name="quit" x="304" y="416" width="160" height="48">
-   <text fontfamily="Volter (Goldfish)" pixelsize="45" wrap="1" color="#ffffff" halign="center" valign="center">Quit</text>
   </object>
  </objectgroup>
 </map>

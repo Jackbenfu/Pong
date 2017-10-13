@@ -1,17 +1,17 @@
 //
-// gameState.cpp
+// multiGameState.cpp
 // pong
 //
 // Created by Damien Bendejacq on 27/09/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#include "gameState.hpp"
-#include "serviceState.hpp"
-#include "gameOverState.hpp"
-#include "../const/multiConst.hpp"
+#include "multiGameState.hpp"
+#include "multiServiceState.hpp"
+#include "multiGameOverState.hpp"
+#include "../multiConst.hpp"
 
-GameState::GameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
+MultiGameState::MultiGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : State(stateMachine),
       m_scene {scene},
       m_leftPaddle {sceneLoader.entity("left_paddle")},
@@ -33,7 +33,7 @@ GameState::GameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& s
     m_rightPaddleIsServing = &m_scene.getComponent<Numerical<bool>>(m_rightPaddle);
 }
 
-void GameState::frame(float)
+void MultiGameState::frame(float)
 {
     auto leftScore = m_leftScoreValue->get();
     auto rightScore = m_rightScoreValue->get();
@@ -56,16 +56,16 @@ void GameState::frame(float)
 
     if (MultiConst::ScoreToWin == leftScore || MultiConst::ScoreToWin == rightScore)
     {
-        stateMachine().goToState<GameOverState>();
+        stateMachine().goToState<MultiGameOverState>();
     }
     else if (needToRestartGame)
     {
-        stateMachine().goToState<ServiceState>();
+        stateMachine().goToState<MultiServiceState>();
     }
 }
 
-bool GameState::onCollision(float, ComponentCollection& components1,
-                            ComponentCollection& components2, AABBCollisionSide collisionSide)
+bool MultiGameState::onCollision(float, ComponentCollection& components1, ComponentCollection& components2,
+                                 AABBCollisionSide collisionSide)
 {
     auto result = false;
 
@@ -110,7 +110,7 @@ bool GameState::onCollision(float, ComponentCollection& components1,
     return result;
 }
 
-void GameState::updateScore(Entity scoreEntity, int newScore)
+void MultiGameState::updateScore(Entity scoreEntity, int newScore)
 {
     if (scoreEntity == m_leftScore)
     {

@@ -22,7 +22,8 @@ public:
     ~MenuScene() override = default;
 
 private:
-    void onPlayClick();
+    void onSoloClick();
+    void onMultiClick();
     void onQuitClick();
 
     void configure(const TmxSceneLoader& sceneLoader);

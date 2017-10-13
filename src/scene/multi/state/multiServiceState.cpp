@@ -1,15 +1,15 @@
 //
-// serviceState.cpp
+// multiServiceState.cpp
 // pong
 //
 // Created by Damien Bendejacq on 27/09/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#include "serviceState.hpp"
-#include "gameState.hpp"
+#include "multiServiceState.hpp"
+#include "multiGameState.hpp"
 
-ServiceState::ServiceState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
+MultiServiceState::MultiServiceState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : State(stateMachine),
       m_scene {scene},
       m_leftPaddle {sceneLoader.entity("left_paddle")},
@@ -46,7 +46,7 @@ ServiceState::ServiceState(StateMachine& stateMachine, Scene& scene, TmxSceneLoa
     showInstructions(true);
 }
 
-void ServiceState::enter()
+void MultiServiceState::enter()
 {
     if (m_leftPaddleIsServing->get())
     {
@@ -62,7 +62,7 @@ void ServiceState::enter()
     m_scene.disableComponent<Velocity>(m_ball);
 }
 
-void ServiceState::frame(float)
+void MultiServiceState::frame(float)
 {
     stickBallToPaddle();
 
@@ -70,16 +70,16 @@ void ServiceState::frame(float)
     {
         launchBall();
 
-        stateMachine().goToState<GameState>();
+        stateMachine().goToState<MultiGameState>();
     }
 }
 
-void ServiceState::exit()
+void MultiServiceState::exit()
 {
     showInstructions(false);
 }
 
-void ServiceState::stickBallToPaddle()
+void MultiServiceState::stickBallToPaddle()
 {
     Vec2f ballPos;
     if (m_servingPaddle == m_leftPaddle)
@@ -97,7 +97,7 @@ void ServiceState::stickBallToPaddle()
     m_ballTransform->setPosition(ballPos.x, ballPos.y);
 }
 
-void ServiceState::launchBall()
+void MultiServiceState::launchBall()
 {
     Vec2f ballVel;
     ballVel.x = m_servingPaddle == m_leftPaddle ? 1.0f : -1.0f;
@@ -109,7 +109,7 @@ void ServiceState::launchBall()
     m_scene.enableComponent<Velocity>(m_ball);
 }
 
-void ServiceState::showInstructions(bool show)
+void MultiServiceState::showInstructions(bool show)
 {
     m_scene.enableEntity(m_goal1, show);
     m_scene.enableEntity(m_goal2, show);

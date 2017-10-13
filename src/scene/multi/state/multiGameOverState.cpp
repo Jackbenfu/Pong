@@ -1,16 +1,16 @@
 //
-// gameOverState.cpp
+// multiGameOverState.cpp
 // pong
 //
 // Created by Damien Bendejacq on 02/10/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#include "gameOverState.hpp"
+#include "multiGameOverState.hpp"
 #include "../../menu/menuScene.hpp"
-#include "../const/multiConst.hpp"
+#include "../multiConst.hpp"
 
-GameOverState::GameOverState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
+MultiGameOverState::MultiGameOverState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : State(stateMachine),
       m_scene {scene},
       m_leftScore {sceneLoader.entity("left_score")},
@@ -21,7 +21,7 @@ GameOverState::GameOverState(StateMachine& stateMachine, Scene& scene, TmxSceneL
       m_terminateGameInstruction {sceneLoader.entity("terminate_game_instruction")}
 { }
 
-void GameOverState::enter()
+void MultiGameOverState::enter()
 {
     m_scene.enableEntity(m_gameOver);
     m_scene.enableEntity(m_leftResult);
@@ -48,7 +48,7 @@ void GameOverState::enter()
     }
 }
 
-void GameOverState::frame(float)
+void MultiGameOverState::frame(float)
 {
     if (m_scene.input().keyPress(KeyboardKey::Space))
     {

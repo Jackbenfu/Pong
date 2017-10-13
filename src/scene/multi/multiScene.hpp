@@ -24,13 +24,13 @@ public:
 private:
     void frame(float delta) final;
 
-    void handlePaddleMotion(Entity paddle, KeyboardKey upKey, KeyboardKey downKey);
+    void handlePaddleMotion(Velocity *velocity, KeyboardKey upKey, KeyboardKey downKey);
     void configure(const TmxSceneLoader& sceneLoader);
 
     StateMachine m_stateMachine;
 
-    Entity m_leftPaddle;
-    Entity m_rightPaddle;
+    Velocity *m_leftPaddleVelocity;
+    Velocity *m_rightPaddleVelocity;
 };
 
 #endif // __MULTI_SCENE_H__

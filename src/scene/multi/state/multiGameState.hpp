@@ -1,25 +1,25 @@
 //
-// gameState.hpp
+// multiGameState.hpp
 // pong
 //
 // Created by Damien Bendejacq on 27/09/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#ifndef __GAME_STATE_H__
-#define __GAME_STATE_H__
+#ifndef __MULTI_GAME_STATE_H__
+#define __MULTI_GAME_STATE_H__
 
 #include "jackbengine.hpp"
 
 using namespace Jackbengine;
 
-class GameState : public State
+class MultiGameState : public State
 {
-    DISALLOW_COPY_AND_MOVE(GameState)
+    DISALLOW_COPY_AND_MOVE(MultiGameState)
 
 public:
-    explicit GameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader);
-    ~GameState() override = default;
+    MultiGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader);
+    ~MultiGameState() override = default;
 
     void frame(float delta) final;
 
@@ -54,4 +54,4 @@ private:
     Text *m_rightScoreText;
 };
 
-#endif // __GAME_STATE_H__
+#endif // __MULTI_GAME_STATE_H__
