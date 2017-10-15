@@ -7,36 +7,44 @@
 //
 
 #include "soloGameState.hpp"
-#include "soloServiceState.hpp"
 #include "../soloConst.hpp"
+#include "soloGameOverState.hpp"
 
 SoloGameState::SoloGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : State(stateMachine),
       m_scene {scene},
       m_ball {sceneLoader.entity("ball")},
-      m_score {sceneLoader.entity("score")}
+      m_score {sceneLoader.entity("score")},
+      m_aabbCollisionSystem {m_scene.getSystem<AABBCollisionSystem>()}
 {
     m_ballTransform = &m_scene.getComponent<Transform>(m_ball);
     m_ballBoxShape = &m_scene.getComponent<BoxShape>(m_ball);
     m_scoreValue = &m_scene.getComponent<Numerical<int>>(m_score);
     m_scoreText = &m_scene.getComponent<Text>(m_score);
+}
 
-    auto collisionLambda = [this, scoreValue = m_scoreValue, scoreText = m_scoreText]
+void SoloGameState::enter()
+{
+    m_aabbCollisionSystem.setCallback(
+        [scoreValue = m_scoreValue, scoreText = m_scoreText]
         (float delta, ComponentCollection& components1, ComponentCollection& components2, AABBCollisionSide collisionSide)
         {
             return onCollision(delta, components1, components2, collisionSide, scoreValue, scoreText);
-        };
-
-    auto& aabbCollisionSystem = m_scene.getSystem<AABBCollisionSystem>();
-    aabbCollisionSystem.setCallback(collisionLambda);
+        }
+    );
 }
 
 void SoloGameState::frame(float)
 {
     if (m_ballTransform->positionX() + m_ballBoxShape->width() < 0.0f)
     {
-        stateMachine().goToState<SoloServiceState>();
+        stateMachine().goToState<SoloGameOverState>();
     }
+}
+
+void SoloGameState::exit()
+{
+    m_aabbCollisionSystem.unsetCallback();
 }
 
 bool SoloGameState::onCollision(float, ComponentCollection& components1, ComponentCollection& components2,
@@ -79,7 +87,7 @@ bool SoloGameState::onCollision(float, ComponentCollection& components1, Compone
         result = true;
     }
 
-    if ("wall" == tag2.get() || "paddle" == tag2.get())
+    if ("ball" == tag1.get())
     {
         auto& audioSource = components2.get<AudioSource>();
         audioSource.play();

@@ -21,7 +21,9 @@ public:
     SoloGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader);
     ~SoloGameState() override = default;
 
+    void enter() final;
     void frame(float delta) final;
+    void exit() final;
 
 private:
     static bool onCollision(
@@ -43,6 +45,8 @@ private:
 
     Numerical<int> *m_scoreValue;
     Text *m_scoreText;
+
+    AABBCollisionSystem& m_aabbCollisionSystem;
 };
 
 #endif // __SOLO_GAME_STATE_H__

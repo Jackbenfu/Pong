@@ -10,6 +10,7 @@
 #include "soloConst.hpp"
 #include "state/soloServiceState.hpp"
 #include "state/soloGameState.hpp"
+#include "state/soloGameOverState.hpp"
 #include "../menu/menuScene.hpp"
 
 IMPORT_TEXT_RESOURCE(solo_tmx)
@@ -28,6 +29,7 @@ SoloScene::SoloScene(Application& application, SceneManager<Scene>& sceneManager
 
     m_stateMachine.addState<SoloServiceState>(*this, sceneLoader);
     m_stateMachine.addState<SoloGameState>(*this, sceneLoader);
+    m_stateMachine.addState<SoloGameOverState>(*this, sceneLoader);
     m_stateMachine.start();
 }
 
@@ -112,4 +114,7 @@ void SoloScene::configure(const TmxSceneLoader& sceneLoader)
         auto score = sceneLoader.entity("score");
         addComponent<Numerical<int>>(score, 0);
     }
+
+    disableEntity(sceneLoader.entity("game_over"));
+    disableEntity(sceneLoader.entity("terminate_game_instruction"));
 }

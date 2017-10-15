@@ -21,7 +21,9 @@ public:
     MultiGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader);
     ~MultiGameState() override = default;
 
+    void enter() final;
     void frame(float delta) final;
+    void exit() final;
 
 private:
     static bool onCollision(
@@ -52,6 +54,8 @@ private:
 
     Numerical<int> *m_rightScoreValue;
     Text *m_rightScoreText;
+
+    AABBCollisionSystem& m_aabbCollisionSystem;
 };
 
 #endif // __MULTI_GAME_STATE_H__

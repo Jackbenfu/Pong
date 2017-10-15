@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="48" height="36" tilewidth="16" tileheight="16" backgroundcolor="#000000" nextobjectid="116">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="48" height="36" tilewidth="16" tileheight="16" backgroundcolor="#000000" nextobjectid="118">
  <tileset firstgid="1" name="Tileset" tilewidth="16" tileheight="16" tilecount="9" columns="3">
   <image source="tileset.png" width="48" height="48"/>
  </tileset>
@@ -83,7 +83,7 @@
  </objectgroup>
  <objectgroup name="scores">
   <object id="94" name="terminate_game_instruction" x="416" y="480" width="336" height="48">
-   <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#646464" halign="center" valign="center">Press SPACEBAR...</text>
+   <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#646464" halign="center">Press SPACEBAR...</text>
   </object>
   <object id="99" name="game_over" x="80" y="128" width="608" height="128">
    <text fontfamily="Volter (Goldfish)" pixelsize="90" color="#ffffff" halign="center" valign="center">GAME OVER</text>
@@ -94,8 +94,14 @@
   <object id="97" name="left_result" x="112" y="336" width="144" height="64">
    <text fontfamily="Volter (Goldfish)" pixelsize="63" wrap="1" color="#ffffff" halign="center" valign="center">0</text>
   </object>
+  <object id="116" name="right_score_max" x="336" y="96" width="32" height="16">
+   <text fontfamily="Volter (Goldfish)" pixelsize="18" wrap="1" color="#646464" halign="center" valign="center">/5</text>
+  </object>
   <object id="93" name="right_score" x="416" y="48" width="48" height="64">
    <text fontfamily="Volter (Goldfish)" pixelsize="54" wrap="1" color="#ffffff" halign="center" valign="center">0</text>
+  </object>
+  <object id="117" name="left_score_max" x="448" y="96" width="32" height="16">
+   <text fontfamily="Volter (Goldfish)" pixelsize="18" wrap="1" color="#646464" halign="center" valign="center">/5</text>
   </object>
   <object id="92" name="left_score" x="304" y="48" width="48" height="64">
    <text fontfamily="Volter (Goldfish)" pixelsize="54" wrap="1" color="#ffffff" halign="center" valign="center">0</text>

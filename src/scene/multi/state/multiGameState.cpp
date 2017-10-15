@@ -18,11 +18,9 @@ MultiGameState::MultiGameState(StateMachine& stateMachine, Scene& scene, TmxScen
       m_rightPaddle {sceneLoader.entity("right_paddle")},
       m_ball {sceneLoader.entity("ball")},
       m_leftScore {sceneLoader.entity("left_score")},
-      m_rightScore {sceneLoader.entity("right_score")}
+      m_rightScore {sceneLoader.entity("right_score")},
+      m_aabbCollisionSystem {m_scene.getSystem<AABBCollisionSystem>()}
 {
-    auto& aabbCollisionSystem = m_scene.getSystem<AABBCollisionSystem>();
-    aabbCollisionSystem.setCallback(onCollision);
-
     m_ballTransform = &m_scene.getComponent<Transform>(m_ball);
     m_ballBoxShape = &m_scene.getComponent<BoxShape>(m_ball);
     m_leftScoreValue = &m_scene.getComponent<Numerical<int>>(m_leftScore);
@@ -31,6 +29,11 @@ MultiGameState::MultiGameState(StateMachine& stateMachine, Scene& scene, TmxScen
     m_rightScoreText = &m_scene.getComponent<Text>(m_rightScore);
     m_leftPaddleIsServing = &m_scene.getComponent<Numerical<bool>>(m_leftPaddle);
     m_rightPaddleIsServing = &m_scene.getComponent<Numerical<bool>>(m_rightPaddle);
+}
+
+void MultiGameState::enter()
+{
+    m_aabbCollisionSystem.setCallback(onCollision);
 }
 
 void MultiGameState::frame(float)
@@ -62,6 +65,11 @@ void MultiGameState::frame(float)
     {
         stateMachine().goToState<MultiServiceState>();
     }
+}
+
+void MultiGameState::exit()
+{
+    m_aabbCollisionSystem.unsetCallback();
 }
 
 bool MultiGameState::onCollision(float, ComponentCollection& components1, ComponentCollection& components2,

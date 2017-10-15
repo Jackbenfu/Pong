@@ -68,6 +68,7 @@ set(
     src/scene/solo/soloScene.cpp
     src/scene/solo/state/soloServiceState.cpp
     src/scene/solo/state/soloGameState.cpp
+    src/scene/solo/state/soloGameOverState.cpp
     src/scene/multi/multiScene.cpp
     src/scene/multi/state/multiServiceState.cpp
     src/scene/multi/state/multiGameState.cpp
