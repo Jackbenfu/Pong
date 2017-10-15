@@ -20,9 +20,10 @@ cd -
     -bresources/left.wav     \
     -bresources/right.wav    \
     -bresources/wall.wav     \
-    -bresources/tileset.png  \
     -tresources/menu.tmx     \
-    -tresources/multi.tmx
+    -tresources/solo.tmx     \
+    -tresources/multi.tmx    \
+    -bresources/tileset.png
 
 # Building Pong web output
 make -f Makefile.emscripten

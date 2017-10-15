@@ -10,22 +10,21 @@
 #include "../../menu/menuScene.hpp"
 
 SoloGameOverState::SoloGameOverState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
-    : State(stateMachine),
-      m_scene {scene},
+    : SceneState(stateMachine, scene),
       m_gameOver {sceneLoader.entity("game_over")},
       m_terminateGameInstruction {sceneLoader.entity("terminate_game_instruction")}
 { }
 
 void SoloGameOverState::enter()
 {
-    m_scene.enableEntity(m_gameOver);
-    m_scene.enableEntity(m_terminateGameInstruction);
+    enableEntity(m_gameOver);
+    enableEntity(m_terminateGameInstruction);
 }
 
 void SoloGameOverState::frame(float)
 {
-    if (m_scene.input().keyPress(KeyboardKey::Space))
+    if (input().keyPress(KeyboardKey::Space))
     {
-        m_scene.loadScene<MenuScene>();
+        loadScene<MenuScene>();
     }
 }

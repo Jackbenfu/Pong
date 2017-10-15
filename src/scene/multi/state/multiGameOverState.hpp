@@ -11,7 +11,7 @@
 
 #include "multiServiceState.hpp"
 
-class MultiGameOverState : public State
+class MultiGameOverState : public SceneState
 {
     DISALLOW_COPY_AND_MOVE(MultiGameOverState)
 
@@ -23,8 +23,6 @@ public:
     void frame(float delta) final;
 
 private:
-    Scene& m_scene;
-
     const Entity m_leftScore;
     const Entity m_rightScore;
     const Entity m_leftResult;

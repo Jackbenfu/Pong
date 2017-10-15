@@ -15,13 +15,17 @@ INCLUDES            = -Iexternal/jackbengine/external   \
                       -Iexternal/jackbengine/src        \
                       -Isrc
 
-SOURCES             =   src/main.cpp                            \
-                        src/app.cpp                             \
-                        src/scene/multi/multiScene.cpp          \
-                        src/scene/multi/state/serviceState.cpp  \
-                        src/scene/multi/state/gameState.cpp     \
-                        src/scene/multi/state/gameOverState.cpp \
-                        src/scene/menu/menuScene.cpp            \
+SOURCES             =   src/main.cpp                                    \
+                        src/app.cpp                                     \
+                        src/scene/menu/menuScene.cpp                    \
+                        src/scene/solo/soloScene.cpp                    \
+                        src/scene/solo/state/soloServiceState.cpp       \
+                        src/scene/solo/state/soloGameState.cpp          \
+                        src/scene/solo/state/soloGameOverState.cpp      \
+                        src/scene/multi/multiScene.cpp                  \
+                        src/scene/multi/state/multiServiceState.cpp     \
+                        src/scene/multi/state/multiGameState.cpp        \
+                        src/scene/multi/state/multiGameOverState.cpp    \
                         resources.cpp
 
 LIB_JACKBENGINE     = libjackbengine.bc

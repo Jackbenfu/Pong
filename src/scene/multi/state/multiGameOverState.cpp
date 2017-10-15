@@ -11,8 +11,7 @@
 #include "../multiConst.hpp"
 
 MultiGameOverState::MultiGameOverState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
-    : State(stateMachine),
-      m_scene {scene},
+    : SceneState(stateMachine, scene),
       m_leftScore {sceneLoader.entity("left_score")},
       m_rightScore {sceneLoader.entity("right_score")},
       m_leftResult {sceneLoader.entity("left_result")},
@@ -23,15 +22,15 @@ MultiGameOverState::MultiGameOverState(StateMachine& stateMachine, Scene& scene,
 
 void MultiGameOverState::enter()
 {
-    m_scene.enableEntity(m_gameOver);
-    m_scene.enableEntity(m_leftResult);
-    m_scene.enableEntity(m_rightResult);
-    m_scene.enableEntity(m_terminateGameInstruction);
+    enableEntity(m_gameOver);
+    enableEntity(m_leftResult);
+    enableEntity(m_rightResult);
+    enableEntity(m_terminateGameInstruction);
 
-    auto& leftResultText = m_scene.getComponent<Text>(m_leftResult);
-    auto& rightResultText = m_scene.getComponent<Text>(m_rightResult);
+    auto& leftResultText = getComponent<Text>(m_leftResult);
+    auto& rightResultText = getComponent<Text>(m_rightResult);
 
-    auto& leftScore = m_scene.getComponent<Numerical<int>>(m_leftScore);
+    auto& leftScore = getComponent<Numerical<int>>(m_leftScore);
     if (MultiConst::ScoreToWin == leftScore.get())
     {
         leftResultText.setText(MultiConst::WinText);
@@ -50,8 +49,8 @@ void MultiGameOverState::enter()
 
 void MultiGameOverState::frame(float)
 {
-    if (m_scene.input().keyPress(KeyboardKey::Space))
+    if (input().keyPress(KeyboardKey::Space))
     {
-        m_scene.loadScene<MenuScene>();
+        loadScene<MenuScene>();
     }
 }

@@ -13,7 +13,7 @@
 
 using namespace Jackbengine;
 
-class SoloGameState : public State
+class SoloGameState : public SceneState
 {
     DISALLOW_COPY_AND_MOVE(SoloGameState)
 
@@ -35,10 +35,8 @@ private:
         Text *scoreText
     );
 
-    Scene& m_scene;
-
-    Entity m_ball;
-    Entity m_score;
+    const Entity m_ball;
+    const Entity m_score;
 
     Transform *m_ballTransform;
     BoxShape *m_ballBoxShape;

@@ -10,8 +10,7 @@
 #include "multiGameState.hpp"
 
 MultiServiceState::MultiServiceState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
-    : State(stateMachine),
-      m_scene {scene},
+    : SceneState(stateMachine, scene),
       m_leftPaddle {sceneLoader.entity("left_paddle")},
       m_rightPaddle {sceneLoader.entity("right_paddle")},
       m_ball {sceneLoader.entity("ball")},
@@ -22,14 +21,14 @@ MultiServiceState::MultiServiceState(StateMachine& stateMachine, Scene& scene, T
       m_rightPaddleInstruction1 {sceneLoader.entity("right_paddle_instruction_1")},
       m_rightPaddleInstruction2 {sceneLoader.entity("right_paddle_instruction_2")},
       m_ballInstruction1 {sceneLoader.entity("launch_ball_instruction_1")},
-      m_ballInstruction2 {sceneLoader.entity("launch_ball_instruction_2")}
+      m_ballInstruction2 {sceneLoader.entity("launch_ball_instruction_2")},
+      m_leftPaddleIsServing {&getComponent<Numerical<bool>>(m_leftPaddle)},
+      m_rightPaddleIsServing {&getComponent<Numerical<bool>>(m_rightPaddle)},
+      m_ballTransform {&getComponent<Transform>(m_ball)},
+      m_ballBoxShape {&getComponent<BoxShape>(m_ball)},
+      m_ballVelocity {&getComponent<Velocity>(m_ball)},
+      m_ballSpeed {&getComponent<Numerical<int>>(m_ball)}
 {
-    m_leftPaddleIsServing = &m_scene.getComponent<Numerical<bool>>(m_leftPaddle);
-    m_rightPaddleIsServing = &m_scene.getComponent<Numerical<bool>>(m_rightPaddle);
-    m_ballBoxShape = &m_scene.getComponent<BoxShape>(m_ball);
-    m_ballVelocity = &m_scene.getComponent<Velocity>(m_ball);
-    m_ballSpeed = &m_scene.getComponent<Numerical<int>>(m_ball);
-    m_ballTransform = &m_scene.getComponent<Transform>(m_ball);
     m_ballTransform->setPosition(-32.0f, -32.0f);
 
     if (0 == (std::rand() % 2)) // NOLINT
@@ -56,17 +55,17 @@ void MultiServiceState::enter()
     {
         m_servingPaddle = m_rightPaddle;
     }
-    m_servingPaddleTransform = &m_scene.getComponent<Transform>(m_servingPaddle);
-    m_servingPaddleBoxShape = &m_scene.getComponent<BoxShape>(m_servingPaddle);
+    m_servingPaddleTransform = &getComponent<Transform>(m_servingPaddle);
+    m_servingPaddleBoxShape = &getComponent<BoxShape>(m_servingPaddle);
 
-    m_scene.disableComponent<Velocity>(m_ball);
+    disableComponent<Velocity>(m_ball);
 }
 
 void MultiServiceState::frame(float)
 {
     stickBallToPaddle();
 
-    if (m_scene.input().keyPress(KeyboardKey::Space))
+    if (input().keyPress(KeyboardKey::Space))
     {
         launchBall();
 
@@ -106,17 +105,17 @@ void MultiServiceState::launchBall()
 
     auto ballSpeed = m_ballSpeed->get();
     m_ballVelocity->set(ballVel.x * ballSpeed, ballVel.y * ballSpeed);
-    m_scene.enableComponent<Velocity>(m_ball);
+    enableComponent<Velocity>(m_ball);
 }
 
 void MultiServiceState::showInstructions(bool show)
 {
-    m_scene.enableEntity(m_goal1, show);
-    m_scene.enableEntity(m_goal2, show);
-    m_scene.enableEntity(m_leftPaddleInstruction1, show);
-    m_scene.enableEntity(m_leftPaddleInstruction2, show);
-    m_scene.enableEntity(m_rightPaddleInstruction1, show);
-    m_scene.enableEntity(m_rightPaddleInstruction2, show);
-    m_scene.enableEntity(m_ballInstruction1, show);
-    m_scene.enableEntity(m_ballInstruction2, show);
+    enableEntity(m_goal1, show);
+    enableEntity(m_goal2, show);
+    enableEntity(m_leftPaddleInstruction1, show);
+    enableEntity(m_leftPaddleInstruction2, show);
+    enableEntity(m_rightPaddleInstruction1, show);
+    enableEntity(m_rightPaddleInstruction2, show);
+    enableEntity(m_ballInstruction1, show);
+    enableEntity(m_ballInstruction2, show);
 }

@@ -13,7 +13,7 @@
 
 using namespace Jackbengine;
 
-class MultiGameState : public State
+class MultiGameState : public SceneState
 {
     DISALLOW_COPY_AND_MOVE(MultiGameState)
 
@@ -34,8 +34,6 @@ private:
     );
 
     void updateScore(Entity scoreEntity, int newScore);
-
-    Scene& m_scene;
 
     const Entity m_leftPaddle;
     const Entity m_rightPaddle;

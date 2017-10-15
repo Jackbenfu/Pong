@@ -13,7 +13,7 @@
 
 using namespace Jackbengine;
 
-class SoloServiceState : public State
+class SoloServiceState : public SceneState
 {
     DISALLOW_COPY_AND_MOVE(SoloServiceState)
 
@@ -27,20 +27,16 @@ private:
     void launchBall();
     void hideInstructions();
 
-    Scene& m_scene;
-
-    Entity m_ball;
-    Entity m_instruction1;
-    Entity m_instruction2;
-    Entity m_instruction3;
-    Entity m_instruction4;
-    Entity m_instruction5;
-    Entity m_instruction6;
+    const Entity m_ball;
+    const Entity m_instruction1;
+    const Entity m_instruction2;
+    const Entity m_instruction3;
+    const Entity m_instruction4;
+    const Entity m_instruction5;
+    const Entity m_instruction6;
 
     Velocity *m_ballVelocity;
     Numerical<int> *m_ballSpeed;
-
-
 };
 
 #endif // __SOLO_SERVICE_STATE_H__

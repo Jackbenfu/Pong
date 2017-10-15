@@ -13,7 +13,7 @@
 
 using namespace Jackbengine;
 
-class SoloGameOverState : public State
+class SoloGameOverState : public SceneState
 {
     DISALLOW_COPY_AND_MOVE(SoloGameOverState)
 
@@ -25,8 +25,6 @@ public:
     void frame(float delta) final;
 
 private:
-    Scene& m_scene;
-
     const Entity m_gameOver;
     const Entity m_terminateGameInstruction;
 };

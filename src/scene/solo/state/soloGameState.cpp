@@ -11,17 +11,15 @@
 #include "soloGameOverState.hpp"
 
 SoloGameState::SoloGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
-    : State(stateMachine),
-      m_scene {scene},
+    : SceneState(stateMachine, scene),
       m_ball {sceneLoader.entity("ball")},
       m_score {sceneLoader.entity("score")},
-      m_aabbCollisionSystem {m_scene.getSystem<AABBCollisionSystem>()}
-{
-    m_ballTransform = &m_scene.getComponent<Transform>(m_ball);
-    m_ballBoxShape = &m_scene.getComponent<BoxShape>(m_ball);
-    m_scoreValue = &m_scene.getComponent<Numerical<int>>(m_score);
-    m_scoreText = &m_scene.getComponent<Text>(m_score);
-}
+      m_ballTransform {&getComponent<Transform>(m_ball)},
+      m_ballBoxShape {&getComponent<BoxShape>(m_ball)},
+      m_scoreValue {&getComponent<Numerical<int>>(m_score)},
+      m_scoreText {&getComponent<Text>(m_score)},
+      m_aabbCollisionSystem {getSystem<AABBCollisionSystem>()}
+{ }
 
 void SoloGameState::enter()
 {

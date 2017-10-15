@@ -13,7 +13,7 @@
 
 using namespace Jackbengine;
 
-class MultiServiceState : public State
+class MultiServiceState : public SceneState
 {
     DISALLOW_COPY_AND_MOVE(MultiServiceState)
 
@@ -29,8 +29,6 @@ private:
     void stickBallToPaddle();
     void launchBall();
     void showInstructions(bool show);
-
-    Scene& m_scene;
 
     const Entity m_leftPaddle;
     const Entity m_rightPaddle;

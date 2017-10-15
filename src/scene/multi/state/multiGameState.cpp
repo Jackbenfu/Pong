@@ -12,24 +12,22 @@
 #include "../multiConst.hpp"
 
 MultiGameState::MultiGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
-    : State(stateMachine),
-      m_scene {scene},
+    : SceneState(stateMachine, scene),
       m_leftPaddle {sceneLoader.entity("left_paddle")},
       m_rightPaddle {sceneLoader.entity("right_paddle")},
       m_ball {sceneLoader.entity("ball")},
       m_leftScore {sceneLoader.entity("left_score")},
       m_rightScore {sceneLoader.entity("right_score")},
-      m_aabbCollisionSystem {m_scene.getSystem<AABBCollisionSystem>()}
-{
-    m_ballTransform = &m_scene.getComponent<Transform>(m_ball);
-    m_ballBoxShape = &m_scene.getComponent<BoxShape>(m_ball);
-    m_leftScoreValue = &m_scene.getComponent<Numerical<int>>(m_leftScore);
-    m_leftScoreText = &m_scene.getComponent<Text>(m_leftScore);
-    m_rightScoreValue = &m_scene.getComponent<Numerical<int>>(m_rightScore);
-    m_rightScoreText = &m_scene.getComponent<Text>(m_rightScore);
-    m_leftPaddleIsServing = &m_scene.getComponent<Numerical<bool>>(m_leftPaddle);
-    m_rightPaddleIsServing = &m_scene.getComponent<Numerical<bool>>(m_rightPaddle);
-}
+      m_leftPaddleIsServing {&getComponent<Numerical<bool>>(m_leftPaddle)},
+      m_rightPaddleIsServing {&getComponent<Numerical<bool>>(m_rightPaddle)},
+      m_ballTransform {&getComponent<Transform>(m_ball)},
+      m_ballBoxShape {&getComponent<BoxShape>(m_ball)},
+      m_leftScoreValue {&getComponent<Numerical<int>>(m_leftScore)},
+      m_leftScoreText {&getComponent<Text>(m_leftScore)},
+      m_rightScoreValue {&getComponent<Numerical<int>>(m_rightScore)},
+      m_rightScoreText {&getComponent<Text>(m_rightScore)},
+      m_aabbCollisionSystem {getSystem<AABBCollisionSystem>()}
+{ }
 
 void MultiGameState::enter()
 {
@@ -42,7 +40,7 @@ void MultiGameState::frame(float)
     auto rightScore = m_rightScoreValue->get();
 
     auto needToRestartGame = false;
-    if (m_ballTransform->positionX() > m_scene.renderer().width())
+    if (m_ballTransform->positionX() > renderer().width())
     {
         needToRestartGame = true;
         m_leftPaddleIsServing->set(true);
