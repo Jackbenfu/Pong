@@ -17,7 +17,7 @@ namespace SoloConst
 constexpr float PaddleSpeed = 500.0f;
 
 constexpr int BallSpeedMin = 500;
-constexpr int BallSpeedMax = 800;
+constexpr int BallSpeedMax = 700;
 constexpr int BallSpeedIncr = 5;
 
 }

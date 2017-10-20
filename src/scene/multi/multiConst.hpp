@@ -19,7 +19,7 @@ constexpr int ScoreToWin = 5;
 constexpr float PaddleSpeed = 500.0f;
 
 constexpr int BallSpeedMin = 500;
-constexpr int BallSpeedMax = 800;
+constexpr int BallSpeedMax = 700;
 constexpr int BallSpeedIncr = 5;
 
 const Color32 WinColor = Color32(69, 183, 130);
