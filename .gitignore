@@ -8,6 +8,9 @@
 # CLion
 .idea/
 cmake-build-debug/
+cmake-build-minsizerel/
+cmake-build-release/
+cmake-build-relwithdebinfo/
 
 # Generated source files
 resources.cpp
