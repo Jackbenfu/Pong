@@ -35,8 +35,8 @@ MultiScene::MultiScene(Application& application, SceneManager<Scene>& sceneManag
 
 void MultiScene::frame(float delta)
 {
-    handlePaddleMotion(m_leftPaddleVelocity, KeyboardKey::E, KeyboardKey::C);
-    handlePaddleMotion(m_rightPaddleVelocity, KeyboardKey::Up, KeyboardKey::Down);
+    handlePaddleMotion(m_leftPaddleVelocity, KeyboardKey::S, KeyboardKey::X);
+    handlePaddleMotion(m_rightPaddleVelocity, KeyboardKey::P, KeyboardKey::L);
 
     m_stateMachine.frame(delta);
 

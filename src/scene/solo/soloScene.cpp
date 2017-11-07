@@ -35,7 +35,7 @@ SoloScene::SoloScene(Application& application, SceneManager<Scene>& sceneManager
 
 void SoloScene::frame(float delta)
 {
-    handlePaddleMotion(KeyboardKey::Up, KeyboardKey::Down);
+    handlePaddleMotion(KeyboardKey::S, KeyboardKey::X);
 
     m_stateMachine.frame(delta);
 

@@ -45,7 +45,7 @@
  </layer>
  <objectgroup name="about">
   <object id="66" name="author" x="16" y="512" width="736" height="32">
-   <text fontfamily="Volter (Goldfish)" pixelsize="18" wrap="1" color="#646464" halign="right" valign="bottom">Copyright © 2016 Jackben</text>
+   <text fontfamily="Volter (Goldfish)" pixelsize="18" wrap="1" color="#646464" halign="right" valign="bottom">Copyright © 2017 Jackbenfu</text>
   </object>
  </objectgroup>
  <objectgroup name="menu">

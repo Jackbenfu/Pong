@@ -48,19 +48,19 @@
    <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#646464" valign="center">launch the ball</text>
   </object>
   <object id="19" name="instruction_5" x="48" y="224" width="272" height="32">
-   <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#ddad1d" halign="right" valign="center">SPACEBAR:</text>
+   <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#ddad1d" halign="right" valign="center">SPACEBAR</text>
   </object>
   <object id="17" name="instruction_4" x="352" y="176" width="384" height="32">
    <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#646464" valign="center">move the paddle</text>
   </object>
-  <object id="16" name="instruction_3" x="48" y="176" width="272" height="32">
-   <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#ddad1d" halign="right" valign="center">UP or DOWN:</text>
+  <object id="16" name="instruction_3" x="50" y="176" width="272" height="32">
+   <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#ddad1d" halign="right" valign="center">S or X</text>
   </object>
   <object id="15" name="instruction_2" x="352" y="128" width="384" height="32">
    <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#646464" valign="center">score a max!</text>
   </object>
   <object id="14" name="instruction_1" x="48" y="128" width="272" height="32">
-   <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#ddad1d" halign="right" valign="center">Goal:</text>
+   <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#ddad1d" halign="right" valign="center">Goal</text>
   </object>
  </objectgroup>
  <objectgroup name="score">
