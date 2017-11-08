@@ -5,7 +5,7 @@ This game serves as the first prototype for the project [Jackbengine](https://gi
 
 ## Binaries
 You can download the game binaries below or test the Web version directly in your browser!
-- Web: https://jackbenfu.itch.io/pong (or https://jackbenfu.github.io/Pong/index.html on gh)
+- Web: https://jackbenfu.itch.io/pong
 - OS X: https://jackbenfu.github.io/Pong/pong-macOS.zip
 - Windows: https://jackbenfu.github.io/Pong/pong-win.zip
 
