@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pong</title>
+    <link rel="preload" href="pixel.ttf" as="font" />
+    <style>
+        @font-face {
+            font-family: 'pixel';
+            src: url('pixel.ttf');
+        }
+
+        body {
+            background: #000;
+            margin: 0 auto;
+            padding: 0;
+            width: 768px;
+        }
+
+        #warning-focus {
+            background: #C45949;
+            bottom: 0;
+            color: #FFF;
+            cursor: pointer;
+            font-family: pixel, sans-serif;
+            font-size: 30px;
+            height: 60px;
+            left: 0;
+            line-height: 30px;
+            margin: auto;
+            padding: 10px;
+            position: absolute;
+            right: 0;
+            text-align: center;
+            top: 0;
+            width: 550px;
+        }
+
+        #loading {
+            color: #FFF;
+            font-family: pixel, sans-serif;
+            font-size: 30px;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body onkeydown="preventUseOfDefaultKeys(event);" onfocus="onFocus()" onblur="onBlur()">
+<div id="loading">Loading...</div>
+<canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+<div id="warning-focus" style="display: none">
+    Game has lost focus!<br />
+    Click on me to restore focus...
+</div>
+<script type="text/javascript">
+    window.focus();
+
+    var Module = {
+        onRuntimeInitialized: function() {
+            document.getElementById('loading').style.display = 'none';
+        },
+        canvas: (function() {
+            return document.getElementById('canvas');
+        })()
+    };
+
+    function preventUseOfDefaultKeys(event) {
+        if (event.keyCode === 27 || event.keyCode === 32) {
+            event.preventDefault();
+        }
+    }
+
+    function onFocus() {
+        document.getElementById('warning-focus').style.display = 'none';
+        document.getElementById('canvas').style.opacity = 1.0.toString();
+    }
+
+    function onBlur() {
+        document.getElementById('warning-focus').style.display = 'block';
+        document.getElementById('canvas').style.opacity = .2.toString();
+    }
+</script>
+<script type="text/javascript" async defer src="pong.js"></script>
+</body>
+</html>
