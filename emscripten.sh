@@ -21,7 +21,7 @@ cd -
     -bresources/right.wav    \
     -bresources/wall.wav     \
     -tresources/menu.tmx     \
-    -tresources/solo.tmx     \
+    -tresources/wall.tmx     \
     -tresources/multi.tmx    \
     -bresources/tileset.png
 

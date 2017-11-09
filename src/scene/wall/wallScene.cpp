@@ -1,39 +1,39 @@
 //
-// soloScene.cpp
+// wallScene.cpp
 // pong
 //
 // Created by Damien Bendejacq on 11/10/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#include "soloScene.hpp"
-#include "soloConst.hpp"
-#include "state/soloServiceState.hpp"
-#include "state/soloGameState.hpp"
-#include "state/soloGameOverState.hpp"
+#include "wallScene.hpp"
+#include "wallConst.hpp"
+#include "state/wallServiceState.hpp"
+#include "state/wallGameState.hpp"
+#include "state/wallGameOverState.hpp"
 #include "../menu/menuScene.hpp"
 
-IMPORT_TEXT_RESOURCE(solo_tmx)
+IMPORT_TEXT_RESOURCE(wall_tmx)
 IMPORT_BINARY_RESOURCE(tileset_png)
 IMPORT_BINARY_RESOURCE(default_font)
 IMPORT_BINARY_RESOURCE(left_wav)
 IMPORT_BINARY_RESOURCE(right_wav)
 IMPORT_BINARY_RESOURCE(wall_wav)
 
-SoloScene::SoloScene(Application& application, SceneManager<Scene>& sceneManager)
+WallScene::WallScene(Application& application, SceneManager<Scene>& sceneManager)
     : Scene(application, sceneManager)
 {
-    TmxSceneLoader sceneLoader {*this, solo_tmx, tileset_png, tileset_png_size, default_font, default_font_size};
+    TmxSceneLoader sceneLoader {*this, wall_tmx, tileset_png, tileset_png_size, default_font, default_font_size};
 
     configure(sceneLoader);
 
-    m_stateMachine.addState<SoloServiceState>(*this, sceneLoader);
-    m_stateMachine.addState<SoloGameState>(*this, sceneLoader);
-    m_stateMachine.addState<SoloGameOverState>(*this, sceneLoader);
+    m_stateMachine.addState<WallServiceState>(*this, sceneLoader);
+    m_stateMachine.addState<WallGameState>(*this, sceneLoader);
+    m_stateMachine.addState<WallGameOverState>(*this, sceneLoader);
     m_stateMachine.start();
 }
 
-void SoloScene::frame(float delta)
+void WallScene::frame(float delta)
 {
     handlePaddleMotion(KeyboardKey::S, KeyboardKey::X);
 
@@ -45,14 +45,14 @@ void SoloScene::frame(float delta)
     }
 }
 
-void SoloScene::handlePaddleMotion(KeyboardKey upKey, KeyboardKey downKey)
+void WallScene::handlePaddleMotion(KeyboardKey upKey, KeyboardKey downKey)
 {
     auto up = input().keyDown(upKey);
     auto down = input().keyDown(downKey);
 
     if (up ^ down)
     {
-        m_paddleVelocity->set(0.0f, up ? -SoloConst::PaddleSpeed : SoloConst::PaddleSpeed);
+        m_paddleVelocity->set(0.0f, up ? -WallConst::PaddleSpeed : WallConst::PaddleSpeed);
     }
     else
     {
@@ -60,7 +60,7 @@ void SoloScene::handlePaddleMotion(KeyboardKey upKey, KeyboardKey downKey)
     }
 }
 
-void SoloScene::configure(const TmxSceneLoader& sceneLoader)
+void WallScene::configure(const TmxSceneLoader& sceneLoader)
 {
     auto& aabbCollisionSystem = getSystem<AABBCollisionSystem>();
     aabbCollisionSystem.addGroup("paddle", "wall");
@@ -106,7 +106,7 @@ void SoloScene::configure(const TmxSceneLoader& sceneLoader)
         auto ball = sceneLoader.entity("ball");
         addComponent<Velocity>(ball);
         addComponent<Tag>(ball, "ball");
-        addComponent<Numerical<int>>(ball, SoloConst::BallSpeedMin);
+        addComponent<Numerical<int>>(ball, WallConst::BallSpeedMin);
     }
 
     // Score

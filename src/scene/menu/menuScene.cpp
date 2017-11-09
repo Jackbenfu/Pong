@@ -7,7 +7,7 @@
 //
 
 #include "menuScene.hpp"
-#include "../solo/soloScene.hpp"
+#include "../wall/wallScene.hpp"
 #include "../multi/multiScene.hpp"
 
 IMPORT_TEXT_RESOURCE(menu_tmx)
@@ -22,9 +22,9 @@ MenuScene::MenuScene(Application& application, SceneManager<Scene>& sceneManager
     configure(sceneLoader);
 }
 
-void MenuScene::onSoloClick()
+void MenuScene::onWallClick()
 {
-    loadScene<SoloScene>();
+    loadScene<WallScene>();
     cursor().setCursor(CursorType::Default);
 }
 
@@ -41,14 +41,14 @@ void MenuScene::onQuitClick()
 
 void MenuScene::configure(const TmxSceneLoader& sceneLoader)
 {
-    // Solo button
-    {
-        loadButton(sceneLoader.entity("solo"), [this]() { onSoloClick(); });
-    }
-
-    // Multi button
+    // 2 players button
     {
         loadButton(sceneLoader.entity("multi"), [this]() { onMultiClick(); });
+    }
+
+    // Wall mode button
+    {
+        loadButton(sceneLoader.entity("wall"), [this]() { onWallClick(); });
     }
 
     // Quit button

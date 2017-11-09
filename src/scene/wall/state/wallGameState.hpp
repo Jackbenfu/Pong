@@ -1,25 +1,25 @@
 //
-// soloGameState.hpp
+// wallGameState.hpp
 // pong
 //
 // Created by Damien Bendejacq on 12/10/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#ifndef __SOLO_GAME_STATE_H__
-#define __SOLO_GAME_STATE_H__
+#ifndef __WALL_GAME_STATE_H__
+#define __WALL_GAME_STATE_H__
 
 #include "jackbengine.hpp"
 
 using namespace Jackbengine;
 
-class SoloGameState : public SceneState
+class WallGameState : public SceneState
 {
-    DISALLOW_COPY_AND_MOVE(SoloGameState)
+    DISALLOW_COPY_AND_MOVE(WallGameState)
 
 public:
-    SoloGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader);
-    ~SoloGameState() override = default;
+    WallGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader);
+    ~WallGameState() override = default;
 
     void enter() final;
     void frame(float delta) final;
@@ -47,4 +47,4 @@ private:
     AABBCollisionSystem& m_aabbCollisionSystem;
 };
 
-#endif // __SOLO_GAME_STATE_H__
+#endif // __WALL_GAME_STATE_H__

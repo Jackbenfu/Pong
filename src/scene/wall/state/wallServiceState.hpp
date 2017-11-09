@@ -1,25 +1,25 @@
 //
-// soloServiceState.hpp
+// wallServiceState.hpp
 // pong
 //
 // Created by Damien Bendejacq on 11/10/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#ifndef __SOLO_SERVICE_STATE_H__
-#define __SOLO_SERVICE_STATE_H__
+#ifndef __WALL_SERVICE_STATE_H__
+#define __WALL_SERVICE_STATE_H__
 
 #include "jackbengine.hpp"
 
 using namespace Jackbengine;
 
-class SoloServiceState : public SceneState
+class WallServiceState : public SceneState
 {
-    DISALLOW_COPY_AND_MOVE(SoloServiceState)
+    DISALLOW_COPY_AND_MOVE(WallServiceState)
 
 public:
-    SoloServiceState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader);
-    ~SoloServiceState() override = default;
+    WallServiceState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader);
+    ~WallServiceState() override = default;
 
     void frame(float delta) final;
 
@@ -39,4 +39,4 @@ private:
     Numerical<int> *m_ballSpeed;
 };
 
-#endif // __SOLO_SERVICE_STATE_H__
+#endif // __WALL_SERVICE_STATE_H__

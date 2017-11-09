@@ -28,7 +28,7 @@ add_custom_command(
         -b${PROJECT_SOURCE_DIR}/resources/right.wav
         -b${PROJECT_SOURCE_DIR}/resources/wall.wav
         -t${PROJECT_SOURCE_DIR}/resources/menu.tmx
-        -t${PROJECT_SOURCE_DIR}/resources/solo.tmx
+        -t${PROJECT_SOURCE_DIR}/resources/wall.tmx
         -t${PROJECT_SOURCE_DIR}/resources/multi.tmx
         -b${PROJECT_SOURCE_DIR}/resources/tileset.png
         -b${PROJECT_SOURCE_DIR}/resources/pong32x32.png
@@ -37,7 +37,7 @@ add_custom_command(
         resources/right.wav
         resources/wall.wav
         resources/menu.tmx
-        resources/solo.tmx
+        resources/wall.tmx
         resources/multi.tmx
         resources/tileset.png
         resources/pong32x32.png
@@ -65,10 +65,10 @@ set(
     src/main.cpp
     src/app.cpp
     src/scene/menu/menuScene.cpp
-    src/scene/solo/soloScene.cpp
-    src/scene/solo/state/soloServiceState.cpp
-    src/scene/solo/state/soloGameState.cpp
-    src/scene/solo/state/soloGameOverState.cpp
+    src/scene/wall/wallScene.cpp
+    src/scene/wall/state/wallServiceState.cpp
+    src/scene/wall/state/wallGameState.cpp
+    src/scene/wall/state/wallGameOverState.cpp
     src/scene/multi/multiScene.cpp
     src/scene/multi/state/multiServiceState.cpp
     src/scene/multi/state/multiGameState.cpp

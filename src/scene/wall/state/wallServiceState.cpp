@@ -1,15 +1,15 @@
 //
-// soloServiceState.cpp
+// wallServiceState.cpp
 // pong
 //
 // Created by Damien Bendejacq on 11/10/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#include "soloServiceState.hpp"
-#include "soloGameState.hpp"
+#include "wallServiceState.hpp"
+#include "wallGameState.hpp"
 
-SoloServiceState::SoloServiceState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
+WallServiceState::WallServiceState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : SceneState(stateMachine, scene),
       m_ball {sceneLoader.entity("ball")},
       m_instruction1 {sceneLoader.entity("instruction_1")},
@@ -22,18 +22,18 @@ SoloServiceState::SoloServiceState(StateMachine& stateMachine, Scene& scene, Tmx
       m_ballSpeed {&getComponent<Numerical<int>>(m_ball)}
 { }
 
-void SoloServiceState::frame(float)
+void WallServiceState::frame(float)
 {
     if (input().keyPress(KeyboardKey::Space))
     {
         launchBall();
         hideInstructions();
 
-        goToState<SoloGameState>();
+        goToState<WallGameState>();
     }
 }
 
-void SoloServiceState::launchBall()
+void WallServiceState::launchBall()
 {
     Vec2f ballVel;
     ballVel.x = 1.0f;
@@ -45,7 +45,7 @@ void SoloServiceState::launchBall()
     enableComponent<Velocity>(m_ball);
 }
 
-void SoloServiceState::hideInstructions()
+void WallServiceState::hideInstructions()
 {
     disableEntity(m_instruction1);
     disableEntity(m_instruction2);

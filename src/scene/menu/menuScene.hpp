@@ -22,7 +22,7 @@ public:
     ~MenuScene() override = default;
 
 private:
-    void onSoloClick();
+    void onWallClick();
     void onMultiClick();
     void onQuitClick();
 

@@ -1,16 +1,16 @@
 //
-// soloGameState.cpp
+// wallGameState.cpp
 // pong
 //
 // Created by Damien Bendejacq on 12/10/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#include "soloGameState.hpp"
-#include "../soloConst.hpp"
-#include "soloGameOverState.hpp"
+#include "wallGameState.hpp"
+#include "../wallConst.hpp"
+#include "wallGameOverState.hpp"
 
-SoloGameState::SoloGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
+WallGameState::WallGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : SceneState(stateMachine, scene),
       m_ball {sceneLoader.entity("ball")},
       m_score {sceneLoader.entity("score")},
@@ -21,7 +21,7 @@ SoloGameState::SoloGameState(StateMachine& stateMachine, Scene& scene, TmxSceneL
       m_aabbCollisionSystem {getSystem<AABBCollisionSystem>()}
 { }
 
-void SoloGameState::enter()
+void WallGameState::enter()
 {
     m_aabbCollisionSystem.setCallback(
         [scoreValue = m_scoreValue, scoreText = m_scoreText]
@@ -32,20 +32,20 @@ void SoloGameState::enter()
     );
 }
 
-void SoloGameState::frame(float)
+void WallGameState::frame(float)
 {
     if (m_ballTransform->positionX() + m_ballBoxShape->width() < 0.0f)
     {
-        stateMachine().goToState<SoloGameOverState>();
+        stateMachine().goToState<WallGameOverState>();
     }
 }
 
-void SoloGameState::exit()
+void WallGameState::exit()
 {
     m_aabbCollisionSystem.unsetCallback();
 }
 
-bool SoloGameState::onCollision(float, ComponentCollection& components1, ComponentCollection& components2,
+bool WallGameState::onCollision(float, ComponentCollection& components1, ComponentCollection& components2,
                                 AABBCollisionSide collisionSide, Numerical<int> *scoreValue, Text *scoreText)
 {
     auto result = false;
@@ -74,9 +74,9 @@ bool SoloGameState::onCollision(float, ComponentCollection& components1, Compone
 
         auto ballSpeedVal = ballSpeed.get();
         ballVelocity.set(newBallVel.x * ballSpeedVal, newBallVel.y * ballSpeedVal);
-        if (SoloConst::BallSpeedMax > ballSpeedVal)
+        if (WallConst::BallSpeedMax > ballSpeedVal)
         {
-            ballSpeed.increment(SoloConst::BallSpeedIncr);
+            ballSpeed.increment(WallConst::BallSpeedIncr);
         }
 
         scoreValue->increment(1);

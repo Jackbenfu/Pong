@@ -1,25 +1,25 @@
 //
-// soloScene.hpp
+// wallScene.hpp
 // pong
 //
 // Created by Damien Bendejacq on 11/10/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#ifndef __SOLO_SCENE_H__
-#define __SOLO_SCENE_H__
+#ifndef __WALL_SCENE_H__
+#define __WALL_SCENE_H__
 
 #include "jackbengine.hpp"
 
 using namespace Jackbengine;
 
-class SoloScene : public Scene
+class WallScene : public Scene
 {
-    DISALLOW_COPY_AND_MOVE(SoloScene)
+    DISALLOW_COPY_AND_MOVE(WallScene)
 
 public:
-    SoloScene(Application& application, SceneManager<Scene>& sceneManager);
-    ~SoloScene() override = default;
+    WallScene(Application& application, SceneManager<Scene>& sceneManager);
+    ~WallScene() override = default;
 
 private:
     void frame(float delta) final;
@@ -32,4 +32,4 @@ private:
     Velocity *m_paddleVelocity;
 };
 
-#endif // __SOLO_SCENE_H__
+#endif // __WALL_SCENE_H__

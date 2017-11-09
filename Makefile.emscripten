@@ -18,10 +18,10 @@ INCLUDES            = -Iexternal/jackbengine/external   \
 SOURCES             =   src/main.cpp                                    \
                         src/app.cpp                                     \
                         src/scene/menu/menuScene.cpp                    \
-                        src/scene/solo/soloScene.cpp                    \
-                        src/scene/solo/state/soloServiceState.cpp       \
-                        src/scene/solo/state/soloGameState.cpp          \
-                        src/scene/solo/state/soloGameOverState.cpp      \
+                        src/scene/wall/wallScene.cpp                    \
+                        src/scene/wall/state/wallServiceState.cpp       \
+                        src/scene/wall/state/wallGameState.cpp          \
+                        src/scene/wall/state/wallGameOverState.cpp      \
                         src/scene/multi/multiScene.cpp                  \
                         src/scene/multi/state/multiServiceState.cpp     \
                         src/scene/multi/state/multiGameState.cpp        \
