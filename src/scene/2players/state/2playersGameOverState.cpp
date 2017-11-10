@@ -1,16 +1,16 @@
 //
-// multiGameOverState.cpp
+// 2playersGameOverState.cpp
 // pong
 //
 // Created by Damien Bendejacq on 02/10/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#include "multiGameOverState.hpp"
+#include "2playersGameOverState.hpp"
 #include "../../menu/menuScene.hpp"
-#include "../multiConst.hpp"
+#include "../2playersConst.hpp"
 
-MultiGameOverState::MultiGameOverState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
+TwoPlayersGameOverState::TwoPlayersGameOverState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : SceneState(stateMachine, scene),
       m_leftScore {sceneLoader.entity("left_score")},
       m_rightScore {sceneLoader.entity("right_score")},
@@ -20,7 +20,7 @@ MultiGameOverState::MultiGameOverState(StateMachine& stateMachine, Scene& scene,
       m_terminateGameInstruction {sceneLoader.entity("terminate_game_instruction")}
 { }
 
-void MultiGameOverState::enter()
+void TwoPlayersGameOverState::enter()
 {
     enableEntity(m_gameOver);
     enableEntity(m_leftResult);
@@ -31,23 +31,23 @@ void MultiGameOverState::enter()
     auto& rightResultText = getComponent<Text>(m_rightResult);
 
     auto& leftScore = getComponent<Numerical<int>>(m_leftScore);
-    if (MultiConst::ScoreToWin == leftScore.get())
+    if (TwoPlayersConst::ScoreToWin == leftScore.get())
     {
-        leftResultText.setText(MultiConst::WinText);
-        leftResultText.setForeground(MultiConst::WinColor);
-        rightResultText.setText(MultiConst::LoseText);
-        rightResultText.setForeground(MultiConst::LoseColor);
+        leftResultText.setText(TwoPlayersConst::WinText);
+        leftResultText.setForeground(TwoPlayersConst::WinColor);
+        rightResultText.setText(TwoPlayersConst::LoseText);
+        rightResultText.setForeground(TwoPlayersConst::LoseColor);
     }
     else
     {
-        leftResultText.setText(MultiConst::LoseText);
-        leftResultText.setForeground(MultiConst::LoseColor);
-        rightResultText.setText(MultiConst::WinText);
-        rightResultText.setForeground(MultiConst::WinColor);
+        leftResultText.setText(TwoPlayersConst::LoseText);
+        leftResultText.setForeground(TwoPlayersConst::LoseColor);
+        rightResultText.setText(TwoPlayersConst::WinText);
+        rightResultText.setForeground(TwoPlayersConst::WinColor);
     }
 }
 
-void MultiGameOverState::frame(float)
+void TwoPlayersGameOverState::frame(float)
 {
     if (input().keyPress(KeyboardKey::Space))
     {

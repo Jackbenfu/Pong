@@ -29,7 +29,7 @@ add_custom_command(
         -b${PROJECT_SOURCE_DIR}/resources/wall.wav
         -t${PROJECT_SOURCE_DIR}/resources/menu.tmx
         -t${PROJECT_SOURCE_DIR}/resources/wall.tmx
-        -t${PROJECT_SOURCE_DIR}/resources/multi.tmx
+        -t${PROJECT_SOURCE_DIR}/resources/two_players.tmx
         -b${PROJECT_SOURCE_DIR}/resources/tileset.png
         -b${PROJECT_SOURCE_DIR}/resources/pong32x32.png
     DEPENDS
@@ -38,7 +38,7 @@ add_custom_command(
         resources/wall.wav
         resources/menu.tmx
         resources/wall.tmx
-        resources/multi.tmx
+    resources/two_players.tmx
         resources/tileset.png
         resources/pong32x32.png
 )
@@ -69,10 +69,10 @@ set(
     src/scene/wall/state/wallServiceState.cpp
     src/scene/wall/state/wallGameState.cpp
     src/scene/wall/state/wallGameOverState.cpp
-    src/scene/multi/multiScene.cpp
-    src/scene/multi/state/multiServiceState.cpp
-    src/scene/multi/state/multiGameState.cpp
-    src/scene/multi/state/multiGameOverState.cpp
+    src/scene/2players/2playersScene.cpp
+    src/scene/2players/state/2playersServiceState.cpp
+    src/scene/2players/state/2playersGameState.cpp
+    src/scene/2players/state/2playersGameOverState.cpp
     resources.cpp
     ${ICON_FILE}
 )

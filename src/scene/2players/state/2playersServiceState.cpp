@@ -1,15 +1,15 @@
 //
-// multiServiceState.cpp
+// 2playersServiceState.cpp
 // pong
 //
 // Created by Damien Bendejacq on 27/09/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#include "multiServiceState.hpp"
-#include "multiGameState.hpp"
+#include "2playersServiceState.hpp"
+#include "2playersGameState.hpp"
 
-MultiServiceState::MultiServiceState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
+TwoPlayersServiceState::TwoPlayersServiceState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : SceneState(stateMachine, scene),
       m_leftPaddle {sceneLoader.entity("left_paddle")},
       m_rightPaddle {sceneLoader.entity("right_paddle")},
@@ -45,7 +45,7 @@ MultiServiceState::MultiServiceState(StateMachine& stateMachine, Scene& scene, T
     showInstructions(true);
 }
 
-void MultiServiceState::enter()
+void TwoPlayersServiceState::enter()
 {
     if (m_leftPaddleIsServing->get())
     {
@@ -61,7 +61,7 @@ void MultiServiceState::enter()
     disableComponent<Velocity>(m_ball);
 }
 
-void MultiServiceState::frame(float)
+void TwoPlayersServiceState::frame(float)
 {
     stickBallToPaddle();
 
@@ -69,16 +69,16 @@ void MultiServiceState::frame(float)
     {
         launchBall();
 
-        stateMachine().goToState<MultiGameState>();
+        stateMachine().goToState<TwoPlayersGameState>();
     }
 }
 
-void MultiServiceState::exit()
+void TwoPlayersServiceState::exit()
 {
     showInstructions(false);
 }
 
-void MultiServiceState::stickBallToPaddle()
+void TwoPlayersServiceState::stickBallToPaddle()
 {
     Vec2f ballPos;
     if (m_servingPaddle == m_leftPaddle)
@@ -96,7 +96,7 @@ void MultiServiceState::stickBallToPaddle()
     m_ballTransform->setPosition(ballPos.x, ballPos.y);
 }
 
-void MultiServiceState::launchBall()
+void TwoPlayersServiceState::launchBall()
 {
     Vec2f ballVel;
     ballVel.x = m_servingPaddle == m_leftPaddle ? 1.0f : -1.0f;
@@ -108,7 +108,7 @@ void MultiServiceState::launchBall()
     enableComponent<Velocity>(m_ball);
 }
 
-void MultiServiceState::showInstructions(bool show)
+void TwoPlayersServiceState::showInstructions(bool show)
 {
     enableEntity(m_goal1, show);
     enableEntity(m_goal2, show);

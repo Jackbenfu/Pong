@@ -88,11 +88,11 @@
   <object id="99" name="game_over" x="80" y="128" width="608" height="128">
    <text fontfamily="Volter (Goldfish)" pixelsize="90" color="#ffffff" halign="center" valign="center">GAME OVER</text>
   </object>
-  <object id="98" name="right_result" x="512" y="336" width="144" height="64">
-   <text fontfamily="Volter (Goldfish)" pixelsize="63" wrap="1" color="#ffffff" halign="center" valign="center">0</text>
+  <object id="98" name="right_result" x="496" y="336" width="176" height="64">
+   <text fontfamily="Volter (Goldfish)" pixelsize="63" wrap="1" color="#ffffff" halign="center" valign="center">LOSE</text>
   </object>
-  <object id="97" name="left_result" x="112" y="336" width="144" height="64">
-   <text fontfamily="Volter (Goldfish)" pixelsize="63" wrap="1" color="#ffffff" halign="center" valign="center">0</text>
+  <object id="97" name="left_result" x="96" y="336" width="176" height="64">
+   <text fontfamily="Volter (Goldfish)" pixelsize="63" wrap="1" color="#ffffff" halign="center" valign="center">WIN</text>
   </object>
   <object id="116" name="right_score_max" x="336" y="96" width="32" height="16">
    <text fontfamily="Volter (Goldfish)" pixelsize="18" wrap="1" color="#646464" halign="center" valign="center">/5</text>

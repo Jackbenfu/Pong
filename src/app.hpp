@@ -11,7 +11,7 @@
 
 #include "jackbengine.hpp"
 #include "scene/menu/menuScene.hpp"
-#include "scene/multi/multiScene.hpp"
+#include "scene/2players/2playersScene.hpp"
 
 using namespace Jackbengine;
 

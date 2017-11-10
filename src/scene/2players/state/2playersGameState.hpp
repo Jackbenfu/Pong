@@ -1,25 +1,25 @@
 //
-// multiGameState.hpp
+// 2playersGameState.hpp
 // pong
 //
 // Created by Damien Bendejacq on 27/09/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#ifndef __MULTI_GAME_STATE_H__
-#define __MULTI_GAME_STATE_H__
+#ifndef __2_PLAYERS_GAME_STATE_H__
+#define __2_PLAYERS_GAME_STATE_H__
 
 #include "jackbengine.hpp"
 
 using namespace Jackbengine;
 
-class MultiGameState : public SceneState
+class TwoPlayersGameState : public SceneState
 {
-    DISALLOW_COPY_AND_MOVE(MultiGameState)
+    DISALLOW_COPY_AND_MOVE(TwoPlayersGameState)
 
 public:
-    MultiGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader);
-    ~MultiGameState() override = default;
+    TwoPlayersGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader);
+    ~TwoPlayersGameState() override = default;
 
     void enter() final;
     void frame(float delta) final;
@@ -56,4 +56,4 @@ private:
     AABBCollisionSystem& m_aabbCollisionSystem;
 };
 
-#endif // __MULTI_GAME_STATE_H__
+#endif // __2_PLAYERS_GAME_STATE_H__

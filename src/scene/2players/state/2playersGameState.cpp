@@ -1,17 +1,17 @@
 //
-// multiGameState.cpp
+// 2playersGameState.cpp
 // pong
 //
 // Created by Damien Bendejacq on 27/09/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#include "multiGameState.hpp"
-#include "multiServiceState.hpp"
-#include "multiGameOverState.hpp"
-#include "../multiConst.hpp"
+#include "2playersGameState.hpp"
+#include "2playersServiceState.hpp"
+#include "2playersGameOverState.hpp"
+#include "../2playersConst.hpp"
 
-MultiGameState::MultiGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
+TwoPlayersGameState::TwoPlayersGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : SceneState(stateMachine, scene),
       m_leftPaddle {sceneLoader.entity("left_paddle")},
       m_rightPaddle {sceneLoader.entity("right_paddle")},
@@ -29,12 +29,12 @@ MultiGameState::MultiGameState(StateMachine& stateMachine, Scene& scene, TmxScen
       m_aabbCollisionSystem {getSystem<AABBCollisionSystem>()}
 { }
 
-void MultiGameState::enter()
+void TwoPlayersGameState::enter()
 {
     m_aabbCollisionSystem.setCallback(onCollision);
 }
 
-void MultiGameState::frame(float)
+void TwoPlayersGameState::frame(float)
 {
     auto leftScore = m_leftScoreValue->get();
     auto rightScore = m_rightScoreValue->get();
@@ -55,22 +55,22 @@ void MultiGameState::frame(float)
         updateScore(m_rightScore, ++rightScore);
     }
 
-    if (MultiConst::ScoreToWin == leftScore || MultiConst::ScoreToWin == rightScore)
+    if (TwoPlayersConst::ScoreToWin == leftScore || TwoPlayersConst::ScoreToWin == rightScore)
     {
-        stateMachine().goToState<MultiGameOverState>();
+        stateMachine().goToState<TwoPlayersGameOverState>();
     }
     else if (needToRestartGame)
     {
-        stateMachine().goToState<MultiServiceState>();
+        stateMachine().goToState<TwoPlayersServiceState>();
     }
 }
 
-void MultiGameState::exit()
+void TwoPlayersGameState::exit()
 {
     m_aabbCollisionSystem.unsetCallback();
 }
 
-bool MultiGameState::onCollision(float, ComponentCollection& components1, ComponentCollection& components2,
+bool TwoPlayersGameState::onCollision(float, ComponentCollection& components1, ComponentCollection& components2,
                                  AABBCollisionSide collisionSide)
 {
     auto result = false;
@@ -99,9 +99,9 @@ bool MultiGameState::onCollision(float, ComponentCollection& components1, Compon
 
         auto ballSpeedVal = ballSpeed.get();
         ballVelocity.set(newBallVel.x * ballSpeedVal, newBallVel.y * ballSpeedVal);
-        if (MultiConst::BallSpeedMax > ballSpeedVal)
+        if (TwoPlayersConst::BallSpeedMax > ballSpeedVal)
         {
-            ballSpeed.increment(MultiConst::BallSpeedIncr);
+            ballSpeed.increment(TwoPlayersConst::BallSpeedIncr);
         }
 
         result = true;
@@ -116,7 +116,7 @@ bool MultiGameState::onCollision(float, ComponentCollection& components1, Compon
     return result;
 }
 
-void MultiGameState::updateScore(Entity scoreEntity, int newScore)
+void TwoPlayersGameState::updateScore(Entity scoreEntity, int newScore)
 {
     if (scoreEntity == m_leftScore)
     {

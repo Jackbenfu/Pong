@@ -1,5 +1,5 @@
 //
-// multiConst.hpp
+// 2playersConst.hpp
 // pong
 //
 // Created by Damien Bendejacq on 05/10/2017.
@@ -11,7 +11,7 @@
 
 #include "jackbengine.hpp"
 
-namespace MultiConst
+namespace TwoPlayersConst
 {
 
 constexpr int ScoreToWin = 5;

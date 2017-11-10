@@ -15,14 +15,14 @@ cp resourceGenerator ../..
 cd -
 
 # Generating resources.cpp
-./resourceGenerator          \
-    resources.cpp            \
-    -bresources/left.wav     \
-    -bresources/right.wav    \
-    -bresources/wall.wav     \
-    -tresources/menu.tmx     \
-    -tresources/wall.tmx     \
-    -tresources/multi.tmx    \
+./resourceGenerator             \
+    resources.cpp               \
+    -bresources/left.wav        \
+    -bresources/right.wav       \
+    -bresources/wall.wav        \
+    -tresources/menu.tmx        \
+    -tresources/wall.tmx        \
+    -tresources/two_players.tmx \
     -bresources/tileset.png
 
 # Building Pong web output

@@ -1,25 +1,25 @@
 //
-// multiScene.hpp
+// 2playersScene.hpp
 // pong
 //
 // Created by Damien Bendejacq on 13/09/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#ifndef __MULTI_SCENE_H__
-#define __MULTI_SCENE_H__
+#ifndef __2_PLAYERS_SCENE_H__
+#define __2_PLAYERS_SCENE_H__
 
 #include "jackbengine.hpp"
 
 using namespace Jackbengine;
 
-class MultiScene : public Scene
+class TwoPlayersScene : public Scene
 {
-    DISALLOW_COPY_AND_MOVE(MultiScene)
+    DISALLOW_COPY_AND_MOVE(TwoPlayersScene)
 
 public:
-    MultiScene(Application& application, SceneManager<Scene>& sceneManager);
-    ~MultiScene() override = default;
+    TwoPlayersScene(Application& application, SceneManager<Scene>& sceneManager);
+    ~TwoPlayersScene() override = default;
 
 private:
     void frame(float delta) final;
@@ -33,4 +33,4 @@ private:
     Velocity *m_rightPaddleVelocity;
 };
 
-#endif // __MULTI_SCENE_H__
+#endif // __2_PLAYERS_SCENE_H__

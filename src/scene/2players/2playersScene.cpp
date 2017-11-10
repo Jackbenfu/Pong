@@ -1,39 +1,39 @@
 //
-// gameScene.cpp
+// 2playersScene.cpp
 // pong
 //
 // Created by Damien Bendejacq on 13/09/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#include "multiScene.hpp"
-#include "multiConst.hpp"
-#include "state/multiServiceState.hpp"
-#include "state/multiGameState.hpp"
-#include "state/multiGameOverState.hpp"
+#include "2playersScene.hpp"
+#include "2playersConst.hpp"
+#include "state/2playersServiceState.hpp"
+#include "state/2playersGameState.hpp"
+#include "state/2playersGameOverState.hpp"
 #include "../menu/menuScene.hpp"
 
-IMPORT_TEXT_RESOURCE(multi_tmx)
+IMPORT_TEXT_RESOURCE(two_players_tmx)
 IMPORT_BINARY_RESOURCE(tileset_png)
 IMPORT_BINARY_RESOURCE(default_font)
 IMPORT_BINARY_RESOURCE(left_wav)
 IMPORT_BINARY_RESOURCE(right_wav)
 IMPORT_BINARY_RESOURCE(wall_wav)
 
-MultiScene::MultiScene(Application& application, SceneManager<Scene>& sceneManager)
+TwoPlayersScene::TwoPlayersScene(Application& application, SceneManager<Scene>& sceneManager)
     : Scene(application, sceneManager)
 {
-    TmxSceneLoader sceneLoader {*this, multi_tmx, tileset_png, tileset_png_size, default_font, default_font_size};
+    TmxSceneLoader sceneLoader {*this, two_players_tmx, tileset_png, tileset_png_size, default_font, default_font_size};
 
     configure(sceneLoader);
 
-    m_stateMachine.addState<MultiServiceState>(*this, sceneLoader);
-    m_stateMachine.addState<MultiGameState>(*this, sceneLoader);
-    m_stateMachine.addState<MultiGameOverState>(*this, sceneLoader);
+    m_stateMachine.addState<TwoPlayersServiceState>(*this, sceneLoader);
+    m_stateMachine.addState<TwoPlayersGameState>(*this, sceneLoader);
+    m_stateMachine.addState<TwoPlayersGameOverState>(*this, sceneLoader);
     m_stateMachine.start();
 }
 
-void MultiScene::frame(float delta)
+void TwoPlayersScene::frame(float delta)
 {
     handlePaddleMotion(m_leftPaddleVelocity, KeyboardKey::S, KeyboardKey::X);
     handlePaddleMotion(m_rightPaddleVelocity, KeyboardKey::P, KeyboardKey::L);
@@ -46,14 +46,14 @@ void MultiScene::frame(float delta)
     }
 }
 
-void MultiScene::handlePaddleMotion(Velocity *velocity, KeyboardKey upKey, KeyboardKey downKey)
+void TwoPlayersScene::handlePaddleMotion(Velocity *velocity, KeyboardKey upKey, KeyboardKey downKey)
 {
     auto up = input().keyDown(upKey);
     auto down = input().keyDown(downKey);
 
     if (up ^ down)
     {
-        velocity->set(0.0f, up ? -MultiConst::PaddleSpeed : MultiConst::PaddleSpeed);
+        velocity->set(0.0f, up ? -TwoPlayersConst::PaddleSpeed : TwoPlayersConst::PaddleSpeed);
     }
     else
     {
@@ -61,7 +61,7 @@ void MultiScene::handlePaddleMotion(Velocity *velocity, KeyboardKey upKey, Keybo
     }
 }
 
-void MultiScene::configure(const TmxSceneLoader& sceneLoader)
+void TwoPlayersScene::configure(const TmxSceneLoader& sceneLoader)
 {
     auto& aabbCollisionSystem = getSystem<AABBCollisionSystem>();
     aabbCollisionSystem.addGroup("paddle", "wall");
@@ -111,7 +111,7 @@ void MultiScene::configure(const TmxSceneLoader& sceneLoader)
         auto ball = sceneLoader.entity("ball");
         addComponent<Velocity>(ball);
         addComponent<Tag>(ball, "ball");
-        addComponent<Numerical<int>>(ball, MultiConst::BallSpeedMin);
+        addComponent<Numerical<int>>(ball, TwoPlayersConst::BallSpeedMin);
     }
 
     // Left score
