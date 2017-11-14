@@ -23,6 +23,7 @@ cd -
     -tresources/menu.tmx        \
     -tresources/wall.tmx        \
     -tresources/two_players.tmx \
+    -tresources/one_player.tmx  \
     -bresources/tileset.png
 
 # Building Pong web output

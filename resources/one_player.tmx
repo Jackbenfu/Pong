@@ -44,17 +44,11 @@
 </data>
  </layer>
  <objectgroup name="instructions">
-  <object id="112" name="launch_ball_instruction_2" x="416" y="480" width="352" height="48">
+  <object id="112" name="launch_ball_instruction_2" x="416" y="432" width="352" height="48">
    <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#646464" valign="center">launch the ball</text>
   </object>
-  <object id="110" name="launch_ball_instruction_1" x="0" y="480" width="352" height="48">
+  <object id="110" name="launch_ball_instruction_1" x="0" y="432" width="352" height="48">
    <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#ddad1d" halign="right" valign="center">SPACEBAR</text>
-  </object>
-  <object id="104" name="right_paddle_instruction_2" x="416" y="432" width="352" height="48">
-   <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#646464" valign="center">move right paddle</text>
-  </object>
-  <object id="103" name="right_paddle_instruction_1" x="0" y="432" width="352" height="48">
-   <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#ddad1d" halign="right" valign="center">P or L</text>
   </object>
   <object id="109" name="left_paddle_instruction_2" x="416" y="384" width="352" height="48">
    <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#646464" valign="center">move left paddle</text>
@@ -63,7 +57,7 @@
    <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#ddad1d" halign="right" valign="center">S or X</text>
   </object>
   <object id="102" name="goal_2" x="416" y="336" width="352" height="48">
-   <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#646464" valign="center">beat your friend!</text>
+   <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#646464" valign="center">beat the AI!</text>
   </object>
   <object id="101" name="goal_1" x="0" y="336" width="352" height="48">
    <text fontfamily="Volter (Goldfish)" pixelsize="27" wrap="1" color="#d49f18" halign="right" valign="center">Goal</text>

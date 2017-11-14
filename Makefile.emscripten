@@ -22,6 +22,10 @@ SOURCES             =   src/main.cpp                                          \
                         src/scene/wall/state/wallServiceState.cpp             \
                         src/scene/wall/state/wallGameState.cpp                \
                         src/scene/wall/state/wallGameOverState.cpp            \
+                        src/scene/1player/1playerScene.cpp                    \
+                        src/scene/1player/state/1playerServiceState.cpp       \
+                        src/scene/1player/state/1playerGameState.cpp          \
+                        src/scene/1player/state/1playerGameOverState.cpp      \
                         src/scene/2players/2playersScene.cpp                  \
                         src/scene/2players/state/2playersServiceState.cpp     \
                         src/scene/2players/state/2playersGameState.cpp        \

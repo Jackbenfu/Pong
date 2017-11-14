@@ -23,7 +23,8 @@ public:
 
 private:
     void onWallClick();
-    void onMultiClick();
+    void on2PlayersClick();
+    void on1PlayerClick();
     void onQuitClick();
 
     void configure(const TmxSceneLoader& sceneLoader);

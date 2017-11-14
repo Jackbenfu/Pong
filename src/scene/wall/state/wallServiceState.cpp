@@ -37,7 +37,7 @@ void WallServiceState::launchBall()
 {
     Vec2f ballVel;
     ballVel.x = 1.0f;
-    ballVel.y = 0 == std::rand() % 2 ? -1.0f : 1.0f; // NOLINT
+    ballVel.y = 0 == std::rand() % 2 ? -.25f : .25f; // NOLINT
     ballVel.normalize();
 
     auto ballSpeed = m_ballSpeed->get();

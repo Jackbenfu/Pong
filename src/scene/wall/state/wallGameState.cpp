@@ -34,7 +34,7 @@ void WallGameState::enter()
 
 void WallGameState::frame(float)
 {
-    if (m_ballTransform->positionX() + m_ballBoxShape->width() < 0.0f)
+    if (m_ballTransform->positionX() + m_ballBoxShape->width() + WallConst::BallOutOfScreenShift < 0.0f)
     {
         stateMachine().goToState<WallGameOverState>();
     }

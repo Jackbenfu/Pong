@@ -1,15 +1,15 @@
 //
-// 2playersServiceState.cpp
+// 1playerServiceState.cpp
 // pong
 //
 // Created by Damien Bendejacq on 27/09/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#include "2playersServiceState.hpp"
-#include "2playersGameState.hpp"
+#include "1playerServiceState.hpp"
+#include "1playerGameState.hpp"
 
-TwoPlayersServiceState::TwoPlayersServiceState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
+OnePlayerServiceState::OnePlayerServiceState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : SceneState(stateMachine, scene),
       m_leftPaddle {sceneLoader.entity("left_paddle")},
       m_rightPaddle {sceneLoader.entity("right_paddle")},
@@ -18,8 +18,6 @@ TwoPlayersServiceState::TwoPlayersServiceState(StateMachine& stateMachine, Scene
       m_goal2 {sceneLoader.entity("goal_2")},
       m_leftPaddleInstruction1 {sceneLoader.entity("left_paddle_instruction_1")},
       m_leftPaddleInstruction2 {sceneLoader.entity("left_paddle_instruction_2")},
-      m_rightPaddleInstruction1 {sceneLoader.entity("right_paddle_instruction_1")},
-      m_rightPaddleInstruction2 {sceneLoader.entity("right_paddle_instruction_2")},
       m_ballInstruction1 {sceneLoader.entity("launch_ball_instruction_1")},
       m_ballInstruction2 {sceneLoader.entity("launch_ball_instruction_2")},
       m_leftPaddleIsServing {&getComponent<Numerical<bool>>(m_leftPaddle)},
@@ -49,7 +47,7 @@ TwoPlayersServiceState::TwoPlayersServiceState(StateMachine& stateMachine, Scene
     showInstructions(true);
 }
 
-void TwoPlayersServiceState::enter()
+void OnePlayerServiceState::enter()
 {
     if (m_leftPaddleIsServing->get())
     {
@@ -69,7 +67,7 @@ void TwoPlayersServiceState::enter()
     disableComponent<Velocity>(m_ball);
 }
 
-void TwoPlayersServiceState::frame(float)
+void OnePlayerServiceState::frame(float)
 {
     stickBallToPaddle();
 
@@ -77,16 +75,16 @@ void TwoPlayersServiceState::frame(float)
     {
         launchBall();
 
-        stateMachine().goToState<TwoPlayersGameState>();
+        stateMachine().goToState<OnePlayerGameState>();
     }
 }
 
-void TwoPlayersServiceState::exit()
+void OnePlayerServiceState::exit()
 {
     showInstructions(false);
 }
 
-void TwoPlayersServiceState::stickBallToPaddle()
+void OnePlayerServiceState::stickBallToPaddle()
 {
     Vec2f ballPos;
     if (m_servingPaddle == m_leftPaddle)
@@ -104,7 +102,7 @@ void TwoPlayersServiceState::stickBallToPaddle()
     m_ballTransform->setPosition(ballPos.x, ballPos.y);
 }
 
-void TwoPlayersServiceState::launchBall()
+void OnePlayerServiceState::launchBall()
 {
     Vec2f ballVel;
     ballVel.x = m_servingPaddle == m_leftPaddle ? 1.0f : -1.0f;
@@ -116,14 +114,12 @@ void TwoPlayersServiceState::launchBall()
     enableComponent<Velocity>(m_ball);
 }
 
-void TwoPlayersServiceState::showInstructions(bool show)
+void OnePlayerServiceState::showInstructions(bool show)
 {
     enableEntity(m_goal1, show);
     enableEntity(m_goal2, show);
     enableEntity(m_leftPaddleInstruction1, show);
     enableEntity(m_leftPaddleInstruction2, show);
-    enableEntity(m_rightPaddleInstruction1, show);
-    enableEntity(m_rightPaddleInstruction2, show);
     enableEntity(m_ballInstruction1, show);
     enableEntity(m_ballInstruction2, show);
 }

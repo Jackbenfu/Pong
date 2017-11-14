@@ -1,17 +1,17 @@
 //
-// 2playersConst.hpp
+// 1playerConst.hpp
 // pong
 //
 // Created by Damien Bendejacq on 05/10/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#ifndef __2_PLAYERS_CONST_H__
-#define __2_PLAYERS_CONST_H__
+#ifndef __1_PLAYER_CONST_H__
+#define __1_PLAYER_CONST_H__
 
 #include "jackbengine.hpp"
 
-namespace TwoPlayersConst
+namespace OnePlayerConst
 {
 
 constexpr int ScoreToWin = 9;
@@ -32,4 +32,4 @@ const std::string LoseText = "LOSE";
 
 }
 
-#endif // __2_PLAYERS_CONST_H__
+#endif // __1_PLAYER_CONST_H__

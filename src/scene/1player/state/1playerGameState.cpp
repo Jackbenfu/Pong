@@ -1,17 +1,17 @@
 //
-// 2playersGameState.cpp
+// 1playerGameState.cpp
 // pong
 //
 // Created by Damien Bendejacq on 27/09/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#include "2playersGameState.hpp"
-#include "2playersServiceState.hpp"
-#include "2playersGameOverState.hpp"
-#include "../2playersConst.hpp"
+#include "1playerGameState.hpp"
+#include "1playerServiceState.hpp"
+#include "1playerGameOverState.hpp"
+#include "../1playerConst.hpp"
 
-TwoPlayersGameState::TwoPlayersGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
+OnePlayerGameState::OnePlayerGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : SceneState(stateMachine, scene),
       m_leftPaddle {sceneLoader.entity("left_paddle")},
       m_rightPaddle {sceneLoader.entity("right_paddle")},
@@ -22,56 +22,87 @@ TwoPlayersGameState::TwoPlayersGameState(StateMachine& stateMachine, Scene& scen
       m_rightPaddleIsServing {&getComponent<Numerical<bool>>(m_rightPaddle)},
       m_ballTransform {&getComponent<Transform>(m_ball)},
       m_ballBoxShape {&getComponent<BoxShape>(m_ball)},
+      m_ballVelocity {&getComponent<Velocity>(m_ball)},
       m_leftScoreValue {&getComponent<Numerical<int>>(m_leftScore)},
       m_leftScoreText {&getComponent<Text>(m_leftScore)},
       m_rightScoreValue {&getComponent<Numerical<int>>(m_rightScore)},
       m_rightScoreText {&getComponent<Text>(m_rightScore)},
-      m_aabbCollisionSystem {getSystem<AABBCollisionSystem>()}
+      m_aabbCollisionSystem {getSystem<AABBCollisionSystem>()},
+      m_rightPaddleTransform {&getComponent<Transform>(m_rightPaddle)},
+      m_rightPaddleVelocity {&getComponent<Velocity>(m_rightPaddle)},
+      m_rightPaddleBoxShape {&getComponent<BoxShape>(m_rightPaddle)}
 { }
 
-void TwoPlayersGameState::enter()
+void OnePlayerGameState::enter()
 {
     m_aabbCollisionSystem.setCallback(onCollision);
 }
 
-void TwoPlayersGameState::frame(float)
+void OnePlayerGameState::frame(float)
 {
+    moveAIPaddle();
+
     auto leftScore = m_leftScoreValue->get();
     auto rightScore = m_rightScoreValue->get();
 
     auto needToRestartGame = false;
-    if (m_ballTransform->positionX() > renderer().width() + TwoPlayersConst::BallOutOfScreenShift)
+    if (m_ballTransform->positionX() > renderer().width() + OnePlayerConst::BallOutOfScreenShift)
     {
         needToRestartGame = true;
         m_leftPaddleIsServing->set(true);
         m_rightPaddleIsServing->set(false);
+        m_rightPaddleVelocity->setY(0.0f);
         updateScore(m_leftScore, ++leftScore);
     }
-    else if (m_ballTransform->positionX() + m_ballBoxShape->width() + TwoPlayersConst::BallOutOfScreenShift < 0.0f)
+    else if (m_ballTransform->positionX() + m_ballBoxShape->width() + OnePlayerConst::BallOutOfScreenShift < 0.0f)
     {
         needToRestartGame = true;
         m_rightPaddleIsServing->set(true);
         m_leftPaddleIsServing->set(false);
+        m_rightPaddleVelocity->setY(0.0f);
         updateScore(m_rightScore, ++rightScore);
     }
 
-    if (TwoPlayersConst::ScoreToWin == leftScore || TwoPlayersConst::ScoreToWin == rightScore)
+    if (OnePlayerConst::ScoreToWin == leftScore || OnePlayerConst::ScoreToWin == rightScore)
     {
-        stateMachine().goToState<TwoPlayersGameOverState>();
+        stateMachine().goToState<OnePlayerGameOverState>();
     }
     else if (needToRestartGame)
     {
-        stateMachine().goToState<TwoPlayersServiceState>();
+        stateMachine().goToState<OnePlayerServiceState>();
     }
 }
 
-void TwoPlayersGameState::exit()
+void OnePlayerGameState::exit()
 {
     m_aabbCollisionSystem.unsetCallback();
 }
 
-bool TwoPlayersGameState::onCollision(float, ComponentCollection& components1, ComponentCollection& components2,
-                                      AABBCollisionSide collisionSide)
+void OnePlayerGameState::moveAIPaddle()
+{
+    if (m_ballVelocity->x() < 0.0f)
+    {
+        m_rightPaddleVelocity->setY(0.0f);
+        return;
+    }
+
+    const auto ballCenterY = m_ballTransform->positionY() + m_ballBoxShape->height() / 2.0f;
+    const auto rightPaddleY = m_rightPaddleTransform->positionY() + m_rightPaddleBoxShape->height() / 2.0f;
+    const auto dist = fabs(rightPaddleY - ballCenterY);
+    const auto random = std::rand() % (int)(m_rightPaddleBoxShape->height() / 2.0f) + 1; // NOLINT
+
+    if (dist < random)
+    {
+        m_rightPaddleVelocity->setY(0.0f);
+        return;
+    }
+
+    const auto dir = ballCenterY > rightPaddleY ? OnePlayerConst::PaddleSpeed : -OnePlayerConst::PaddleSpeed;
+    m_rightPaddleVelocity->setY(dir);
+}
+
+bool OnePlayerGameState::onCollision(float, ComponentCollection& components1, ComponentCollection& components2,
+                                     AABBCollisionSide collisionSide)
 {
     auto result = false;
 
@@ -99,9 +130,9 @@ bool TwoPlayersGameState::onCollision(float, ComponentCollection& components1, C
 
         auto ballSpeedVal = ballSpeed.get();
         ballVelocity.set(newBallVel.x * ballSpeedVal, newBallVel.y * ballSpeedVal);
-        if (TwoPlayersConst::BallSpeedMax > ballSpeedVal)
+        if (OnePlayerConst::BallSpeedMax > ballSpeedVal)
         {
-            ballSpeed.increment(TwoPlayersConst::BallSpeedIncr);
+            ballSpeed.increment(OnePlayerConst::BallSpeedIncr);
         }
 
         result = true;
@@ -116,7 +147,7 @@ bool TwoPlayersGameState::onCollision(float, ComponentCollection& components1, C
     return result;
 }
 
-void TwoPlayersGameState::updateScore(Entity scoreEntity, int newScore)
+void OnePlayerGameState::updateScore(Entity scoreEntity, int newScore)
 {
     if (scoreEntity == m_leftScore)
     {

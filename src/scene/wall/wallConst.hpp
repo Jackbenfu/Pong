@@ -14,11 +14,13 @@
 namespace WallConst
 {
 
-constexpr float PaddleSpeed = 500.0f;
+constexpr float PaddleSpeed = 375.0f;
 
 constexpr int BallSpeedMin = 500;
-constexpr int BallSpeedMax = 700;
+constexpr int BallSpeedMax = 750;
 constexpr int BallSpeedIncr = 5;
+
+constexpr int BallOutOfScreenShift = 200;
 
 }
 

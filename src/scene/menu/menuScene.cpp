@@ -9,6 +9,7 @@
 #include "menuScene.hpp"
 #include "../wall/wallScene.hpp"
 #include "../2players/2playersScene.hpp"
+#include "../1player/1playerScene.hpp"
 
 IMPORT_TEXT_RESOURCE(menu_tmx)
 IMPORT_BINARY_RESOURCE(default_font)
@@ -28,9 +29,15 @@ void MenuScene::onWallClick()
     cursor().setCursor(CursorType::Default);
 }
 
-void MenuScene::onMultiClick()
+void MenuScene::on2PlayersClick()
 {
     loadScene<TwoPlayersScene>();
+    cursor().setCursor(CursorType::Default);
+}
+
+void MenuScene::on1PlayerClick()
+{
+    loadScene<OnePlayerScene>();
     cursor().setCursor(CursorType::Default);
 }
 
@@ -41,9 +48,14 @@ void MenuScene::onQuitClick()
 
 void MenuScene::configure(const TmxSceneLoader& sceneLoader)
 {
-    // 2 players button
+    // 1 player button
     {
-        loadButton(sceneLoader.entity("2players"), [this]() { onMultiClick(); });
+        loadButton(sceneLoader.entity("1player"), [this]() { on1PlayerClick(); });
+    }
+
+   // 2 players button
+    {
+        loadButton(sceneLoader.entity("2players"), [this]() { on2PlayersClick(); });
     }
 
     // Wall mode button

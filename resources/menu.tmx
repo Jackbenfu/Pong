@@ -58,11 +58,8 @@
   <object id="64" name="2players" x="256" y="336" width="256" height="48">
    <text fontfamily="Volter (Goldfish)" pixelsize="36" wrap="1" color="#ffffff" halign="center" valign="center">2 players</text>
   </object>
-  <object id="69" name="1player (coming soon)" x="464" y="288" width="176" height="32">
-   <text fontfamily="Volter (Goldfish)" pixelsize="18" wrap="1" color="#646464" halign="center" valign="center">(coming soon...)</text>
-  </object>
   <object id="67" name="1player" x="256" y="272" width="256" height="48">
-   <text fontfamily="Volter (Goldfish)" pixelsize="36" wrap="1" color="#cccccc" halign="center" valign="center">1 player</text>
+   <text fontfamily="Volter (Goldfish)" pixelsize="36" wrap="1" color="#ffffff" halign="center" valign="center">1 player</text>
   </object>
   <object id="63" name="title" x="176" y="128" width="416" height="128">
    <text fontfamily="Volter (Goldfish)" pixelsize="144" wrap="1" color="#ffffff" halign="center" valign="center">PONG</text>
