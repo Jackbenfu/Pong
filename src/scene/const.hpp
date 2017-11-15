@@ -1,22 +1,20 @@
 //
-// 2playersConst.hpp
+// const.hpp
 // pong
 //
-// Created by Damien Bendejacq on 05/10/2017.
+// Created by Damien Bendejacq on 15/11/2017.
 // Copyright © 2017 Damien Bendejacq. All rights reserved.
 //
 
-#ifndef __2_PLAYERS_CONST_H__
-#define __2_PLAYERS_CONST_H__
+#ifndef __CONST_H__
+#define __CONST_H__
 
-#include "jackbengine.hpp"
-
-namespace TwoPlayersConst
+namespace Const
 {
 
 constexpr int ScoreToWin = 9;
 
-constexpr float PaddleSpeed = 375.0f;
+constexpr float PaddleSpeed = 400.0f;
 
 constexpr int BallSpeedMin = 500;
 constexpr int BallSpeedMax = 750;
@@ -32,4 +30,4 @@ const std::string LoseText = "LOSE";
 
 }
 
-#endif // __2_PLAYERS_CONST_H__
+#endif // __CONST_H__

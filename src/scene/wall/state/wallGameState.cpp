@@ -7,7 +7,7 @@
 //
 
 #include "wallGameState.hpp"
-#include "../wallConst.hpp"
+#include "../../const.hpp"
 #include "wallGameOverState.hpp"
 
 WallGameState::WallGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
@@ -34,7 +34,7 @@ void WallGameState::enter()
 
 void WallGameState::frame(float)
 {
-    if (m_ballTransform->positionX() + m_ballBoxShape->width() + WallConst::BallOutOfScreenShift < 0.0f)
+    if (m_ballTransform->positionX() + m_ballBoxShape->width() + Const::BallOutOfScreenShift < 0.0f)
     {
         stateMachine().goToState<WallGameOverState>();
     }
@@ -74,9 +74,9 @@ bool WallGameState::onCollision(float, ComponentCollection& components1, Compone
 
         auto ballSpeedVal = ballSpeed.get();
         ballVelocity.set(newBallVel.x * ballSpeedVal, newBallVel.y * ballSpeedVal);
-        if (WallConst::BallSpeedMax > ballSpeedVal)
+        if (Const::BallSpeedMax > ballSpeedVal)
         {
-            ballSpeed.increment(WallConst::BallSpeedIncr);
+            ballSpeed.increment(Const::BallSpeedIncr);
         }
 
         scoreValue->increment(1);

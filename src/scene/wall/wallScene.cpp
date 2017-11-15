@@ -7,7 +7,7 @@
 //
 
 #include "wallScene.hpp"
-#include "wallConst.hpp"
+#include "../const.hpp"
 #include "state/wallServiceState.hpp"
 #include "state/wallGameState.hpp"
 #include "state/wallGameOverState.hpp"
@@ -52,7 +52,7 @@ void WallScene::handlePaddleMotion(KeyboardKey upKey, KeyboardKey downKey)
 
     if (up ^ down)
     {
-        m_paddleVelocity->set(0.0f, up ? -WallConst::PaddleSpeed : WallConst::PaddleSpeed);
+        m_paddleVelocity->set(0.0f, up ? -Const::PaddleSpeed : Const::PaddleSpeed);
     }
     else
     {
@@ -106,7 +106,7 @@ void WallScene::configure(const TmxSceneLoader& sceneLoader)
         auto ball = sceneLoader.entity("ball");
         addComponent<Velocity>(ball);
         addComponent<Tag>(ball, "ball");
-        addComponent<Numerical<int>>(ball, WallConst::BallSpeedMin);
+        addComponent<Numerical<int>>(ball, Const::BallSpeedMin);
     }
 
     // Score

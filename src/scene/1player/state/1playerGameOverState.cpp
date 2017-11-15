@@ -8,7 +8,7 @@
 
 #include "1playerGameOverState.hpp"
 #include "../../menu/menuScene.hpp"
-#include "../1playerConst.hpp"
+#include "../../const.hpp"
 
 OnePlayerGameOverState::OnePlayerGameOverState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : SceneState(stateMachine, scene),
@@ -31,19 +31,19 @@ void OnePlayerGameOverState::enter()
     auto& rightResultText = getComponent<Text>(m_rightResult);
 
     auto& leftScore = getComponent<Numerical<int>>(m_leftScore);
-    if (OnePlayerConst::ScoreToWin == leftScore.get())
+    if (Const::ScoreToWin == leftScore.get())
     {
-        leftResultText.setText(OnePlayerConst::WinText);
-        leftResultText.setForeground(OnePlayerConst::WinColor);
-        rightResultText.setText(OnePlayerConst::LoseText);
-        rightResultText.setForeground(OnePlayerConst::LoseColor);
+        leftResultText.setText(Const::WinText);
+        leftResultText.setForeground(Const::WinColor);
+        rightResultText.setText(Const::LoseText);
+        rightResultText.setForeground(Const::LoseColor);
     }
     else
     {
-        leftResultText.setText(OnePlayerConst::LoseText);
-        leftResultText.setForeground(OnePlayerConst::LoseColor);
-        rightResultText.setText(OnePlayerConst::WinText);
-        rightResultText.setForeground(OnePlayerConst::WinColor);
+        leftResultText.setText(Const::LoseText);
+        leftResultText.setForeground(Const::LoseColor);
+        rightResultText.setText(Const::WinText);
+        rightResultText.setForeground(Const::WinColor);
     }
 }
 

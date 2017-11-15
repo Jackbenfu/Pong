@@ -7,7 +7,7 @@
 //
 
 #include "2playersScene.hpp"
-#include "2playersConst.hpp"
+#include "../const.hpp"
 #include "state/2playersServiceState.hpp"
 #include "state/2playersGameState.hpp"
 #include "state/2playersGameOverState.hpp"
@@ -53,7 +53,7 @@ void TwoPlayersScene::handlePaddleMotion(Velocity *velocity, KeyboardKey upKey, 
 
     if (up ^ down)
     {
-        velocity->set(0.0f, up ? -TwoPlayersConst::PaddleSpeed : TwoPlayersConst::PaddleSpeed);
+        velocity->set(0.0f, up ? -Const::PaddleSpeed : Const::PaddleSpeed);
     }
     else
     {
@@ -111,7 +111,7 @@ void TwoPlayersScene::configure(const TmxSceneLoader& sceneLoader)
         auto ball = sceneLoader.entity("ball");
         addComponent<Velocity>(ball);
         addComponent<Tag>(ball, "ball");
-        addComponent<Numerical<int>>(ball, TwoPlayersConst::BallSpeedMin);
+        addComponent<Numerical<int>>(ball, Const::BallSpeedMin);
     }
 
     // Left score

@@ -7,7 +7,7 @@
 //
 
 #include "1playerScene.hpp"
-#include "1playerConst.hpp"
+#include "../const.hpp"
 #include "state/1playerServiceState.hpp"
 #include "state/1playerGameState.hpp"
 #include "state/1playerGameOverState.hpp"
@@ -52,7 +52,7 @@ void OnePlayerScene::handlePaddleMotion(KeyboardKey upKey, KeyboardKey downKey)
 
     if (up ^ down)
     {
-        m_leftPaddleVelocity->set(0.0f, up ? -OnePlayerConst::PaddleSpeed : OnePlayerConst::PaddleSpeed);
+        m_leftPaddleVelocity->set(0.0f, up ? -Const::PaddleSpeed : Const::PaddleSpeed);
     }
     else
     {
@@ -108,7 +108,7 @@ void OnePlayerScene::configure(const TmxSceneLoader& sceneLoader)
         auto ball = sceneLoader.entity("ball");
         addComponent<Velocity>(ball);
         addComponent<Tag>(ball, "ball");
-        addComponent<Numerical<int>>(ball, OnePlayerConst::BallSpeedMin);
+        addComponent<Numerical<int>>(ball, Const::BallSpeedMin);
     }
 
     // Left score

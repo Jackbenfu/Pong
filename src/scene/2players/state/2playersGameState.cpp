@@ -9,7 +9,7 @@
 #include "2playersGameState.hpp"
 #include "2playersServiceState.hpp"
 #include "2playersGameOverState.hpp"
-#include "../2playersConst.hpp"
+#include "../../const.hpp"
 
 TwoPlayersGameState::TwoPlayersGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : SceneState(stateMachine, scene),
@@ -40,14 +40,14 @@ void TwoPlayersGameState::frame(float)
     auto rightScore = m_rightScoreValue->get();
 
     auto needToRestartGame = false;
-    if (m_ballTransform->positionX() > renderer().width() + TwoPlayersConst::BallOutOfScreenShift)
+    if (m_ballTransform->positionX() > renderer().width() + Const::BallOutOfScreenShift)
     {
         needToRestartGame = true;
         m_leftPaddleIsServing->set(true);
         m_rightPaddleIsServing->set(false);
         updateScore(m_leftScore, ++leftScore);
     }
-    else if (m_ballTransform->positionX() + m_ballBoxShape->width() + TwoPlayersConst::BallOutOfScreenShift < 0.0f)
+    else if (m_ballTransform->positionX() + m_ballBoxShape->width() + Const::BallOutOfScreenShift < 0.0f)
     {
         needToRestartGame = true;
         m_rightPaddleIsServing->set(true);
@@ -55,7 +55,7 @@ void TwoPlayersGameState::frame(float)
         updateScore(m_rightScore, ++rightScore);
     }
 
-    if (TwoPlayersConst::ScoreToWin == leftScore || TwoPlayersConst::ScoreToWin == rightScore)
+    if (Const::ScoreToWin == leftScore || Const::ScoreToWin == rightScore)
     {
         stateMachine().goToState<TwoPlayersGameOverState>();
     }
@@ -99,9 +99,9 @@ bool TwoPlayersGameState::onCollision(float, ComponentCollection& components1, C
 
         auto ballSpeedVal = ballSpeed.get();
         ballVelocity.set(newBallVel.x * ballSpeedVal, newBallVel.y * ballSpeedVal);
-        if (TwoPlayersConst::BallSpeedMax > ballSpeedVal)
+        if (Const::BallSpeedMax > ballSpeedVal)
         {
-            ballSpeed.increment(TwoPlayersConst::BallSpeedIncr);
+            ballSpeed.increment(Const::BallSpeedIncr);
         }
 
         result = true;

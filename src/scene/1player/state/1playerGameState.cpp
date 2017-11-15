@@ -9,7 +9,7 @@
 #include "1playerGameState.hpp"
 #include "1playerServiceState.hpp"
 #include "1playerGameOverState.hpp"
-#include "../1playerConst.hpp"
+#include "../../const.hpp"
 
 OnePlayerGameState::OnePlayerGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : SceneState(stateMachine, scene),
@@ -46,7 +46,7 @@ void OnePlayerGameState::frame(float)
     auto rightScore = m_rightScoreValue->get();
 
     auto needToRestartGame = false;
-    if (m_ballTransform->positionX() > renderer().width() + OnePlayerConst::BallOutOfScreenShift)
+    if (m_ballTransform->positionX() > renderer().width() + Const::BallOutOfScreenShift)
     {
         needToRestartGame = true;
         m_leftPaddleIsServing->set(true);
@@ -54,7 +54,7 @@ void OnePlayerGameState::frame(float)
         m_rightPaddleVelocity->setY(0.0f);
         updateScore(m_leftScore, ++leftScore);
     }
-    else if (m_ballTransform->positionX() + m_ballBoxShape->width() + OnePlayerConst::BallOutOfScreenShift < 0.0f)
+    else if (m_ballTransform->positionX() + m_ballBoxShape->width() + Const::BallOutOfScreenShift < 0.0f)
     {
         needToRestartGame = true;
         m_rightPaddleIsServing->set(true);
@@ -63,7 +63,7 @@ void OnePlayerGameState::frame(float)
         updateScore(m_rightScore, ++rightScore);
     }
 
-    if (OnePlayerConst::ScoreToWin == leftScore || OnePlayerConst::ScoreToWin == rightScore)
+    if (Const::ScoreToWin == leftScore || Const::ScoreToWin == rightScore)
     {
         stateMachine().goToState<OnePlayerGameOverState>();
     }
@@ -97,7 +97,7 @@ void OnePlayerGameState::moveAIPaddle()
         return;
     }
 
-    const auto dir = ballCenterY > rightPaddleY ? OnePlayerConst::PaddleSpeed : -OnePlayerConst::PaddleSpeed;
+    const auto dir = ballCenterY > rightPaddleY ? Const::PaddleSpeed : -Const::PaddleSpeed;
     m_rightPaddleVelocity->setY(dir);
 }
 
@@ -130,9 +130,9 @@ bool OnePlayerGameState::onCollision(float, ComponentCollection& components1, Co
 
         auto ballSpeedVal = ballSpeed.get();
         ballVelocity.set(newBallVel.x * ballSpeedVal, newBallVel.y * ballSpeedVal);
-        if (OnePlayerConst::BallSpeedMax > ballSpeedVal)
+        if (Const::BallSpeedMax > ballSpeedVal)
         {
-            ballSpeed.increment(OnePlayerConst::BallSpeedIncr);
+            ballSpeed.increment(Const::BallSpeedIncr);
         }
 
         result = true;
