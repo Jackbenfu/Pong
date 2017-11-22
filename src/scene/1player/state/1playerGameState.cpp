@@ -9,7 +9,7 @@
 #include "1playerGameState.hpp"
 #include "1playerServiceState.hpp"
 #include "1playerGameOverState.hpp"
-#include "../../const.hpp"
+#include "scene/const.hpp"
 
 OnePlayerGameState::OnePlayerGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : SceneState(stateMachine, scene),

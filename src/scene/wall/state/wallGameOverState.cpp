@@ -7,7 +7,7 @@
 //
 
 #include "wallGameOverState.hpp"
-#include "../../menu/menuScene.hpp"
+#include "scene/menu/menuScene.hpp"
 
 WallGameOverState::WallGameOverState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : SceneState(stateMachine, scene),

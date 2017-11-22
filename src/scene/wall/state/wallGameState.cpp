@@ -7,7 +7,7 @@
 //
 
 #include "wallGameState.hpp"
-#include "../../const.hpp"
+#include "scene/const.hpp"
 #include "wallGameOverState.hpp"
 
 WallGameState::WallGameState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)

@@ -7,11 +7,11 @@
 //
 
 #include "wallScene.hpp"
-#include "../const.hpp"
+#include "scene/const.hpp"
 #include "state/wallServiceState.hpp"
 #include "state/wallGameState.hpp"
 #include "state/wallGameOverState.hpp"
-#include "../menu/menuScene.hpp"
+#include "scene/menu/menuScene.hpp"
 
 IMPORT_TEXT_RESOURCE(wall_tmx)
 IMPORT_BINARY_RESOURCE(tileset_png)

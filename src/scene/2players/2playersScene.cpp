@@ -7,11 +7,11 @@
 //
 
 #include "2playersScene.hpp"
-#include "../const.hpp"
+#include "scene/const.hpp"
 #include "state/2playersServiceState.hpp"
 #include "state/2playersGameState.hpp"
 #include "state/2playersGameOverState.hpp"
-#include "../menu/menuScene.hpp"
+#include "scene/menu/menuScene.hpp"
 
 IMPORT_TEXT_RESOURCE(two_players_tmx)
 IMPORT_BINARY_RESOURCE(tileset_png)

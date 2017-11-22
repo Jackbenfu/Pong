@@ -7,9 +7,9 @@
 //
 
 #include "menuScene.hpp"
-#include "../wall/wallScene.hpp"
-#include "../2players/2playersScene.hpp"
-#include "../1player/1playerScene.hpp"
+#include "scene/wall/wallScene.hpp"
+#include "scene/2players/2playersScene.hpp"
+#include "scene/1player/1playerScene.hpp"
 
 IMPORT_TEXT_RESOURCE(menu_tmx)
 IMPORT_BINARY_RESOURCE(default_font)

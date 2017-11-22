@@ -13,6 +13,8 @@ include_directories(${PROJECT_SOURCE_DIR}/external/jackbengine/include)
 include_directories(${PROJECT_SOURCE_DIR}/external/jackbengine/src)
 include_directories(${PROJECT_SOURCE_DIR}/external/jackbengine/external)
 
+include_directories(${PROJECT_SOURCE_DIR}/src)
+
 # Using Resource generator tool
 add_executable(
     resourceGenerator

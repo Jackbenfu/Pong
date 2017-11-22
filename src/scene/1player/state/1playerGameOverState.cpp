@@ -7,8 +7,8 @@
 //
 
 #include "1playerGameOverState.hpp"
-#include "../../menu/menuScene.hpp"
-#include "../../const.hpp"
+#include "scene/menu/menuScene.hpp"
+#include "scene/const.hpp"
 
 OnePlayerGameOverState::OnePlayerGameOverState(StateMachine& stateMachine, Scene& scene, TmxSceneLoader& sceneLoader)
     : SceneState(stateMachine, scene),
