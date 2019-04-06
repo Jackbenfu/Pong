@@ -1,0 +1,10 @@
+CC                  = gcc
+
+CFLAGS              = -Wall
+
+SOURCES             =	resourceGenerator.c
+
+OUT                 = resourceGenerator
+
+all:
+	$(CC) $(CFLAGS) $(SOURCES) -o $(OUT)

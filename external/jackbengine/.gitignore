@@ -8,8 +8,5 @@ cmake-build-minsizerel/
 cmake-build-release/
 cmake-build-relwithdebinfo/
 
-# Generated source files
-resources.cpp
-pong.js.mem
-pong.js
-pong.wasm
+# Jackbengine library
+libjackbengine.bc

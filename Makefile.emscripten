@@ -2,9 +2,10 @@ CC                  = emcc
 
 CFLAGS              = -Oz                               \
                       -Wall -Wextra -Wpedantic          \
-                      -std=c++1z                        \
+                      -std=c++17                        \
                       -s USE_SDL=2                      \
                       -s USE_SDL_TTF=2                  \
+                      -s USE_SDL_MIXER=2                \
                       -s USE_SDL_IMAGE=2                \
                       -s SDL2_IMAGE_FORMATS='["png"]'   \
                       -s DEMANGLE_SUPPORT=1             \
@@ -32,7 +33,7 @@ SOURCES             =   src/main.cpp                                          \
                         src/scene/2players/state/2playersGameOverState.cpp    \
                         resources.cpp
 
-LIB_JACKBENGINE     = libjackbengine.bc
+LIB_JACKBENGINE     = external/jackbengine/libjackbengine.bc
 
 OUT                 = export/itch.io/pong.js
 
